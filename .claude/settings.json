@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "dart": {
+      "type": "stdio",
+      "command": "/Users/C5404787/flutter/bin/cache/dart-sdk/bin/dartaotruntime",
+      "args": [
+        "/Users/C5404787/flutter/bin/cache/dart-sdk/bin/snapshots/dart_mcp_server_aot.dart.snapshot"
+      ],
+      "env": {
+        "DART_SDK": "/Users/C5404787/flutter/bin/cache/dart-sdk",
+        "FLUTTER_SDK": "/Users/C5404787/flutter"
+      }
+    }
+  }
+}
