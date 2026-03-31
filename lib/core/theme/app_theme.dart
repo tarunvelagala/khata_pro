@@ -1,35 +1,64 @@
 import 'package:flutter/material.dart';
-import '../constants/app_dimensions.dart';
 import 'app_colors.dart';
 import 'app_text_styles.dart';
 
-abstract final class AppTheme {
-  // ── Shared TextTheme ───────────────────────────────────────────────────
-  // Cached as a static field so the same instances are reused on every
-  // theme rebuild, avoiding google_fonts lerp assertion errors.
-  static final TextTheme _textTheme = TextTheme(
-    displayLarge: AppTextStyles.displayLarge,
-    displayMedium: AppTextStyles.displayMedium,
-    displaySmall: AppTextStyles.displaySmall,
-    headlineLarge: AppTextStyles.headlineLarge,
-    headlineMedium: AppTextStyles.headlineMedium,
-    headlineSmall: AppTextStyles.headlineSmall,
-    titleLarge: AppTextStyles.titleLarge,
-    titleMedium: AppTextStyles.titleMedium,
-    titleSmall: AppTextStyles.titleSmall,
-    bodyLarge: AppTextStyles.bodyLarge,
-    bodyMedium: AppTextStyles.bodyMedium,
-    bodySmall: AppTextStyles.bodySmall,
-    labelLarge: AppTextStyles.labelLarge,
-    labelMedium: AppTextStyles.labelMedium,
-    labelSmall: AppTextStyles.labelSmall,
-  );
+/// AppTheme manages the ThemeData for KhataMitra, implementing both light
+/// and dark modes based on the Stitch Design System.
+abstract class AppTheme {
+  /// Defines Light Theme Data
+  static ThemeData get light {
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: lightColorScheme,
+      scaffoldBackgroundColor: lightColorScheme.surface,
+      textTheme: _textTheme,
+      cardTheme: _cardTheme(lightColorScheme),
+      elevatedButtonTheme: _elevatedButtonTheme(lightColorScheme),
+      outlinedButtonTheme: _outlinedButtonTheme(lightColorScheme),
+      textButtonTheme: _textButtonTheme(lightColorScheme),
+      inputDecorationTheme: _inputDecorationTheme(lightColorScheme),
+      chipTheme: _chipTheme(lightColorScheme),
+      dividerTheme: _dividerTheme,
+      extensions: [
+        AppSurfaceColors(
+          lowest: lightColorScheme.surfaceContainerLowest,
+          low: AppColors.surfaceContainerLow,
+          medium: AppColors.surfaceContainer,
+          high: AppColors.surfaceContainerHigh,
+          highest: AppColors.surfaceContainerHighest,
+        ),
+      ],
+    );
+  }
 
-  // ── Color schemes ──────────────────────────────────────────────────────
-  // Exposed as consts so unit tests can verify color tokens without
-  // constructing ThemeData (which loads google_fonts).
+  /// Defines Dark Theme Data
+  static ThemeData get dark {
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: darkColorScheme,
+      scaffoldBackgroundColor: darkColorScheme.surface,
+      textTheme: _textTheme,
+      cardTheme: _cardTheme(darkColorScheme),
+      elevatedButtonTheme: _elevatedButtonTheme(darkColorScheme),
+      outlinedButtonTheme: _outlinedButtonTheme(darkColorScheme),
+      textButtonTheme: _textButtonTheme(darkColorScheme),
+      inputDecorationTheme: _inputDecorationTheme(darkColorScheme),
+      chipTheme: _chipTheme(darkColorScheme),
+      dividerTheme: _dividerTheme,
+      extensions: [
+        AppSurfaceColors(
+          lowest: darkColorScheme.surfaceContainerLowest,
+          low: AppColors.darkSurfaceContainerLow,
+          medium: AppColors.darkSurfaceContainer,
+          high: AppColors.darkSurfaceContainerHigh,
+          highest: AppColors.darkSurfaceContainerHighest,
+        ),
+      ],
+    );
+  }
 
-  static const ColorScheme lightColorScheme = ColorScheme(
+  /// Explicit Light Color Scheme
+  static ColorScheme get lightColorScheme => const ColorScheme(
     brightness: Brightness.light,
     primary: AppColors.primary,
     onPrimary: AppColors.onPrimary,
@@ -49,191 +78,189 @@ abstract final class AppTheme {
     onErrorContainer: AppColors.onErrorContainer,
     surface: AppColors.surface,
     onSurface: AppColors.onSurface,
+    surfaceContainerLowest: AppColors.surfaceContainerLowest,
+    surfaceContainerLow: AppColors.surfaceContainerLow,
+    surfaceContainer: AppColors.surfaceContainer,
+    surfaceContainerHigh: AppColors.surfaceContainerHigh,
     surfaceContainerHighest: AppColors.surfaceContainerHighest,
-    onSurfaceVariant: AppColors.onSurfaceVariant,
     outline: AppColors.outline,
     outlineVariant: AppColors.outlineVariant,
     inverseSurface: AppColors.inverseSurface,
     onInverseSurface: AppColors.inverseOnSurface,
     inversePrimary: AppColors.inversePrimary,
-    scrim: Colors.black,
-    shadow: Colors.black,
+    onSurfaceVariant: AppColors.onSurfaceVariant,
   );
 
-  static const ColorScheme darkColorScheme = ColorScheme(
+  /// Explicit Dark Color Scheme
+  static ColorScheme get darkColorScheme => const ColorScheme(
     brightness: Brightness.dark,
     primary: AppColors.darkPrimary,
     onPrimary: AppColors.darkOnPrimary,
     primaryContainer: AppColors.darkPrimaryContainer,
-    onPrimaryContainer: AppColors.darkOnPrimaryContainer,
+    onPrimaryContainer: AppColors.onPrimaryContainer, // Placeholder
     secondary: AppColors.darkSecondary,
-    onSecondary: AppColors.darkOnSecondary,
-    secondaryContainer: AppColors.darkSecondaryContainer,
-    onSecondaryContainer: AppColors.darkOnSecondaryContainer,
+    onSecondary: AppColors.onSecondary, // Placeholder
+    secondaryContainer: AppColors.secondaryContainer, // Placeholder
+    onSecondaryContainer: AppColors.onSecondaryContainer, // Placeholder
     tertiary: AppColors.darkTertiary,
-    onTertiary: AppColors.darkOnTertiary,
-    tertiaryContainer: AppColors.darkTertiaryContainer,
-    onTertiaryContainer: AppColors.darkOnTertiaryContainer,
-    error: AppColors.darkError,
-    onError: AppColors.darkOnError,
-    errorContainer: AppColors.darkErrorContainer,
-    onErrorContainer: AppColors.darkOnErrorContainer,
+    onTertiary: AppColors.onTertiary, // Placeholder
+    tertiaryContainer: AppColors.tertiaryContainer, // Placeholder
+    onTertiaryContainer: AppColors.onTertiaryContainer, // Placeholder
+    error: AppColors.error,
+    onError: AppColors.onError,
+    errorContainer: AppColors.errorContainer,
+    onErrorContainer: AppColors.onErrorContainer,
     surface: AppColors.darkSurface,
     onSurface: AppColors.darkOnSurface,
+    surfaceContainerLowest: AppColors.darkSurfaceContainerLowest,
+    surfaceContainerLow: AppColors.darkSurfaceContainerLow,
+    surfaceContainer: AppColors.darkSurfaceContainer,
+    surfaceContainerHigh: AppColors.darkSurfaceContainerHigh,
     surfaceContainerHighest: AppColors.darkSurfaceContainerHighest,
-    onSurfaceVariant: AppColors.darkOnSurfaceVariant,
-    outline: AppColors.darkOutline,
-    outlineVariant: AppColors.darkOutlineVariant,
-    inverseSurface: AppColors.darkInverseSurface,
-    onInverseSurface: AppColors.darkInverseOnSurface,
+    outline: AppColors.outline,
+    outlineVariant: AppColors.outlineVariant,
     inversePrimary: AppColors.darkInversePrimary,
-    scrim: Colors.black,
-    shadow: Colors.black,
   );
 
-  // ── ThemeData ──────────────────────────────────────────────────────────
-
-  static final ThemeData light = ThemeData(
-    useMaterial3: true,
-    colorScheme: lightColorScheme,
-    scaffoldBackgroundColor: AppColors.background,
-    textTheme: _textTheme,
-    cardTheme: _cardTheme(AppColors.surfaceContainerLowest),
-    elevatedButtonTheme: _elevatedButtonTheme(
-      bg: AppColors.primary,
-      fg: AppColors.onPrimary,
-    ),
-    outlinedButtonTheme: _outlinedButtonTheme(
-      fg: AppColors.primary,
-      outline: AppColors.outline,
-    ),
-    inputDecorationTheme: _inputTheme(
-      fill: AppColors.surfaceContainerHigh,
-      focusBorder: AppColors.primary,
-    ),
-    appBarTheme: _appBarTheme(
-      bg: AppColors.surfaceContainerLowest,
-      icon: AppColors.primary,
-    ),
-    dividerTheme: _dividerTheme(AppColors.outlineVariant),
+  static TextTheme get _textTheme => TextTheme(
+    displayLarge: AppTextStyles.displayLarge,
+    displayMedium: AppTextStyles.displayMedium,
+    displaySmall: AppTextStyles.displaySmall,
+    headlineLarge: AppTextStyles.headlineLarge,
+    headlineMedium: AppTextStyles.headlineMedium,
+    headlineSmall: AppTextStyles.headlineSmall,
+    titleLarge: AppTextStyles.titleLarge,
+    titleMedium: AppTextStyles.titleMedium,
+    titleSmall: AppTextStyles.titleSmall,
+    bodyLarge: AppTextStyles.bodyLarge,
+    bodyMedium: AppTextStyles.bodyMedium,
+    bodySmall: AppTextStyles.bodySmall,
+    labelLarge: AppTextStyles.labelLarge,
+    labelMedium: AppTextStyles.labelMedium,
+    labelSmall: AppTextStyles.labelSmall,
   );
 
-  static final ThemeData dark = ThemeData(
-    useMaterial3: true,
-    colorScheme: darkColorScheme,
-    scaffoldBackgroundColor: AppColors.darkBackground,
-    textTheme: _textTheme,
-    cardTheme: _cardTheme(AppColors.darkSurfaceContainerLowest),
-    elevatedButtonTheme: _elevatedButtonTheme(
-      bg: AppColors.darkPrimary,
-      fg: AppColors.darkOnPrimary,
+  static CardThemeData _cardTheme(ColorScheme colors) => CardThemeData(
+    color: colors.surfaceContainerLowest,
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0), // lg (Large)
     ),
-    outlinedButtonTheme: _outlinedButtonTheme(
-      fg: AppColors.darkPrimary,
-      outline: AppColors.darkOutline,
-    ),
-    inputDecorationTheme: _inputTheme(
-      fill: AppColors.darkSurfaceContainerHigh,
-      focusBorder: AppColors.darkPrimary,
-    ),
-    appBarTheme: _appBarTheme(
-      bg: AppColors.darkSurfaceContainerLowest,
-      icon: AppColors.darkPrimary,
-    ),
-    dividerTheme: _dividerTheme(AppColors.darkOutlineVariant),
+    margin: EdgeInsets.zero,
   );
 
-  // ── Private component builders ─────────────────────────────────────────
-  // These eliminate the light/dark duplication. Each builder encodes the
-  // layout/shape decisions; callers supply only the color tokens.
-
-  static CardThemeData _cardTheme(Color color) => CardThemeData(
-        color: color,
-        elevation: AppDimensions.elevationFlat,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-        ),
-      );
-
-  static ElevatedButtonThemeData _elevatedButtonTheme({
-    required Color bg,
-    required Color fg,
-  }) =>
+  static ElevatedButtonThemeData _elevatedButtonTheme(ColorScheme colors) =>
       ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: bg,
-          foregroundColor: fg,
-          elevation: AppDimensions.elevationFlat,
-          padding: const EdgeInsets.symmetric(
-            vertical: AppDimensions.buttonPaddingV,
-            horizontal: AppDimensions.buttonPaddingH,
-          ),
+          backgroundColor: colors.primary,
+          foregroundColor: colors.onPrimary,
+          elevation: 0,
+          textStyle: AppTextStyles.labelLarge,
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+            borderRadius: BorderRadius.circular(24.0),
           ),
         ),
       );
 
-  static OutlinedButtonThemeData _outlinedButtonTheme({
-    required Color fg,
-    required Color outline,
-  }) =>
+  static OutlinedButtonThemeData _outlinedButtonTheme(ColorScheme colors) =>
       OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: fg,
-          side: BorderSide(
-            color: outline,
-            width: AppDimensions.borderDefault,
-          ),
-          padding: const EdgeInsets.symmetric(
-            vertical: AppDimensions.buttonPaddingV,
-            horizontal: AppDimensions.buttonPaddingH,
-          ),
+          foregroundColor: colors.primary,
+          side: BorderSide(color: colors.outline.withOpacity(0.15)),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+            borderRadius: BorderRadius.circular(24.0),
           ),
         ),
       );
 
-  static InputDecorationTheme _inputTheme({
-    required Color fill,
-    required Color focusBorder,
-  }) =>
+  static TextButtonThemeData _textButtonTheme(ColorScheme colors) =>
+      TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colors.primary,
+          textStyle: AppTextStyles.labelLarge,
+        ),
+      );
+
+  static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) =>
       InputDecorationTheme(
         filled: true,
-        fillColor: fill,
+        fillColor: colors.surfaceContainerHigh,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-          borderSide: BorderSide(
-            color: focusBorder,
-            width: AppDimensions.borderFocused,
-          ),
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: colors.primary, width: 2.0),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: AppDimensions.inputPaddingV,
-          horizontal: AppDimensions.inputPaddingH,
-        ),
+        labelStyle: AppTextStyles.titleSmall,
       );
 
-  static AppBarTheme _appBarTheme({
-    required Color bg,
-    required Color icon,
-  }) =>
-      AppBarTheme(
-        backgroundColor: bg.withValues(alpha: AppDimensions.appBarOpacity),
-        elevation: AppDimensions.elevationFlat,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        iconTheme: IconThemeData(color: icon),
-      );
+  static ChipThemeData _chipTheme(ColorScheme colors) => ChipThemeData(
+    backgroundColor: colors.surfaceContainerHighest,
+    disabledColor: colors.surfaceContainerLow,
+    selectedColor: colors.primaryContainer,
+    secondarySelectedColor: colors.secondaryContainer,
+    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+    shape: const StadiumBorder(),
+    labelStyle: AppTextStyles.labelMedium,
+  );
 
-  static DividerThemeData _dividerTheme(Color color) => DividerThemeData(
-        color: color,
-        thickness: AppDimensions.dividerThickness,
-        space: AppDimensions.dividerSpace,
-      );
+  static DividerThemeData get _dividerTheme => const DividerThemeData(
+    color: Colors.transparent, // "No-Line" Rule
+    thickness: 0,
+    space: 1,
+  );
+}
+
+@immutable
+class AppSurfaceColors extends ThemeExtension<AppSurfaceColors> {
+  final Color lowest;
+  final Color low;
+  final Color medium;
+  final Color high;
+  final Color highest;
+
+  const AppSurfaceColors({
+    required this.lowest,
+    required this.low,
+    required this.medium,
+    required this.high,
+    required this.highest,
+  });
+
+  @override
+  AppSurfaceColors copyWith({
+    Color? lowest,
+    Color? low,
+    Color? medium,
+    Color? high,
+    Color? highest,
+  }) {
+    return AppSurfaceColors(
+      lowest: lowest ?? this.lowest,
+      low: low ?? this.low,
+      medium: medium ?? this.medium,
+      high: high ?? this.high,
+      highest: highest ?? this.highest,
+    );
+  }
+
+  @override
+  AppSurfaceColors lerp(ThemeExtension<AppSurfaceColors>? other, double t) {
+    if (other is! AppSurfaceColors) return this;
+    return AppSurfaceColors(
+      lowest: Color.lerp(lowest, other.lowest, t)!,
+      low: Color.lerp(low, other.low, t)!,
+      medium: Color.lerp(medium, other.medium, t)!,
+      high: Color.lerp(high, other.high, t)!,
+      highest: Color.lerp(highest, other.highest, t)!,
+    );
+  }
 }

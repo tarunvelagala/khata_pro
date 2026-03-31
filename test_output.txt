@@ -1,0 +1,24 @@
+00:00 +0: loading /Users/C5404787/workplace/personal/khata_mitra/test/theme_test.dart
+00:00 +0: Sub-theme verification
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following _TypeError was thrown running a test:
+Null check operator used on a null value
+
+When the exception was thrown, this was the stack:
+#0      main.<anonymous closure> (file:///Users/C5404787/workplace/personal/khata_mitra/test/theme_test.dart:93:53)
+<asynchronous suspension>
+#1      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#2      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Sub-theme verification
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: Sub-theme verification [E]
+  Test failed. See exception logs above.
+  The test description was: Sub-theme verification
+  
+00:00 +0 -1: Some tests failed.
