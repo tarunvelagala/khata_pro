@@ -47,25 +47,24 @@ class AppConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final confirmColor = isDestructive
+        ? colorScheme.error
+        : colorScheme.primary;
 
     return AlertDialog(
-      title: Text(title),
-      content: Text(body),
+      title: Text(title, maxLines: 2, overflow: TextOverflow.ellipsis),
+      content: Text(body, maxLines: 5, overflow: TextOverflow.ellipsis),
       actions: [
         AppButton(
           label: cancelLabel,
           onPressed: () => Navigator.of(context).pop(false),
           variant: AppButtonVariant.text,
         ),
-        TextButton(
+        AppButton(
+          label: confirmLabel,
           onPressed: () => Navigator.of(context).pop(true),
-          style: TextButton.styleFrom(
-            foregroundColor: isDestructive
-                ? colorScheme.error
-                : colorScheme.primary,
-            minimumSize: const Size(0, 48),
-          ),
-          child: Text(confirmLabel),
+          variant: AppButtonVariant.text,
+          color: confirmColor,
         ),
       ],
     );

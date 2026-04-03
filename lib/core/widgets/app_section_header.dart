@@ -22,9 +22,9 @@ class AppSectionHeader extends StatelessWidget {
       color: colorScheme.surface,
       padding: EdgeInsets.fromLTRB(
         d.screenHorizontalPadding,
-        8,
+        d.sectionHeaderTopPadding,
         d.screenHorizontalPadding,
-        4,
+        d.sectionHeaderBottomPadding,
       ),
       child: Row(
         children: [
@@ -32,6 +32,8 @@ class AppSectionHeader extends StatelessWidget {
             child: Text(
               label.toUpperCase(),
               style: t.labelMedium.copyWith(color: colorScheme.primary),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           ?trailing,

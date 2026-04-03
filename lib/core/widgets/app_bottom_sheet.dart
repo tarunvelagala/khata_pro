@@ -56,9 +56,9 @@ class AppBottomSheet extends StatelessWidget {
         padding ??
         EdgeInsets.fromLTRB(
           d.screenHorizontalPadding,
-          8,
+          d.sheetTopPadding,
           d.screenHorizontalPadding,
-          24,
+          d.sheetBottomPadding,
         );
 
     return SafeArea(
@@ -72,7 +72,7 @@ class AppBottomSheet extends StatelessWidget {
               child: Container(
                 width: 32,
                 height: 4,
-                margin: const EdgeInsets.symmetric(vertical: 8),
+                margin: EdgeInsets.symmetric(vertical: d.sheetTopPadding),
                 decoration: BoxDecoration(
                   color: colorScheme.outlineVariant,
                   borderRadius: BorderRadius.circular(2),
@@ -83,9 +83,14 @@ class AppBottomSheet extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: d.screenHorizontalPadding,
-                vertical: 8,
+                vertical: d.sheetTitleVerticalPadding,
               ),
-              child: Text(title!, style: t.titleMedium),
+              child: Text(
+                title!,
+                style: t.titleMedium,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             Divider(height: d.dividerSpace, thickness: d.dividerThickness),
           ],

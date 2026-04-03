@@ -26,24 +26,25 @@ class AppEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final d = context.rDims;
     final t = context.rText;
     final colorScheme = Theme.of(context).colorScheme;
-    // Scale illustration size with form factor.
-    final illustrationSize = context.isMobile ? 160.0 : 184.0;
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: EdgeInsets.all(d.emptyStatePadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             if (svgAssetPath != null) ...[
               Image.asset(
                 svgAssetPath!,
-                width: illustrationSize,
-                height: illustrationSize,
-                errorBuilder: (_, _, _) =>
-                    SizedBox(width: illustrationSize, height: illustrationSize),
+                width: d.emptyStateIllustrationSize,
+                height: d.emptyStateIllustrationSize,
+                errorBuilder: (_, _, _) => SizedBox(
+                  width: d.emptyStateIllustrationSize,
+                  height: d.emptyStateIllustrationSize,
+                ),
               ),
               const SizedBox(height: 24),
             ],

@@ -46,7 +46,7 @@ class AppListTile extends StatelessWidget {
         constraints: const BoxConstraints(minHeight: 48),
         padding: EdgeInsets.symmetric(
           horizontal: d.screenHorizontalPadding,
-          vertical: 12,
+          vertical: d.listTileVerticalPadding,
         ),
         child: Row(
           children: [

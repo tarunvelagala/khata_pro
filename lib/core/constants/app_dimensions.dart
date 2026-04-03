@@ -47,4 +47,39 @@ abstract final class AppDimensions {
   // ── App bar ───────────────────────────────────────────────────────
   /// Background colour alpha for the frosted-glass app bar effect.
   static const double appBarOpacity = 0.8;
+
+  // ── List tile ────────────────────────────────────────────────────
+  /// Vertical padding inside [AppListTile].
+  static const double listTileVerticalPadding = 12;
+
+  // ── Empty state ──────────────────────────────────────────────────
+  /// Outer padding wrapping the [AppEmptyState] column.
+  static const double emptyStatePadding = 32;
+
+  /// Illustration size in [AppEmptyState] on mobile.
+  static const double emptyStateIllustrationSize = 160;
+
+  /// Illustration size in [AppEmptyState] on tablet.
+  static const double emptyStateIllustrationSizeTablet = 184;
+
+  // ── Bottom sheet ─────────────────────────────────────────────────
+  /// Top padding inside the default sheet content padding.
+  static const double sheetTopPadding = 8;
+
+  /// Bottom padding inside the default sheet content padding.
+  static const double sheetBottomPadding = 24;
+
+  /// Vertical padding around the sheet title row.
+  static const double sheetTitleVerticalPadding = 8;
+
+  // ── Section header ────────────────────────────────────────────────
+  /// Top padding inside [AppSectionHeader].
+  static const double sectionHeaderTopPadding = 8;
+
+  /// Bottom padding inside [AppSectionHeader].
+  static const double sectionHeaderBottomPadding = 4;
+
+  // ── Icon / label gap ─────────────────────────────────────────────
+  /// Horizontal gap between a leading/trailing icon and its label text.
+  static const double iconLabelGap = 8;
 }

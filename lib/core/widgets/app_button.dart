@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khata_mitra/core/responsive/responsive_dimensions.dart';
 import 'package:khata_mitra/core/responsive/responsive_extension.dart';
 
 /// Button variant selector.
@@ -17,6 +18,7 @@ class AppButton extends StatelessWidget {
     this.trailingIcon,
     this.isLoading = false,
     this.fullWidth = false,
+    this.color,
   });
 
   final String label;
@@ -34,6 +36,10 @@ class AppButton extends StatelessWidget {
   /// Expands to fill parent width when `true`.
   final bool fullWidth;
 
+  /// Overrides the foreground colour (text + icon). Only applies to
+  /// [AppButtonVariant.text] and [AppButtonVariant.outlined].
+  final Color? color;
+
   @override
   Widget build(BuildContext context) {
     final d = context.rDims;
@@ -45,10 +51,11 @@ class AppButton extends StatelessWidget {
         ),
       ),
       minimumSize: WidgetStateProperty.all(const Size(0, 48)),
+      foregroundColor: color != null ? WidgetStateProperty.all(color) : null,
     );
 
     final effectiveOnPressed = isLoading ? null : onPressed;
-    final child = _buildChild();
+    final child = _buildChild(d);
 
     Widget button;
     switch (variant) {
@@ -78,7 +85,7 @@ class AppButton extends StatelessWidget {
     return button;
   }
 
-  Widget _buildChild() {
+  Widget _buildChild(ResponsiveDimensions d) {
     if (isLoading) {
       return const SizedBox(
         width: 20,
@@ -90,15 +97,20 @@ class AppButton extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (leadingIcon != null) ...[leadingIcon!, const SizedBox(width: 8)],
-          Text(label),
+          if (leadingIcon != null) ...[
+            leadingIcon!,
+            SizedBox(width: d.iconLabelGap),
+          ],
+          Flexible(
+            child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+          ),
           if (trailingIcon != null) ...[
-            const SizedBox(width: 8),
+            SizedBox(width: d.iconLabelGap),
             trailingIcon!,
           ],
         ],
       );
     }
-    return Text(label);
+    return Text(label, maxLines: 1, overflow: TextOverflow.ellipsis);
   }
 }

@@ -65,6 +65,35 @@ class ResponsiveDimensions {
   /// Number of columns in a grid layout.
   final int gridColumnCount;
 
+  // ── Component tokens ─────────────────────────────────────────────
+
+  /// Vertical padding inside [AppListTile].
+  final double listTileVerticalPadding;
+
+  /// Outer padding wrapping the [AppEmptyState] column.
+  final double emptyStatePadding;
+
+  /// Illustration size in [AppEmptyState].
+  final double emptyStateIllustrationSize;
+
+  /// Horizontal gap between a leading/trailing icon and its label text.
+  final double iconLabelGap;
+
+  /// Top padding inside default [AppBottomSheet] content padding.
+  final double sheetTopPadding;
+
+  /// Bottom padding inside default [AppBottomSheet] content padding.
+  final double sheetBottomPadding;
+
+  /// Vertical padding around the [AppBottomSheet] title row.
+  final double sheetTitleVerticalPadding;
+
+  /// Top padding inside [AppSectionHeader].
+  final double sectionHeaderTopPadding;
+
+  /// Bottom padding inside [AppSectionHeader].
+  final double sectionHeaderBottomPadding;
+
   const ResponsiveDimensions._({
     required this.radiusSmall,
     required this.radiusMedium,
@@ -84,6 +113,15 @@ class ResponsiveDimensions {
     required this.sectionSpacingV,
     required this.contentMaxWidth,
     required this.gridColumnCount,
+    required this.listTileVerticalPadding,
+    required this.emptyStatePadding,
+    required this.emptyStateIllustrationSize,
+    required this.iconLabelGap,
+    required this.sheetTopPadding,
+    required this.sheetBottomPadding,
+    required this.sheetTitleVerticalPadding,
+    required this.sectionHeaderTopPadding,
+    required this.sectionHeaderBottomPadding,
   });
 
   /// Mobile dimensions — every value equals the corresponding [AppDimensions]
@@ -108,6 +146,15 @@ class ResponsiveDimensions {
         sectionSpacingV: 24.0,
         contentMaxWidth: double.infinity,
         gridColumnCount: 1,
+        listTileVerticalPadding: AppDimensions.listTileVerticalPadding,
+        emptyStatePadding: AppDimensions.emptyStatePadding,
+        emptyStateIllustrationSize: AppDimensions.emptyStateIllustrationSize,
+        iconLabelGap: AppDimensions.iconLabelGap,
+        sheetTopPadding: AppDimensions.sheetTopPadding,
+        sheetBottomPadding: AppDimensions.sheetBottomPadding,
+        sheetTitleVerticalPadding: AppDimensions.sheetTitleVerticalPadding,
+        sectionHeaderTopPadding: AppDimensions.sectionHeaderTopPadding,
+        sectionHeaderBottomPadding: AppDimensions.sectionHeaderBottomPadding,
       );
 
   /// Tablet dimensions — spatial tokens are scaled by
@@ -144,5 +191,25 @@ class ResponsiveDimensions {
         sectionSpacingV: 32.0,
         contentMaxWidth: 720.0,
         gridColumnCount: 2,
+        listTileVerticalPadding:
+            AppDimensions.listTileVerticalPadding *
+            AppBreakpoints.scaleFactorOf(AppBreakpoints.tabletMinWidth),
+        emptyStatePadding:
+            AppDimensions.emptyStatePadding *
+            AppBreakpoints.scaleFactorOf(AppBreakpoints.tabletMinWidth),
+        emptyStateIllustrationSize:
+            AppDimensions.emptyStateIllustrationSizeTablet,
+        iconLabelGap: AppDimensions.iconLabelGap,
+        sheetTopPadding: AppDimensions.sheetTopPadding,
+        sheetBottomPadding:
+            AppDimensions.sheetBottomPadding *
+            AppBreakpoints.scaleFactorOf(AppBreakpoints.tabletMinWidth),
+        sheetTitleVerticalPadding: AppDimensions.sheetTitleVerticalPadding,
+        sectionHeaderTopPadding:
+            AppDimensions.sectionHeaderTopPadding *
+            AppBreakpoints.scaleFactorOf(AppBreakpoints.tabletMinWidth),
+        sectionHeaderBottomPadding:
+            AppDimensions.sectionHeaderBottomPadding *
+            AppBreakpoints.scaleFactorOf(AppBreakpoints.tabletMinWidth),
       );
 }

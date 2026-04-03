@@ -97,6 +97,69 @@ void main() {
       );
       expect(find.byType(OutlinedButton), findsOneWidget);
     });
+
+    testWidgets('text variant renders TextButton', (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          AppButton(
+            label: 'Text',
+            onPressed: () {},
+            variant: AppButtonVariant.text,
+          ),
+        ),
+      );
+      expect(find.byType(TextButton), findsOneWidget);
+    });
+
+    testWidgets('fullWidth wraps in SizedBox with infinite width', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(
+          SizedBox(
+            width: 300,
+            child: AppButton(label: 'Wide', onPressed: () {}, fullWidth: true),
+          ),
+        ),
+      );
+      final sizedBox = tester.widget<SizedBox>(
+        find
+            .ancestor(
+              of: find.byType(FilledButton),
+              matching: find.byType(SizedBox),
+            )
+            .first,
+      );
+      expect(sizedBox.width, double.infinity);
+    });
+
+    testWidgets('leadingIcon appears before label', (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          AppButton(
+            label: 'Add',
+            onPressed: () {},
+            leadingIcon: const Icon(Icons.add, key: Key('lead')),
+          ),
+        ),
+      );
+      expect(find.byKey(const Key('lead')), findsOneWidget);
+      expect(find.text('Add'), findsOneWidget);
+    });
+
+    testWidgets('trailingIcon appears after label', (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          AppButton(
+            label: 'Next',
+            onPressed: () {},
+            trailingIcon: const Icon(Icons.arrow_forward, key: Key('trail')),
+          ),
+        ),
+      );
+      expect(find.byKey(const Key('trail')), findsOneWidget);
+      expect(find.text('Next'), findsOneWidget);
+    });
   });
 
   group('AppInput', () {
@@ -186,6 +249,22 @@ void main() {
       await tester.tap(find.text('Add'));
       expect(tapped, isTrue);
     });
+
+    testWidgets('renders illustration placeholder when svgAssetPath given', (
+      tester,
+    ) async {
+      // Uses a non-existent path to trigger errorBuilder; verifies no crash.
+      await tester.pumpWidget(
+        _wrap(
+          const AppEmptyState(
+            title: 'Empty',
+            body: 'Body',
+            svgAssetPath: 'assets/nonexistent.png',
+          ),
+        ),
+      );
+      expect(find.text('Empty'), findsOneWidget);
+    });
   });
 
   group('AppSectionHeader', () {
@@ -261,6 +340,74 @@ void main() {
         ),
       );
       expect(find.text('Delete?'), findsOneWidget);
+    });
+
+    testWidgets('cancel tap returns false via Navigator', (tester) async {
+      bool? result;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () async {
+                result = await AppConfirmDialog.show(
+                  context,
+                  title: 'Delete?',
+                  body: 'Cannot undo.',
+                  confirmLabel: 'Delete',
+                );
+              },
+              child: const Text('Open'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+      expect(result, isFalse);
+    });
+
+    testWidgets('confirm tap returns true via Navigator', (tester) async {
+      bool? result;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () async {
+                result = await AppConfirmDialog.show(
+                  context,
+                  title: 'Delete?',
+                  body: 'Cannot undo.',
+                  confirmLabel: 'Delete',
+                );
+              },
+              child: const Text('Open'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Delete'));
+      await tester.pumpAndSettle();
+      expect(result, isTrue);
+    });
+
+    testWidgets('isDestructive false renders without error', (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          const AppConfirmDialog(
+            title: 'Sign out?',
+            body: 'You will need to log in again.',
+            confirmLabel: 'Sign out',
+            isDestructive: false,
+          ),
+        ),
+      );
+      expect(find.text('Sign out'), findsOneWidget);
     });
   });
 
