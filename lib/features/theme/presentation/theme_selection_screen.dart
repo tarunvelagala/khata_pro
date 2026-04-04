@@ -19,7 +19,6 @@ class ThemeSelectionScreen extends ConsumerWidget {
             SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(24, 64, 24, 120),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // ── App Icon & Branding ──
                   Container(
@@ -205,15 +204,6 @@ class ThemeSelectionScreen extends ConsumerWidget {
 }
 
 class _ThemeCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final ThemeMode mode;
-  final ThemeMode currentMode;
-  final Color unselectedIconBg;
-  final Color unselectedIconColor;
-  final VoidCallback onTap;
-
   const _ThemeCard({
     required this.title,
     required this.subtitle,
@@ -224,6 +214,15 @@ class _ThemeCard extends StatelessWidget {
     required this.unselectedIconColor,
     required this.onTap,
   });
+
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final ThemeMode mode;
+  final ThemeMode currentMode;
+  final Color unselectedIconBg;
+  final Color unselectedIconColor;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

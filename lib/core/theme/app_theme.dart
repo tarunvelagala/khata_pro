@@ -207,7 +207,6 @@ abstract final class AppTheme {
           foregroundColor: fg,
           side: BorderSide(
             color: outline,
-            width: AppDimensions.borderDefault,
           ),
           padding: const EdgeInsets.symmetric(
             vertical: AppDimensions.buttonPaddingV,

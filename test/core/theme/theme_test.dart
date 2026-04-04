@@ -4,9 +4,7 @@ import 'package:khata_mitra/core/theme/app_colors.dart';
 import 'package:khata_mitra/core/theme/app_theme.dart';
 
 void main() {
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-  });
+  setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
 
   group('AppColors', () {
     test('primary color has correct hex value', () {

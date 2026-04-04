@@ -113,19 +113,19 @@ class LanguageSelectionScreen extends ConsumerWidget {
 }
 
 class _LanguageCard extends StatelessWidget {
+  const _LanguageCard({
+    required this.iconText,
+    required this.title,
+    required this.subtitle,
+    required this.isSelected,
+    required this.onTap,
+  });
+
   final String iconText;
   final String title;
   final String subtitle;
   final bool isSelected;
   final VoidCallback onTap;
-
-  const _LanguageCard({
-     required this.iconText,
-     required this.title,
-     required this.subtitle,
-     required this.isSelected,
-     required this.onTap,
-  });
 
   @override
   Widget build(BuildContext context) {

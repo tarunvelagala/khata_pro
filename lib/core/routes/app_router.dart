@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../features/theme/presentation/theme_selection_screen.dart';
 import '../../features/language/presentation/language_selection_screen.dart';
+import '../../features/theme/presentation/theme_selection_screen.dart';
 
 part 'app_router.g.dart';
 

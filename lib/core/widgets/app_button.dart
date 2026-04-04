@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
-    super.key,
     required this.text,
     required this.onPressed,
+    super.key,
     this.isPrimary = true,
   });
 

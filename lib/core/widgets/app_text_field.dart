@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField({
-    super.key,
     required this.controller,
+    super.key,
     this.labelText,
     this.hintText,
     this.obscureText = false,

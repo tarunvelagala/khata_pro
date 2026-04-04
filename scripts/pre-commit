@@ -35,7 +35,29 @@ if [ $TEST_RESULT -ne 0 ]; then
 fi
 echo "✅ [UI Tester Agent]: Passed! Your layout and capabilities verify properly."
 echo ""
+
+echo "📊 [SDE Reviewer Agent]: Collecting Coverage Metrics..."
+flutter test --coverage > /dev/null 2>&1
+COVERAGE_RESULT=$?
+
+if [ $COVERAGE_RESULT -ne 0 ]; then
+  echo ""
+  echo "⚠️  [SDE Reviewer Agent]: Coverage collection was skipped or failed."
+  echo "   (This is informational; commits can proceed if tests passed above.)"
+  echo ""
+else
+  echo "✅ [SDE Reviewer Agent]: Coverage metrics collected → coverage/lcov.info"
+  echo "   Check coverage with: open coverage/index.html"
+  echo ""
+fi
+
 echo "🎉 All Agents approved this commit!"
+echo ""
+echo "💡 Tip: For detailed Senior SDE code review (coverage 85%+, Effective Dart,"
+echo "   Riverpod patterns), use the Flutter SDE Reviewer agent in VS Code Chat:"
+echo "   - Invoke agent picker (Cmd+I)"
+echo "   - Select 'Flutter SDE Reviewer'"
+echo "   - Provide file paths or commit hash for detailed analysis"
 echo "====================================="
 
 exit 0
