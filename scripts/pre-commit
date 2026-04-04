@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# This hook ensures that the code reviewer and UI tester agents run before every commit,
+# which guarantees our "unbreakable commits" rule.
+
+echo ""
+echo "====================================="
+echo "🤖 Triggering Autonomous Agents..."
+echo "====================================="
+echo ""
+
+echo "🕵️  [Code Reviewer Agent]: Running Effective Dart & Lint Checks..."
+flutter analyze
+ANALYZE_RESULT=$?
+
+if [ $ANALYZE_RESULT -ne 0 ]; then
+  echo ""
+  echo "❌ [Code Reviewer Agent]: Failed! Please fix the lints/formatting issues above before committing."
+  echo "====================================="
+  exit 1
+fi
+echo "✅ [Code Reviewer Agent]: Passed elegantly!"
+echo ""
+
+
+echo "🧪 [UI Tester Agent]: Executing Widget & Golden Tests..."
+flutter test
+TEST_RESULT=$?
+
+if [ $TEST_RESULT -ne 0 ]; then
+  echo ""
+  echo "❌ [UI Tester Agent]: Failed! Tests must pass to guarantee unbreakable commit."
+  echo "====================================="
+  exit 1
+fi
+echo "✅ [UI Tester Agent]: Passed! Your layout and capabilities verify properly."
+echo ""
+echo "🎉 All Agents approved this commit!"
+echo "====================================="
+
+exit 0
