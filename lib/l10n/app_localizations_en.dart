@@ -9,10 +9,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'KhataMitra';
+  String get appName => 'KhataPro';
 
   @override
-  String get appTagline => 'KHATAMITRA DIGITAL BAHI KHATA';
+  String get appTagline => 'KHATAPRO DIGITAL BAHI KHATA';
 
   @override
   String get onboardingNext => 'Next';

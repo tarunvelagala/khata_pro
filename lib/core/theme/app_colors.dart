@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// All color tokens extracted from the KhataMitra Stitch design system.
+/// All color tokens extracted from the KhataPro Stitch design system.
 /// Based on Material Design 3 color roles.
 abstract final class AppColors {
   // --- Primary ---

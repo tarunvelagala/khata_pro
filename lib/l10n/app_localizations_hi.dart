@@ -9,10 +9,10 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appName => 'खाता मित्र';
+  String get appName => 'खाता प्रो';
 
   @override
-  String get appTagline => 'खाता मित्र डिजिटल बही खाता';
+  String get appTagline => 'खाता प्रो डिजिटल बही खाता';
 
   @override
   String get onboardingNext => 'आगे बढ़ें';

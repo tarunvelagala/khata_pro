@@ -9,10 +9,10 @@ class AppLocalizationsBn extends AppLocalizations {
   AppLocalizationsBn([String locale = 'bn']) : super(locale);
 
   @override
-  String get appName => 'খাতা মিত্র';
+  String get appName => 'খাতা প্রো';
 
   @override
-  String get appTagline => 'খাতা মিত্র ডিজিটাল বহি খাতা';
+  String get appTagline => 'খাতা প্রো ডিজিটাল বহি খাতা';
 
   @override
   String get onboardingNext => 'পরবর্তী';

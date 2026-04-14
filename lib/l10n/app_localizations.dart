@@ -113,13 +113,13 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'KhataMitra'**
+  /// **'KhataPro'**
   String get appName;
 
   /// No description provided for @appTagline.
   ///
   /// In en, this message translates to:
-  /// **'KHATAMITRA DIGITAL BAHI KHATA'**
+  /// **'KHATAPRO DIGITAL BAHI KHATA'**
   String get appTagline;
 
   /// No description provided for @onboardingNext.

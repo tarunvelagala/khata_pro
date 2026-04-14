@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:khata_mitra/core/theme/app_theme.dart';
-import 'package:khata_mitra/features/onboarding/presentation/widgets/step_indicator.dart';
+import 'package:khata_pro/core/theme/app_theme.dart';
+import 'package:khata_pro/features/onboarding/presentation/widgets/step_indicator.dart';
 
 // ── Helper ────────────────────────────────────────────────────────────────────
 

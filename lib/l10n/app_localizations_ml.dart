@@ -9,10 +9,10 @@ class AppLocalizationsMl extends AppLocalizations {
   AppLocalizationsMl([String locale = 'ml']) : super(locale);
 
   @override
-  String get appName => 'ഖാതാ മിത്ര';
+  String get appName => 'ഖാതാ പ്രോ';
 
   @override
-  String get appTagline => 'ഖാതാ മിത്ര ഡിജിറ്റൽ ബഹി ഖാതാ';
+  String get appTagline => 'ഖാതാ പ്രോ ഡിജിറ്റൽ ബഹി ഖാതാ';
 
   @override
   String get onboardingNext => 'അടുത്തത്';

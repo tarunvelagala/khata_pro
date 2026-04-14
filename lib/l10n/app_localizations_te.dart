@@ -9,10 +9,10 @@ class AppLocalizationsTe extends AppLocalizations {
   AppLocalizationsTe([String locale = 'te']) : super(locale);
 
   @override
-  String get appName => 'ఖాతా మిత్ర';
+  String get appName => 'ఖాతా ప్రో';
 
   @override
-  String get appTagline => 'ఖాతా మిత్ర డిజిటల్ బహి ఖాతా';
+  String get appTagline => 'ఖాతా ప్రో డిజిటల్ బహి ఖాతా';
 
   @override
   String get onboardingNext => 'తదుపరి';

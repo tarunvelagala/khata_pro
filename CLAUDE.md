@@ -1,4 +1,4 @@
-# KhataMitra
+# KhataPro
 
 A Flutter app for small business bookkeeping (khata = ledger in Hindi/Urdu).
 

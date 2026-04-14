@@ -1,4 +1,4 @@
-/// Shared dimension tokens for KhataMitra.
+/// Shared dimension tokens for KhataPro.
 ///
 /// Use these instead of inline numbers anywhere a layout measurement,
 /// border radius, elevation, padding, or stroke width appears.

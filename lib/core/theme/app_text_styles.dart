@@ -34,7 +34,7 @@ abstract final class _TypeScale {
   static const double spacingXxl    =  1.00;
 }
 
-/// Typography system for KhataMitra.
+/// Typography system for KhataPro.
 ///
 /// - Headline / Display: Plus Jakarta Sans (bold, brand identity)
 /// - Body / Label:       Inter (readable, utility text)

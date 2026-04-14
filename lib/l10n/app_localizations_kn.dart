@@ -9,10 +9,10 @@ class AppLocalizationsKn extends AppLocalizations {
   AppLocalizationsKn([String locale = 'kn']) : super(locale);
 
   @override
-  String get appName => 'ಖಾತಾ ಮಿತ್ರ';
+  String get appName => 'ಖಾತಾ ಪ್ರೋ';
 
   @override
-  String get appTagline => 'ಖಾತಾ ಮಿತ್ರ ಡಿಜಿಟಲ್ ಬಹಿ ಖಾತಾ';
+  String get appTagline => 'ಖಾತಾ ಪ್ರೋ ಡಿಜಿಟಲ್ ಬಹಿ ಖಾತಾ';
 
   @override
   String get onboardingNext => 'ಮುಂದೆ';

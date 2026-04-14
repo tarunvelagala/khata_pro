@@ -7,11 +7,11 @@ import 'l10n/app_localizations.dart';
 import 'router/app_router.dart';
 
 void main() {
-  runApp(const ProviderScope(child: KhataMitraApp()));
+  runApp(const ProviderScope(child: KhataProApp()));
 }
 
-class KhataMitraApp extends ConsumerWidget {
-  const KhataMitraApp({super.key});
+class KhataProApp extends ConsumerWidget {
+  const KhataProApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +19,7 @@ class KhataMitraApp extends ConsumerWidget {
     final language = ref.watch(selectedLanguageProvider);
 
     return MaterialApp.router(
-      title: 'KhataMitra',
+      title: 'KhataPro',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
