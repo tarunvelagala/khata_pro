@@ -1,5 +1,21 @@
 {
   "@@locale": "te",
   "appName": "ఖాతా ప్రో",
-  "appTagline": "ఖాతా ప్రో డిజిటల్ బహి ఖాతా"
+  "appTagline": "ఖాతా ప్రో డిజిటల్ బహి ఖాతా",
+
+  "tourHeadline1": "Track every rupee",
+  "tourBody1": "Add customers, record what they owe you or you owe them. Balances update instantly.",
+  "tourHeadline2": "Send reminders easily",
+  "tourBody2": "Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.",
+  "tourHeadline3": "Your data, always safe",
+  "tourBody3": "Everything is stored privately on your phone. No account needed. Works offline too.",
+  "tourNext": "Next",
+  "tourGetStarted": "Get Started",
+  "tourSkip": "Skip",
+  "tourSwipeHint": "SWIPE TO EXPLORE",
+
+  "languageScreenTitle": "Select Language",
+  "languageScreenSubtitle": "Choose your preferred language. Changes take effect immediately.",
+  "languageContinueButton": "Continue",
+  "languageSkipButton": "Skip for now"
 }

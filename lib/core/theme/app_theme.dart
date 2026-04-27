@@ -148,81 +148,72 @@ abstract final class AppTheme {
   // layout/shape decisions; callers supply only the color tokens.
 
   static CardThemeData _cardTheme(Color color) => CardThemeData(
-        color: color,
-        elevation: AppDimensions.elevationFlat,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-        ),
-      );
+    color: color,
+    elevation: AppDimensions.elevationFlat,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+    ),
+  );
 
   static ElevatedButtonThemeData _elevatedButtonTheme({
     required Color bg,
     required Color fg,
-  }) =>
-      ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: bg,
-          foregroundColor: fg,
-          elevation: AppDimensions.elevationFlat,
-          padding: const EdgeInsets.symmetric(
-            vertical: AppDimensions.buttonPaddingV,
-            horizontal: AppDimensions.buttonPaddingH,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-          ),
-        ),
-      );
+  }) => ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: bg,
+      foregroundColor: fg,
+      elevation: AppDimensions.elevationFlat,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppDimensions.buttonPaddingV,
+        horizontal: AppDimensions.buttonPaddingH,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      ),
+    ),
+  );
 
   static OutlinedButtonThemeData _outlinedButtonTheme({
     required Color fg,
     required Color outline,
-  }) =>
-      OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: fg,
-          side: BorderSide(
-            color: outline,
-            width: AppDimensions.borderDefault,
-          ),
-          padding: const EdgeInsets.symmetric(
-            vertical: AppDimensions.buttonPaddingV,
-            horizontal: AppDimensions.buttonPaddingH,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-          ),
-        ),
-      );
+  }) => OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: fg,
+      side: BorderSide(color: outline, width: AppDimensions.borderDefault),
+      padding: const EdgeInsets.symmetric(
+        vertical: AppDimensions.buttonPaddingV,
+        horizontal: AppDimensions.buttonPaddingH,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      ),
+    ),
+  );
 
   static InputDecorationTheme _inputTheme({
     required Color fill,
     required Color focusBorder,
-  }) =>
-      InputDecorationTheme(
-        filled: true,
-        fillColor: fill,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-          borderSide: BorderSide(
-            color: focusBorder,
-            width: AppDimensions.borderFocused,
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: AppDimensions.inputPaddingV,
-          horizontal: AppDimensions.inputPaddingH,
-        ),
-      );
+  }) => InputDecorationTheme(
+    filled: true,
+    fillColor: fill,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      borderSide: BorderSide.none,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      borderSide: BorderSide(
+        color: focusBorder,
+        width: AppDimensions.borderFocused,
+      ),
+    ),
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: AppDimensions.inputPaddingV,
+      horizontal: AppDimensions.inputPaddingH,
+    ),
+  );
 
-  static AppBarTheme _appBarTheme({
-    required Color bg,
-    required Color icon,
-  }) =>
+  static AppBarTheme _appBarTheme({required Color bg, required Color icon}) =>
       AppBarTheme(
         backgroundColor: bg.withValues(alpha: AppDimensions.appBarOpacity),
         elevation: AppDimensions.elevationFlat,
@@ -232,8 +223,8 @@ abstract final class AppTheme {
       );
 
   static DividerThemeData _dividerTheme(Color color) => DividerThemeData(
-        color: color,
-        thickness: AppDimensions.dividerThickness,
-        space: AppDimensions.dividerSpace,
-      );
+    color: color,
+    thickness: AppDimensions.dividerThickness,
+    space: AppDimensions.dividerSpace,
+  );
 }

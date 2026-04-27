@@ -16,12 +16,12 @@ abstract final class _Dims {
 //   Phase B (fade-out):  600 ms – 900 ms  mark fades to 0
 // Flutter starts here after the native splash (which showed the static mark).
 abstract final class _T {
-  static const int holdMs  = 600;
-  static const int fadeMs  = 300;
-  static const int totalMs = holdMs + fadeMs;   // 900 ms
+  static const int holdMs = 600;
+  static const int fadeMs = 300;
+  static const int totalMs = holdMs + fadeMs; // 900 ms
 
-  static const double fadeStart = holdMs / totalMs;   // 0.667
-  static const double fadeEnd   = 1.0;
+  static const double fadeStart = holdMs / totalMs; // 0.667
+  static const double fadeEnd = 1.0;
 }
 
 // ── SplashScreen ──────────────────────────────────────────────────────────────
@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen>
   void _navigate() {
     if (!mounted) return;
     try {
-      context.go('/home');
+      context.go('/redirect');
     } catch (e) {
       log('SplashScreen navigate error: $e', name: 'SplashScreen');
     }
@@ -97,9 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
             opacity: _markOpacity.value,
             child: SizedBox.square(
               dimension: _Dims.markSize,
-              child: CustomPaint(
-                painter: _KhataProMarkPainter(isDark: isDark),
-              ),
+              child: CustomPaint(painter: _KhataProMarkPainter(isDark: isDark)),
             ),
           ),
         ),
@@ -119,32 +117,38 @@ class _KhataProMarkPainter extends CustomPainter {
   // Normalised to a 1024×1024 reference — scaled to actual canvas in paint().
   static const double _ref = 1024;
 
-  static const Rect _leftBar  = Rect.fromLTWH(180, 174, 160, 676);
+  static const Rect _leftBar = Rect.fromLTWH(180, 174, 160, 676);
   static const Rect _rightBar = Rect.fromLTWH(380, 174, 160, 676);
-  static const Rect _topBar   = Rect.fromLTWH(580, 212, 264, 120);
-  static const Rect _midBar   = Rect.fromLTWH(580, 452, 264, 120);
-  static const Rect _botBar   = Rect.fromLTWH(580, 692, 264, 120);
-  static const double _rx     = 16;
+  static const Rect _topBar = Rect.fromLTWH(580, 212, 264, 120);
+  static const Rect _midBar = Rect.fromLTWH(580, 452, 264, 120);
+  static const Rect _botBar = Rect.fromLTWH(580, 692, 264, 120);
+  static const double _rx = 16;
 
   @override
   void paint(Canvas canvas, Size size) {
     final s = size.width / _ref;
     canvas.scale(s, s);
 
-    final Color colorLeft  = isDark ? AppColors.darkSecondary : AppColors.secondary;
-    final Color colorRight = isDark ? AppColors.darkTertiary  : AppColors.tertiary;
-    final Color colorH     = isDark ? AppColors.darkPrimary   : AppColors.primary;
+    final Color colorLeft = isDark
+        ? AppColors.darkSecondary
+        : AppColors.secondary;
+    final Color colorRight = isDark
+        ? AppColors.darkTertiary
+        : AppColors.tertiary;
+    final Color colorH = isDark ? AppColors.darkPrimary : AppColors.primary;
 
     final rr = const Radius.circular(_rx);
 
-    void drawBar(Rect r, Color color) =>
-        canvas.drawRRect(RRect.fromRectAndRadius(r, rr), Paint()..color = color);
+    void drawBar(Rect r, Color color) => canvas.drawRRect(
+      RRect.fromRectAndRadius(r, rr),
+      Paint()..color = color,
+    );
 
-    drawBar(_leftBar,  colorLeft);
+    drawBar(_leftBar, colorLeft);
     drawBar(_rightBar, colorRight);
-    drawBar(_topBar,   colorH);
-    drawBar(_midBar,   colorH);
-    drawBar(_botBar,   colorH);
+    drawBar(_topBar, colorH);
+    drawBar(_midBar, colorH);
+    drawBar(_botBar, colorH);
   }
 
   @override

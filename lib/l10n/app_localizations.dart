@@ -121,6 +121,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'KHATAPRO DIGITAL BAHI KHATA'**
   String get appTagline;
+
+  /// No description provided for @tourHeadline1.
+  ///
+  /// In en, this message translates to:
+  /// **'Track every rupee'**
+  String get tourHeadline1;
+
+  /// No description provided for @tourBody1.
+  ///
+  /// In en, this message translates to:
+  /// **'Add customers, record what they owe you or you owe them. Balances update instantly.'**
+  String get tourBody1;
+
+  /// No description provided for @tourHeadline2.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reminders easily'**
+  String get tourHeadline2;
+
+  /// No description provided for @tourBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.'**
+  String get tourBody2;
+
+  /// No description provided for @tourHeadline3.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data, always safe'**
+  String get tourHeadline3;
+
+  /// No description provided for @tourBody3.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything is stored privately on your phone. No account needed. Works offline too.'**
+  String get tourBody3;
+
+  /// No description provided for @tourNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get tourNext;
+
+  /// No description provided for @tourGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get tourGetStarted;
+
+  /// No description provided for @tourSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get tourSkip;
+
+  /// No description provided for @tourSwipeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'SWIPE TO EXPLORE'**
+  String get tourSwipeHint;
+
+  /// No description provided for @languageScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get languageScreenTitle;
+
+  /// No description provided for @languageScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred language. Changes take effect immediately.'**
+  String get languageScreenSubtitle;
+
+  /// No description provided for @languageContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get languageContinueButton;
+
+  /// No description provided for @languageSkipButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get languageSkipButton;
 }
 
 class _AppLocalizationsDelegate

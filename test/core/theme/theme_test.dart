@@ -135,9 +135,12 @@ void main() {
       expect(scheme.primary, isNot(scheme.tertiary));
     });
 
-    test('secondary and tertiary are visually distinct (income vs expense)', () {
-      expect(scheme.secondary, isNot(scheme.tertiary));
-    });
+    test(
+      'secondary and tertiary are visually distinct (income vs expense)',
+      () {
+        expect(scheme.secondary, isNot(scheme.tertiary));
+      },
+    );
   });
 
   group('AppTheme dark', () {
@@ -175,11 +178,17 @@ void main() {
     });
 
     test('light and dark primaries are different', () {
-      expect(AppTheme.lightColorScheme.primary, isNot(AppTheme.darkColorScheme.primary));
+      expect(
+        AppTheme.lightColorScheme.primary,
+        isNot(AppTheme.darkColorScheme.primary),
+      );
     });
 
     test('light and dark surfaces are different', () {
-      expect(AppTheme.lightColorScheme.surface, isNot(AppTheme.darkColorScheme.surface));
+      expect(
+        AppTheme.lightColorScheme.surface,
+        isNot(AppTheme.darkColorScheme.surface),
+      );
     });
 
     test('inversePrimary in dark equals light primary', () {
