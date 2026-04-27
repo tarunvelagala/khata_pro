@@ -15,48 +15,48 @@ class AppLocalizationsTa extends AppLocalizations {
   String get appTagline => 'கணக்கு ப்ரோ டிஜிட்டல் பஹி கணக்கு';
 
   @override
-  String get tourHeadline1 => 'Track every rupee';
+  String get tourHeadline1 => 'ஒவ்வொரு ரூபாயையும் கண்காணியுங்கள்';
 
   @override
   String get tourBody1 =>
-      'Add customers, record what they owe you or you owe them. Balances update instantly.';
+      'வாடிக்கையாளர்களை சேர்க்கவும், கடன் பதிவு செய்யவும். இருப்பு உடனடியாக புதுப்பிக்கப்படும்.';
 
   @override
-  String get tourHeadline2 => 'Send reminders easily';
+  String get tourHeadline2 => 'எளிதாக நினைவூட்டல் அனுப்புங்கள்';
 
   @override
   String get tourBody2 =>
-      'Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.';
+      'WhatsApp அல்லது SMS மூலம் ஒரே தட்டில் தொகை நினைவூட்டல் அனுப்புங்கள். விஸிட்டிங் கார்டும் இணைக்கலாம்.';
 
   @override
-  String get tourHeadline3 => 'Your data, always safe';
+  String get tourHeadline3 => 'உங்கள் தரவு, எப்போதும் பாதுகாப்பானது';
 
   @override
   String get tourBody3 =>
-      'Everything is stored privately on your phone. No account needed. Works offline too.';
+      'எல்லாம் உங்கள் ஃபோனில் தனிப்பட்ட முறையில் சேமிக்கப்படுகிறது. கணக்கு தேவையில்லை. ஆஃப்லைனிலும் வேலை செய்யும்.';
 
   @override
-  String get tourNext => 'Next';
+  String get tourNext => 'அடுத்து';
 
   @override
-  String get tourGetStarted => 'Get Started';
+  String get tourGetStarted => 'தொடங்குங்கள்';
 
   @override
-  String get tourSkip => 'Skip';
+  String get tourSkip => 'தவிர்';
 
   @override
-  String get tourSwipeHint => 'SWIPE TO EXPLORE';
+  String get tourSwipeHint => 'ஸ்வைப் செய்யுங்கள்';
 
   @override
-  String get languageScreenTitle => 'Select Language';
+  String get languageScreenTitle => 'மொழி தேர்ந்தெடுக்கவும்';
 
   @override
   String get languageScreenSubtitle =>
-      'Choose your preferred language. Changes take effect immediately.';
+      'விருப்பமான மொழியை தேர்வு செய்யுங்கள். மாற்றம் உடனடியாக பயன்படுத்தப்படும்.';
 
   @override
-  String get languageContinueButton => 'Continue';
+  String get languageContinueButton => 'தொடர்க';
 
   @override
-  String get languageSkipButton => 'Skip for now';
+  String get languageSkipButton => 'இப்போது வேண்டாம்';
 }

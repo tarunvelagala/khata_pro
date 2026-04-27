@@ -15,48 +15,48 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appTagline => 'खाता प्रो डिजिटल बही खाता';
 
   @override
-  String get tourHeadline1 => 'Track every rupee';
+  String get tourHeadline1 => 'हर रुपया ट्रैक करें';
 
   @override
   String get tourBody1 =>
-      'Add customers, record what they owe you or you owe them. Balances update instantly.';
+      'ग्राहक जोड़ें, उनका उधार और आपका उधार रिकॉर्ड करें। बैलेंस तुरंत अपडेट होता है।';
 
   @override
-  String get tourHeadline2 => 'Send reminders easily';
+  String get tourHeadline2 => 'आसानी से रिमाइंडर भेजें';
 
   @override
   String get tourBody2 =>
-      'Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.';
+      'WhatsApp या SMS से एक टैप में पेमेंट रिमाइंडर भेजें। विज़िटिंग कार्ड भी अटैच करें।';
 
   @override
-  String get tourHeadline3 => 'Your data, always safe';
+  String get tourHeadline3 => 'आपका डेटा, हमेशा सुरक्षित';
 
   @override
   String get tourBody3 =>
-      'Everything is stored privately on your phone. No account needed. Works offline too.';
+      'सब कुछ आपके फोन में प्राइवेट रूप से स्टोर है। कोई अकाउंट नहीं चाहिए। ऑफलाइन भी काम करता है।';
 
   @override
-  String get tourNext => 'Next';
+  String get tourNext => 'आगे';
 
   @override
-  String get tourGetStarted => 'Get Started';
+  String get tourGetStarted => 'शुरू करें';
 
   @override
-  String get tourSkip => 'Skip';
+  String get tourSkip => 'छोड़ें';
 
   @override
-  String get tourSwipeHint => 'SWIPE TO EXPLORE';
+  String get tourSwipeHint => 'स्वाइप करें';
 
   @override
-  String get languageScreenTitle => 'Select Language';
+  String get languageScreenTitle => 'भाषा चुनें';
 
   @override
   String get languageScreenSubtitle =>
-      'Choose your preferred language. Changes take effect immediately.';
+      'अपनी पसंदीदा भाषा चुनें। बदलाव तुरंत लागू होगा।';
 
   @override
-  String get languageContinueButton => 'Continue';
+  String get languageContinueButton => 'जारी रखें';
 
   @override
-  String get languageSkipButton => 'Skip for now';
+  String get languageSkipButton => 'अभी नहीं';
 }

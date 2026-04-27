@@ -17,7 +17,6 @@ class ScreenFooter extends StatelessWidget {
   final VoidCallback? onSecondary;
 
   static const double _topRadius    = 24.0;
-  static const double _ctaHeight    = 48.0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,6 @@ class ScreenFooter extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            height: _ctaHeight,
             child: FilledButton(onPressed: onCta, child: Text(ctaLabel)),
           ),
           if (secondaryLabel != null && onSecondary != null) ...[

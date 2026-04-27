@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../l10n/app_localizations.dart';
+
 abstract final class _Dims {
   static const double horizontalPadding  = 32.0;
   static const double topPadding         = 48.0;
@@ -8,7 +10,7 @@ abstract final class _Dims {
   static const double headlineToBodyGap  = 8.0;
   static const double bodyToSwipeHintGap = 24.0;
   static const double swipeHintIconGap   = 4.0;
-  static const double swipeHintIconSize  = 14.0;
+  static const double swipeHintIconSize  = 16.0;
   static const double swipeHintOpacity   = 0.6;
 }
 
@@ -51,7 +53,7 @@ class TourSlide extends StatelessWidget {
           ),
           if (showSwipeHint) ...[
             const SizedBox(height: _Dims.bodyToSwipeHintGap),
-            _SwipeHint(color: cs.onSurfaceVariant),
+            _SwipeHint(color: cs.onSurfaceVariant, label: AppLocalizations.of(context)!.tourSwipeHint),
           ],
         ],
       ),
@@ -60,9 +62,10 @@ class TourSlide extends StatelessWidget {
 }
 
 class _SwipeHint extends StatelessWidget {
-  const _SwipeHint({required this.color});
+  const _SwipeHint({required this.color, required this.label});
 
   final Color color;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +75,8 @@ class _SwipeHint extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'SWIPE TO EXPLORE',
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color),
+            label,
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color),
           ),
           const SizedBox(width: _Dims.swipeHintIconGap),
           Icon(Icons.chevron_right_rounded, size: _Dims.swipeHintIconSize, color: color),

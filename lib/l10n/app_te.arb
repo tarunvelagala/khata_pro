@@ -3,19 +3,19 @@
   "appName": "ఖాతా ప్రో",
   "appTagline": "ఖాతా ప్రో డిజిటల్ బహి ఖాతా",
 
-  "tourHeadline1": "Track every rupee",
-  "tourBody1": "Add customers, record what they owe you or you owe them. Balances update instantly.",
-  "tourHeadline2": "Send reminders easily",
-  "tourBody2": "Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.",
-  "tourHeadline3": "Your data, always safe",
-  "tourBody3": "Everything is stored privately on your phone. No account needed. Works offline too.",
-  "tourNext": "Next",
-  "tourGetStarted": "Get Started",
-  "tourSkip": "Skip",
-  "tourSwipeHint": "SWIPE TO EXPLORE",
+  "tourHeadline1": "ప్రతి రూపాయి ట్రాక్ చేయండి",
+  "tourBody1": "కస్టమర్లను జోడించండి, అప్పులు నమోదు చేయండి. బ్యాలెన్స్ వెంటనే అప్‌డేట్ అవుతుంది.",
+  "tourHeadline2": "సులభంగా రిమైండర్లు పంపండి",
+  "tourBody2": "WhatsApp లేదా SMS ద్వారా ఒక్క ట్యాప్‌లో పేమెంట్ రిమైండర్లు పంపండి. విజిటింగ్ కార్డ్ కూడా జోడించవచ్చు.",
+  "tourHeadline3": "మీ డేటా, ఎల్లప్పుడూ సురక్షితం",
+  "tourBody3": "అన్నీ మీ ఫోన్‌లో ప్రైవేట్‌గా నిల్వ చేయబడతాయి. ఖాతా అవసరం లేదు. ఆఫ్‌లైన్‌లో కూడా పని చేస్తుంది.",
+  "tourNext": "తర్వాత",
+  "tourGetStarted": "ప్రారంభించండి",
+  "tourSkip": "దాటవేయి",
+  "tourSwipeHint": "స్వైప్ చేయండి",
 
-  "languageScreenTitle": "Select Language",
-  "languageScreenSubtitle": "Choose your preferred language. Changes take effect immediately.",
-  "languageContinueButton": "Continue",
-  "languageSkipButton": "Skip for now"
+  "languageScreenTitle": "భాష ఎంచుకోండి",
+  "languageScreenSubtitle": "మీకు ఇష్టమైన భాష ఎంచుకోండి. మార్పు వెంటనే వర్తిస్తుంది.",
+  "languageContinueButton": "కొనసాగించు",
+  "languageSkipButton": "ఇప్పుడు వద్దు"
 }

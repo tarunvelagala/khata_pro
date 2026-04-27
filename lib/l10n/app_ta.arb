@@ -3,19 +3,19 @@
   "appName": "கணக்கு ப்ரோ",
   "appTagline": "கணக்கு ப்ரோ டிஜிட்டல் பஹி கணக்கு",
 
-  "tourHeadline1": "Track every rupee",
-  "tourBody1": "Add customers, record what they owe you or you owe them. Balances update instantly.",
-  "tourHeadline2": "Send reminders easily",
-  "tourBody2": "Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.",
-  "tourHeadline3": "Your data, always safe",
-  "tourBody3": "Everything is stored privately on your phone. No account needed. Works offline too.",
-  "tourNext": "Next",
-  "tourGetStarted": "Get Started",
-  "tourSkip": "Skip",
-  "tourSwipeHint": "SWIPE TO EXPLORE",
+  "tourHeadline1": "ஒவ்வொரு ரூபாயையும் கண்காணியுங்கள்",
+  "tourBody1": "வாடிக்கையாளர்களை சேர்க்கவும், கடன் பதிவு செய்யவும். இருப்பு உடனடியாக புதுப்பிக்கப்படும்.",
+  "tourHeadline2": "எளிதாக நினைவூட்டல் அனுப்புங்கள்",
+  "tourBody2": "WhatsApp அல்லது SMS மூலம் ஒரே தட்டில் தொகை நினைவூட்டல் அனுப்புங்கள். விஸிட்டிங் கார்டும் இணைக்கலாம்.",
+  "tourHeadline3": "உங்கள் தரவு, எப்போதும் பாதுகாப்பானது",
+  "tourBody3": "எல்லாம் உங்கள் ஃபோனில் தனிப்பட்ட முறையில் சேமிக்கப்படுகிறது. கணக்கு தேவையில்லை. ஆஃப்லைனிலும் வேலை செய்யும்.",
+  "tourNext": "அடுத்து",
+  "tourGetStarted": "தொடங்குங்கள்",
+  "tourSkip": "தவிர்",
+  "tourSwipeHint": "ஸ்வைப் செய்யுங்கள்",
 
-  "languageScreenTitle": "Select Language",
-  "languageScreenSubtitle": "Choose your preferred language. Changes take effect immediately.",
-  "languageContinueButton": "Continue",
-  "languageSkipButton": "Skip for now"
+  "languageScreenTitle": "மொழி தேர்ந்தெடுக்கவும்",
+  "languageScreenSubtitle": "விருப்பமான மொழியை தேர்வு செய்யுங்கள். மாற்றம் உடனடியாக பயன்படுத்தப்படும்.",
+  "languageContinueButton": "தொடர்க",
+  "languageSkipButton": "இப்போது வேண்டாம்"
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/widgets/screen_footer.dart';
 import '../../../../core/widgets/selection_card.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../providers/locale_provider.dart';
 
 // ── Language data ─────────────────────────────────────────────────────────────
 typedef _Language = ({String code, String nativeName, String badge});
@@ -48,20 +48,12 @@ class _LanguageSelectionScreenState
   @override
   void initState() {
     super.initState();
-    _loadSavedLocale();
-  }
-
-  Future<void> _loadSavedLocale() async {
-    final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString('selected_locale');
-    if (saved != null && mounted) {
-      setState(() => _selectedCode = saved);
-    }
+    final locale = ref.read(localeProvider).value;
+    if (locale != null) _selectedCode = locale.languageCode;
   }
 
   Future<void> _onContinue() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selected_locale', _selectedCode);
+    await ref.read(localeProvider.notifier).setLocale(_selectedCode);
     if (!mounted) return;
     context.go('/tour');
   }
@@ -114,8 +106,7 @@ class _LanguageSelectionScreenState
                           badge: lang.badge,
                           title: lang.nativeName,
                           isSelected: _selectedCode == lang.code,
-                          onTap: () =>
-                              setState(() => _selectedCode = lang.code),
+                          onTap: () => setState(() => _selectedCode = lang.code),
                         );
                       }).toList(),
                     ),

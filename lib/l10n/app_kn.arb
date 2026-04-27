@@ -3,19 +3,19 @@
   "appName": "ಖಾತಾ ಪ್ರೋ",
   "appTagline": "ಖಾತಾ ಪ್ರೋ ಡಿಜಿಟಲ್ ಬಹಿ ಖಾತಾ",
 
-  "tourHeadline1": "Track every rupee",
-  "tourBody1": "Add customers, record what they owe you or you owe them. Balances update instantly.",
-  "tourHeadline2": "Send reminders easily",
-  "tourBody2": "Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.",
-  "tourHeadline3": "Your data, always safe",
-  "tourBody3": "Everything is stored privately on your phone. No account needed. Works offline too.",
-  "tourNext": "Next",
-  "tourGetStarted": "Get Started",
-  "tourSkip": "Skip",
-  "tourSwipeHint": "SWIPE TO EXPLORE",
+  "tourHeadline1": "ಪ್ರತಿ ರೂಪಾಯಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ",
+  "tourBody1": "ಗ್ರಾಹಕರನ್ನು ಸೇರಿಸಿ, ಅವರ ಸಾಲ ಮತ್ತು ನಿಮ್ಮ ಸಾಲ ದಾಖಲಿಸಿ. ಬ್ಯಾಲೆನ್ಸ್ ತಕ್ಷಣ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತದೆ.",
+  "tourHeadline2": "ಸುಲಭವಾಗಿ ರಿಮೈಂಡರ್ ಕಳುಹಿಸಿ",
+  "tourBody2": "WhatsApp ಅಥವಾ SMS ಮೂಲಕ ಒಂದು ಟ್ಯಾಪ್‌ನಲ್ಲಿ ಪಾವತಿ ರಿಮೈಂಡರ್ ಕಳುಹಿಸಿ. ವಿಸಿಟಿಂಗ್ ಕಾರ್ಡ್ ಸಹ ಲಗತ್ತಿಸಿ.",
+  "tourHeadline3": "ನಿಮ್ಮ ಡೇಟಾ, ಯಾವಾಗಲೂ ಸುರಕ್ಷಿತ",
+  "tourBody3": "ಎಲ್ಲವೂ ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲಿ ಖಾಸಗಿಯಾಗಿ ಸಂಗ್ರಹವಾಗಿದೆ. ಯಾವುದೇ ಖಾತೆ ಅಗತ್ಯವಿಲ್ಲ. ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.",
+  "tourNext": "ಮುಂದೆ",
+  "tourGetStarted": "ಪ್ರಾರಂಭಿಸಿ",
+  "tourSkip": "ಬಿಡಿ",
+  "tourSwipeHint": "ಸ್ವೈಪ್ ಮಾಡಿ",
 
-  "languageScreenTitle": "Select Language",
-  "languageScreenSubtitle": "Choose your preferred language. Changes take effect immediately.",
-  "languageContinueButton": "Continue",
-  "languageSkipButton": "Skip for now"
+  "languageScreenTitle": "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ",
+  "languageScreenSubtitle": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ. ಬದಲಾವಣೆ ತಕ್ಷಣ ಅನ್ವಯಿಸುತ್ತದೆ.",
+  "languageContinueButton": "ಮುಂದುವರಿಯಿರಿ",
+  "languageSkipButton": "ಈಗ ಬೇಡ"
 }

@@ -15,48 +15,48 @@ class AppLocalizationsKn extends AppLocalizations {
   String get appTagline => 'ಖಾತಾ ಪ್ರೋ ಡಿಜಿಟಲ್ ಬಹಿ ಖಾತಾ';
 
   @override
-  String get tourHeadline1 => 'Track every rupee';
+  String get tourHeadline1 => 'ಪ್ರತಿ ರೂಪಾಯಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ';
 
   @override
   String get tourBody1 =>
-      'Add customers, record what they owe you or you owe them. Balances update instantly.';
+      'ಗ್ರಾಹಕರನ್ನು ಸೇರಿಸಿ, ಅವರ ಸಾಲ ಮತ್ತು ನಿಮ್ಮ ಸಾಲ ದಾಖಲಿಸಿ. ಬ್ಯಾಲೆನ್ಸ್ ತಕ್ಷಣ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತದೆ.';
 
   @override
-  String get tourHeadline2 => 'Send reminders easily';
+  String get tourHeadline2 => 'ಸುಲಭವಾಗಿ ರಿಮೈಂಡರ್ ಕಳುಹಿಸಿ';
 
   @override
   String get tourBody2 =>
-      'Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.';
+      'WhatsApp ಅಥವಾ SMS ಮೂಲಕ ಒಂದು ಟ್ಯಾಪ್‌ನಲ್ಲಿ ಪಾವತಿ ರಿಮೈಂಡರ್ ಕಳುಹಿಸಿ. ವಿಸಿಟಿಂಗ್ ಕಾರ್ಡ್ ಸಹ ಲಗತ್ತಿಸಿ.';
 
   @override
-  String get tourHeadline3 => 'Your data, always safe';
+  String get tourHeadline3 => 'ನಿಮ್ಮ ಡೇಟಾ, ಯಾವಾಗಲೂ ಸುರಕ್ಷಿತ';
 
   @override
   String get tourBody3 =>
-      'Everything is stored privately on your phone. No account needed. Works offline too.';
+      'ಎಲ್ಲವೂ ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲಿ ಖಾಸಗಿಯಾಗಿ ಸಂಗ್ರಹವಾಗಿದೆ. ಯಾವುದೇ ಖಾತೆ ಅಗತ್ಯವಿಲ್ಲ. ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.';
 
   @override
-  String get tourNext => 'Next';
+  String get tourNext => 'ಮುಂದೆ';
 
   @override
-  String get tourGetStarted => 'Get Started';
+  String get tourGetStarted => 'ಪ್ರಾರಂಭಿಸಿ';
 
   @override
-  String get tourSkip => 'Skip';
+  String get tourSkip => 'ಬಿಡಿ';
 
   @override
-  String get tourSwipeHint => 'SWIPE TO EXPLORE';
+  String get tourSwipeHint => 'ಸ್ವೈಪ್ ಮಾಡಿ';
 
   @override
-  String get languageScreenTitle => 'Select Language';
+  String get languageScreenTitle => 'ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ';
 
   @override
   String get languageScreenSubtitle =>
-      'Choose your preferred language. Changes take effect immediately.';
+      'ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ. ಬದಲಾವಣೆ ತಕ್ಷಣ ಅನ್ವಯಿಸುತ್ತದೆ.';
 
   @override
-  String get languageContinueButton => 'Continue';
+  String get languageContinueButton => 'ಮುಂದುವರಿಯಿರಿ';
 
   @override
-  String get languageSkipButton => 'Skip for now';
+  String get languageSkipButton => 'ಈಗ ಬೇಡ';
 }

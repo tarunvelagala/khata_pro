@@ -3,19 +3,19 @@
   "appName": "खाता प्रो",
   "appTagline": "खाता प्रो डिजिटल बही खाता",
 
-  "tourHeadline1": "Track every rupee",
-  "tourBody1": "Add customers, record what they owe you or you owe them. Balances update instantly.",
-  "tourHeadline2": "Send reminders easily",
-  "tourBody2": "Send payment reminders via WhatsApp or SMS in one tap. Even attach your visiting card.",
-  "tourHeadline3": "Your data, always safe",
-  "tourBody3": "Everything is stored privately on your phone. No account needed. Works offline too.",
-  "tourNext": "Next",
-  "tourGetStarted": "Get Started",
-  "tourSkip": "Skip",
-  "tourSwipeHint": "SWIPE TO EXPLORE",
+  "tourHeadline1": "प्रत्येक रुपया ट्रॅक करा",
+  "tourBody1": "ग्राहक जोडा, त्यांचे आणि तुमचे उधार नोंदवा. शिल्लक लगेच अपडेट होते.",
+  "tourHeadline2": "सहज रिमाइंडर पाठवा",
+  "tourBody2": "WhatsApp किंवा SMS वर एका टॅपमध्ये पेमेंट रिमाइंडर पाठवा. व्हिजिटिंग कार्ड देखील जोडा.",
+  "tourHeadline3": "तुमचा डेटा, नेहमी सुरक्षित",
+  "tourBody3": "सर्वकाही तुमच्या फोनमध्ये खाजगीरित्या साठवले आहे. कोणतेही खाते लागत नाही. ऑफलाइनही काम करते.",
+  "tourNext": "पुढे",
+  "tourGetStarted": "सुरू करा",
+  "tourSkip": "वगळा",
+  "tourSwipeHint": "स्वाइप करा",
 
-  "languageScreenTitle": "Select Language",
-  "languageScreenSubtitle": "Choose your preferred language. Changes take effect immediately.",
-  "languageContinueButton": "Continue",
-  "languageSkipButton": "Skip for now"
+  "languageScreenTitle": "भाषा निवडा",
+  "languageScreenSubtitle": "पसंतीची भाषा निवडा. बदल लगेच लागू होईल.",
+  "languageContinueButton": "पुढे चला",
+  "languageSkipButton": "आत्ता नाही"
 }
