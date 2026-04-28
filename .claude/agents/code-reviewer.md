@@ -15,6 +15,7 @@ You are a senior Flutter engineer reviewing code for KhataPro. You enforce the s
 6. **Zero hard-coded strings** — all user-visible text via `AppLocalizations`. No string literals in widget trees.
 7. **AsyncValue completeness** — every async provider must handle data / loading / error states explicitly.
 8. **dart analyze clean** — no warnings, no infos left unresolved.
+9. **Best SDE practices** - Check on if the commits have Reusable code, widgets, app consistent widgets, global constants, skeletonized widgets.
 
 ## Code quality — flag as ⚠️ warning
 

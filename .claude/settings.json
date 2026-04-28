@@ -12,7 +12,6 @@
       "Bash(git diff*)",
       "Bash(git log*)",
       "Bash(git branch*)",
-      "Bash(git push*)",
       "Bash(python3 *)"
     ]
   },
@@ -74,6 +73,12 @@
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && .claude/hooks/design-review.sh",
             "timeout": 30,
             "statusMessage": "Pre-commit: design review..."
+          },
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && .claude/hooks/brand-guidelines.sh",
+            "timeout": 30,
+            "statusMessage": "Pre-commit: brand guidelines..."
           }
         ]
       }
