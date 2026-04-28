@@ -7,15 +7,17 @@ import '../features/splash/presentation/screens/splash_screen.dart';
 import '../features/tour/presentation/screens/tour_screen.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/settings/language',
+  initialLocation: '/splash',
   routes: [
     GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
     GoRoute(
       path: '/redirect',
       redirect: (context, state) async {
         final prefs = await SharedPreferences.getInstance();
-        final seen = prefs.getBool('tour_seen') ?? false;
-        return seen ? '/home' : '/tour';
+        final hasLocale = prefs.getString('selected_locale') != null;
+        if (!hasLocale) return '/settings/language';
+        final tourSeen = prefs.getBool('tour_seen') ?? false;
+        return tourSeen ? '/home' : '/tour';
       },
     ),
     GoRoute(path: '/tour', builder: (context, state) => const TourScreen()),
