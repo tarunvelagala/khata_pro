@@ -79,6 +79,12 @@
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && .claude/hooks/brand-guidelines.sh",
             "timeout": 30,
             "statusMessage": "Pre-commit: brand guidelines..."
+          },
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && .claude/hooks/test-coverage.sh",
+            "timeout": 30,
+            "statusMessage": "Pre-commit: test coverage..."
           }
         ]
       }

@@ -112,3 +112,15 @@ Root `ProviderScope` in `main.dart`. Screens extend `ConsumerWidget`. Pattern: `
 ### Testing
 
 `ProviderContainer` for isolated provider tests. `makeContainer()` helper with `addTearDown(container.dispose)`. Do not test private methods, trivial getters, or generated code.
+
+### Test coverage — non-negotiable
+
+**Every change to `lib/features/` or `lib/core/widgets/` must ship with tests in the same commit.** No exceptions.
+
+- New widget → widget test covering overflow on at least 360×640 and 390×844 viewports, all 8 locales where text is involved
+- New provider/notifier → unit test via `ProviderContainer`
+- Bug fix → regression test that would have caught the bug
+- ARB change → run `flutter gen-l10n`, confirm `locale_render_test.dart` still passes
+
+The pre-commit hook (`.claude/hooks/test-coverage.sh`) enforces this automatically and will block commits that touch `lib/features/` or `lib/core/widgets/` without a corresponding test file.
+
