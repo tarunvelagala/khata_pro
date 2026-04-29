@@ -350,6 +350,12 @@ Per-customer outstanding balance and transaction history — the "udhaar khata" 
 - Customer rows: avatar (initials, `primary-container` background), name, outstanding amount.
 - FAB: "Add customer".
 
+**TODO — Smart search auto-navigate:**
+As the user types in the customer list search bar, filter live. When exactly one customer matches, automatically push to `/customers/:id` (the detail screen) — no tap required. This mirrors the OLauncher search pattern: list collapses to the single result and opens it instantly. If two or more customers match, keep showing the filtered list as normal. Backspacing back to multiple results returns to the list view.
+
+**TODO — Visiting card / shop banner capture:**
+On the Add/Edit Customer screen, allow the user to attach one or more images per customer — typically a visiting card or shop banner. These are stored privately on-device only (no cloud upload). UI: a horizontally scrollable row of image thumbnails (80×56dp, 8px radius) with a leading "+" tile to add more. Tapping a thumbnail opens a full-screen viewer with a delete option. Tapping "+" opens a bottom sheet: "Take photo" / "Choose from gallery". Capture via `image_picker`, crop via `image_cropper` (lock to free-form for visiting cards, 16:9 preset for banners), compress to ≤300 KB via `flutter_image_compress`, store path in the customer record via `path_provider`. Future: on-device AI extraction of name, phone, and shop details from the visiting card image using Sarvam Vision or ML Kit — pre-fill the Add Customer form fields automatically.
+
 ---
 
 ### Reports

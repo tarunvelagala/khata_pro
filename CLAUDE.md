@@ -124,3 +124,13 @@ Root `ProviderScope` in `main.dart`. Screens extend `ConsumerWidget`. Pattern: `
 
 The pre-commit hook (`.claude/hooks/test-coverage.sh`) enforces this automatically and will block commits that touch `lib/features/` or `lib/core/widgets/` without a corresponding test file.
 
+## Planned Features (TODO)
+
+These are designed and agreed but not yet implemented. Pick them up in order.
+
+### Customer search auto-navigate
+When the user types in the `CustomersScreen` search bar and exactly one customer matches, automatically `context.push('/customers/:id')` — no tap required. Mirrors OLauncher search: list collapses to the single match and opens it immediately. Two or more matches → keep showing the filtered list. Backspace to multiple results → return to list. Requires `CustomerDetailScreen` (`/customers/:id`) to be built first.
+
+### Visiting card / shop banner capture
+On the Add/Edit Customer screen, a horizontally scrollable image row (80×56dp thumbnails, 8px radius) lets the user attach visiting cards or shop banners per customer. Stored on-device only via `path_provider`. Packages needed: `image_picker`, `image_cropper`, `flutter_image_compress`. "+" tile opens a bottom sheet — "Take photo" / "Choose from gallery". Full-screen viewer on tap with delete action. Future phase: AI extraction of name, phone, and shop from the visiting card image using Sarvam Vision or ML Kit to pre-fill the Add Customer form automatically.
+
