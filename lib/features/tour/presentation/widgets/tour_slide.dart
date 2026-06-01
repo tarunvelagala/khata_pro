@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../l10n/app_localizations.dart';
-
 abstract final class _Dims {
-  static const double horizontalPadding  = 32.0;
-  static const double topPadding         = 48.0;
-  static const double maxBodyWidth       = 280.0;
-  static const double illustrationGap    = 32.0;
-  static const double headlineToBodyGap  = 8.0;
-  static const double bodyToSwipeHintGap = 24.0;
-  static const double swipeHintIconGap   = 4.0;
-  static const double swipeHintIconSize  = 16.0;
-  static const double swipeHintOpacity   = 0.6;
+  static const double horizontalPadding = 32.0;
+  static const double topPadding        = 32.0;
+  static const double maxBodyWidth      = 280.0;
+  static const double illustrationGap   = 32.0;
+  static const double headlineToBodyGap = 8.0;
 }
 
 class TourSlide extends StatelessWidget {
@@ -20,13 +14,11 @@ class TourSlide extends StatelessWidget {
     required this.illustration,
     required this.headline,
     required this.body,
-    this.showSwipeHint = false,
   });
 
   final Widget illustration;
   final String headline;
   final String body;
-  final bool showSwipeHint;
 
   @override
   Widget build(BuildContext context) {
@@ -51,35 +43,6 @@ class TourSlide extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          if (showSwipeHint) ...[
-            const SizedBox(height: _Dims.bodyToSwipeHintGap),
-            _SwipeHint(color: cs.onSurfaceVariant, label: AppLocalizations.of(context)!.tourSwipeHint),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _SwipeHint extends StatelessWidget {
-  const _SwipeHint({required this.color, required this.label});
-
-  final Color color;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: _Dims.swipeHintOpacity,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color),
-          ),
-          const SizedBox(width: _Dims.swipeHintIconGap),
-          Icon(Icons.chevron_right_rounded, size: _Dims.swipeHintIconSize, color: color),
         ],
       ),
     );

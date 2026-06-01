@@ -39,6 +39,9 @@
   "navSettings": "Settings",
 
   "appBarNotificationsTooltip": "Notifications",
+  "appBarGreetingMorning": "Good morning",
+  "appBarGreetingAfternoon": "Good afternoon",
+  "appBarGreetingEvening": "Good evening",
 
 
   "quickActionAddCustomer": "Add Customer",
@@ -60,5 +63,7 @@
   "txnTimeToday": "Today, {time}",
   "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
   "txnTimeYesterday": "Yesterday, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } }
+  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "txnTypeReceived": "Received",
+  "txnTypePaid": "Paid"
 }

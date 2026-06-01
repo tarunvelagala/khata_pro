@@ -35,6 +35,9 @@
   "navReports": "റിപ്പോർട്ടുകൾ",
   "navSettings": "ക്രമീകരണങ്ങൾ",
   "appBarNotificationsTooltip": "അറിയിപ്പുകൾ",
+  "appBarGreetingMorning": "ശുഭ പ്രഭാതം",
+  "appBarGreetingAfternoon": "ശുഭ ഉച്ചതിരിഞ്ഞ്",
+  "appBarGreetingEvening": "ശുഭ സന്ധ്യ",
   "quickActionAddCustomer": "ഉപഭോക്താവിനെ ചേർക്കൂ",
   "quickActionGenerateBill": "ബിൽ ഉണ്ടാക്കൂ",
   "quickActionSendReminder": "റിമൈൻഡർ അയക്കൂ",
@@ -52,5 +55,7 @@
   "txnTimeToday": "ഇന്ന്, {time}",
   "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
   "txnTimeYesterday": "ഇന്നലെ, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } }
+  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "txnTypeReceived": "ലഭിച്ചു",
+  "txnTypePaid": "കൊടുത്തു"
 }

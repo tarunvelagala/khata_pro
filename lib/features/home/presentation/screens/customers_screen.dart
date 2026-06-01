@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
 import '../providers/customer_provider.dart';
 import '../widgets/customer_list_tile.dart';
 
 abstract final class _Dims {
-  static const double searchRadius   = 12.0;
   static const double searchIconSize = 20.0;
   static const double addIconSize    = 20.0;
+  static const double searchShadowBlur = 8.0;
 }
 
 class CustomersScreen extends ConsumerStatefulWidget {
@@ -94,37 +95,62 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: AppDimensions.buttonPaddingH,
               ),
-              child: TextField(
-                controller: _searchController,
-                onChanged: (v) => setState(() => _query = v),
-                decoration: InputDecoration(
-                  hintText: l10n.customersSearch,
-                  prefixIcon: Icon(
-                    Icons.search_rounded,
-                    size: _Dims.searchIconSize,
-                    color: cs.onSurfaceVariant,
-                  ),
-                  suffixIcon: _query.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.close_rounded),
-                          iconSize: _Dims.searchIconSize,
-                          color: cs.onSurfaceVariant,
-                          onPressed: () {
-                            _searchController.clear();
-                            setState(() => _query = '');
-                          },
-                        )
-                      : null,
-                  filled: true,
-                  fillColor: cs.surfaceContainerHighest,
-                  border: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(_Dims.searchRadius),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: AppDimensions.inputPaddingH,
-                    vertical: AppDimensions.inputPaddingV / 2,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.shadowCard,
+                      blurRadius: _Dims.searchShadowBlur,
+                      offset: const Offset(0, AppDimensions.shadowOffsetCard),
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (v) => setState(() => _query = v),
+                  decoration: InputDecoration(
+                    hintText: l10n.customersSearch,
+                    prefixIcon: Icon(
+                      Icons.search_rounded,
+                      size: _Dims.searchIconSize,
+                      color: cs.onSurfaceVariant,
+                    ),
+                    suffixIcon: _query.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.close_rounded),
+                            iconSize: _Dims.searchIconSize,
+                            color: cs.onSurfaceVariant,
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _query = '');
+                            },
+                          )
+                        : null,
+                    filled: true,
+                    fillColor: cs.surfaceContainerLow,
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusPill),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusPill),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusPill),
+                      borderSide: BorderSide(
+                        color: cs.primary,
+                        width: AppDimensions.borderFocused,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: AppDimensions.inputPaddingH,
+                      vertical: AppDimensions.inputPaddingV / 2,
+                    ),
                   ),
                 ),
               ),
@@ -138,16 +164,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   ? _EmptyState(onAdd: () {})
                   : filtered.isEmpty
                       ? _NoResults(query: _query)
-                      : ListView.separated(
+                      : ListView.builder(
                           itemCount: filtered.length,
-                          separatorBuilder: (_, _) => Divider(
-                            height: AppDimensions.dividerSpace,
-                            thickness: AppDimensions.dividerThickness,
-                            color: cs.outlineVariant,
-                            indent: AppDimensions.buttonPaddingH +
-                                40 +
-                                AppDimensions.inputPaddingH,
-                          ),
                           itemBuilder: (context, i) => CustomerListTile(
                             customer: filtered[i],
                             isMasked: _isMasked,

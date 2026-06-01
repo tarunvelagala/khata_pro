@@ -109,6 +109,15 @@ class AppLocalizationsKn extends AppLocalizations {
   String get appBarNotificationsTooltip => 'ಅಧಿಸೂಚನೆಗಳು';
 
   @override
+  String get appBarGreetingMorning => 'ಶುಭ ಬೆಳಿಗ್ಗೆ';
+
+  @override
+  String get appBarGreetingAfternoon => 'ಶುಭ ಮಧ್ಯಾಹ್ನ';
+
+  @override
+  String get appBarGreetingEvening => 'ಶುಭ ಸಂಜೆ';
+
+  @override
   String get quickActionAddCustomer => 'ಗ್ರಾಹಕ ಸೇರಿಸಿ';
 
   @override
@@ -154,4 +163,10 @@ class AppLocalizationsKn extends AppLocalizations {
   String txnTimeYesterday(String time) {
     return 'ನಿನ್ನೆ, $time';
   }
+
+  @override
+  String get txnTypeReceived => 'ಸ್ವೀಕರಿಸಿದ';
+
+  @override
+  String get txnTypePaid => 'ಪಾವತಿಸಿದ';
 }

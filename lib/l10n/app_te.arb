@@ -35,6 +35,9 @@
   "navReports": "నివేదికలు",
   "navSettings": "సెట్టింగులు",
   "appBarNotificationsTooltip": "నోటిఫికేషన్లు",
+  "appBarGreetingMorning": "శుభోదయం",
+  "appBarGreetingAfternoon": "శుభ మధ్యాహ్నం",
+  "appBarGreetingEvening": "శుభ సాయంత్రం",
   "quickActionAddCustomer": "కస్టమర్ జోడించు",
   "quickActionGenerateBill": "బిల్లు తయారు చేయి",
   "quickActionSendReminder": "రిమైండర్ పంపండి",
@@ -52,5 +55,7 @@
   "txnTimeToday": "ఈరోజు, {time}",
   "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
   "txnTimeYesterday": "నిన్న, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } }
+  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "txnTypeReceived": "స్వీకరించారు",
+  "txnTypePaid": "చెల్లించారు"
 }

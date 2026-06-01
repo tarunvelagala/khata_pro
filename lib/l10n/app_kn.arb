@@ -35,6 +35,9 @@
   "navReports": "ವರದಿಗಳು",
   "navSettings": "ಸೆಟ್ಟಿಂಗ್ಸ್",
   "appBarNotificationsTooltip": "ಅಧಿಸೂಚನೆಗಳು",
+  "appBarGreetingMorning": "ಶುಭ ಬೆಳಿಗ್ಗೆ",
+  "appBarGreetingAfternoon": "ಶುಭ ಮಧ್ಯಾಹ್ನ",
+  "appBarGreetingEvening": "ಶುಭ ಸಂಜೆ",
   "quickActionAddCustomer": "ಗ್ರಾಹಕ ಸೇರಿಸಿ",
   "quickActionGenerateBill": "ಬಿಲ್ ತಯಾರಿಸಿ",
   "quickActionSendReminder": "ರಿಮೈಂಡರ್ ಕಳುಹಿಸಿ",
@@ -52,5 +55,7 @@
   "txnTimeToday": "ಇಂದು, {time}",
   "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
   "txnTimeYesterday": "ನಿನ್ನೆ, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } }
+  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "txnTypeReceived": "ಸ್ವೀಕರಿಸಿದ",
+  "txnTypePaid": "ಪಾವತಿಸಿದ"
 }

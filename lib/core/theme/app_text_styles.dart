@@ -17,6 +17,11 @@ abstract final class _TypeScale {
   static const double labelMedium = 12;
   static const double labelSmall = 11;
 
+  // Hero balance — larger than headlineLarge to give the dashboard amount
+  // dominant visual weight, matching the scale used by financial apps for
+  // their primary balance display.
+  static const double balanceHero = 42;
+
   static const double spacingTight2 = -0.50;
   static const double spacingTight1 = -0.25;
   static const double spacingXs = 0.10;
@@ -132,5 +137,16 @@ abstract final class AppTextStyles {
     fontSize: _TypeScale.labelSmall,
     fontWeight: FontWeight.w700,
     letterSpacing: _TypeScale.spacingXxl,
+  );
+
+  /// Primary balance display on the dashboard hero band.
+  /// Intentionally larger than headlineLarge to give the amount dominant
+  /// visual weight. Color is not set here — the caller applies semantic
+  /// green/red/white depending on sign and surface.
+  static const balanceHero = TextStyle(
+    inherit: true,
+    fontSize: _TypeScale.balanceHero,
+    fontWeight: FontWeight.w700,
+    letterSpacing: _TypeScale.spacingTight2,
   );
 }

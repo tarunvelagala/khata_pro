@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../l10n/app_localizations.dart';
 
 abstract final class _Dims {
-  static const double balanceFontSize  = 36.0;
   static const double eyeIconSize      = 22.0;
-  static const double cardPaddingV     = 24.0;
-  static const double labelToAmountGap = 4.0;
+  static const double labelToAmountGap = 6.0;
+  static const double paddingV         = 28.0;
 }
 
 class BalanceCard extends StatelessWidget {
@@ -25,26 +25,17 @@ class BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final cs   = Theme.of(context).colorScheme;
-    final tt   = Theme.of(context).textTheme;
+    final l10n   = AppLocalizations.of(context)!;
+    final cs     = Theme.of(context).colorScheme;
     final locale = Localizations.localeOf(context).toString();
 
-    final Color bg;
-    final Color fg;
-    final Color labelColor;
+    final Color amountColor;
     if (netBalance > 0) {
-      bg         = cs.secondaryContainer;
-      fg         = cs.onSecondaryContainer;
-      labelColor = cs.onSecondaryContainer.withValues(alpha: AppDimensions.subtleLabelAlpha);
+      amountColor = cs.secondary;
     } else if (netBalance < 0) {
-      bg         = cs.tertiaryContainer;
-      fg         = cs.onTertiaryContainer;
-      labelColor = cs.onTertiaryContainer.withValues(alpha: AppDimensions.subtleLabelAlpha);
+      amountColor = cs.tertiary;
     } else {
-      bg         = cs.primaryContainer;
-      fg         = cs.onPrimaryContainer;
-      labelColor = cs.onPrimaryContainer.withValues(alpha: AppDimensions.subtleLabelAlpha);
+      amountColor = cs.onSurface;
     }
 
     final formatted = isMasked
@@ -55,15 +46,12 @@ class BalanceCard extends StatelessWidget {
             decimalDigits: 0,
           ).format(netBalance.abs());
 
+    // No borderRadius — the dashboard screen owns the hero band shape.
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
-      ),
       padding: const EdgeInsets.symmetric(
         horizontal: AppDimensions.buttonPaddingH,
-        vertical: _Dims.cardPaddingV,
+        vertical: _Dims.paddingV,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,15 +62,14 @@ class BalanceCard extends StatelessWidget {
               children: [
                 Text(
                   l10n.balanceCardLabel,
-                  style: tt.labelMedium?.copyWith(color: labelColor),
+                  style: AppTextStyles.labelMedium.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: _Dims.labelToAmountGap),
                 Text(
                   formatted,
-                  style: tt.headlineLarge?.copyWith(
-                    fontSize: _Dims.balanceFontSize,
-                    color: fg,
-                  ),
+                  style: AppTextStyles.balanceHero.copyWith(color: amountColor),
                 ),
               ],
             ),
@@ -92,7 +79,7 @@ class BalanceCard extends StatelessWidget {
             icon: Icon(
               isMasked ? Icons.visibility_off_rounded : Icons.visibility_rounded,
               size: _Dims.eyeIconSize,
-              color: fg,
+              color: cs.onSurfaceVariant,
             ),
             tooltip: isMasked ? l10n.balanceShowTooltip : l10n.balanceHideTooltip,
           ),

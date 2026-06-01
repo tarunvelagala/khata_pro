@@ -110,6 +110,15 @@ class AppLocalizationsMl extends AppLocalizations {
   String get appBarNotificationsTooltip => 'അറിയിപ്പുകൾ';
 
   @override
+  String get appBarGreetingMorning => 'ശുഭ പ്രഭാതം';
+
+  @override
+  String get appBarGreetingAfternoon => 'ശുഭ ഉച്ചതിരിഞ്ഞ്';
+
+  @override
+  String get appBarGreetingEvening => 'ശുഭ സന്ധ്യ';
+
+  @override
   String get quickActionAddCustomer => 'ഉപഭോക്താവിനെ ചേർക്കൂ';
 
   @override
@@ -155,4 +164,10 @@ class AppLocalizationsMl extends AppLocalizations {
   String txnTimeYesterday(String time) {
     return 'ഇന്നലെ, $time';
   }
+
+  @override
+  String get txnTypeReceived => 'ലഭിച്ചു';
+
+  @override
+  String get txnTypePaid => 'കൊടുത്തു';
 }

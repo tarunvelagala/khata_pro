@@ -302,6 +302,24 @@ abstract class AppLocalizations {
   /// **'Notifications'**
   String get appBarNotificationsTooltip;
 
+  /// No description provided for @appBarGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get appBarGreetingMorning;
+
+  /// No description provided for @appBarGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get appBarGreetingAfternoon;
+
+  /// No description provided for @appBarGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get appBarGreetingEvening;
+
   /// No description provided for @quickActionAddCustomer.
   ///
   /// In en, this message translates to:
@@ -379,6 +397,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yesterday, {time}'**
   String txnTimeYesterday(String time);
+
+  /// No description provided for @txnTypeReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get txnTypeReceived;
+
+  /// No description provided for @txnTypePaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get txnTypePaid;
 }
 
 class _AppLocalizationsDelegate

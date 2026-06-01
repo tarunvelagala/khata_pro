@@ -35,6 +35,9 @@
   "navReports": "রিপোর্ট",
   "navSettings": "সেটিংস",
   "appBarNotificationsTooltip": "বিজ্ঞপ্তি",
+  "appBarGreetingMorning": "শুভ সকাল",
+  "appBarGreetingAfternoon": "শুভ দুপুর",
+  "appBarGreetingEvening": "শুভ সন্ধ্যা",
   "quickActionAddCustomer": "গ্রাহক যোগ করুন",
   "quickActionGenerateBill": "বিল তৈরি করুন",
   "quickActionSendReminder": "রিমাইন্ডার পাঠান",
@@ -52,5 +55,7 @@
   "txnTimeToday": "আজ, {time}",
   "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
   "txnTimeYesterday": "গতকাল, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } }
+  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "txnTypeReceived": "পেয়েছি",
+  "txnTypePaid": "দিয়েছি"
 }

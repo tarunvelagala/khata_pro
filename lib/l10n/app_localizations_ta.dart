@@ -110,6 +110,15 @@ class AppLocalizationsTa extends AppLocalizations {
   String get appBarNotificationsTooltip => 'அறிவிப்புகள்';
 
   @override
+  String get appBarGreetingMorning => 'காலை வணக்கம்';
+
+  @override
+  String get appBarGreetingAfternoon => 'மதிய வணக்கம்';
+
+  @override
+  String get appBarGreetingEvening => 'மாலை வணக்கம்';
+
+  @override
   String get quickActionAddCustomer => 'வாடிக்கையாளர் சேர்க்கவும்';
 
   @override
@@ -155,4 +164,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String txnTimeYesterday(String time) {
     return 'நேற்று, $time';
   }
+
+  @override
+  String get txnTypeReceived => 'பெற்றது';
+
+  @override
+  String get txnTypePaid => 'கொடுத்தது';
 }

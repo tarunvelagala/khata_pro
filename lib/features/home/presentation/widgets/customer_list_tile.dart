@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/widgets/avatar_palette.dart';
 import '../../domain/models/customer.dart';
 
 abstract final class _Dims {
-  static const double avatarRadius   = 20.0;
+  static const double avatarRadius   = 22.0;
   static const double avatarFontSize = 16.0;
   static const double tileMinHeight  = 64.0;
 }
@@ -64,12 +65,12 @@ class CustomerListTile extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: _Dims.avatarRadius,
-              backgroundColor: cs.primaryContainer,
+              backgroundColor: avatarColorFor(initial),
               child: Text(
                 initial,
                 style: tt.titleSmall?.copyWith(
                   fontSize: _Dims.avatarFontSize,
-                  color: cs.onPrimaryContainer,
+                  color: Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -82,7 +83,10 @@ class CustomerListTile extends StatelessWidget {
                 children: [
                   Text(
                     customer.name,
-                    style: tt.bodyLarge?.copyWith(color: cs.onSurface),
+                    style: tt.titleSmall?.copyWith(
+                      color: cs.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (_subtitle != null)
@@ -98,7 +102,7 @@ class CustomerListTile extends StatelessWidget {
               formatted,
               style: tt.titleMedium?.copyWith(
                 color: amountColor,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 fontFeatures: const [FontFeature.tabularFigures()],
               ),
             ),

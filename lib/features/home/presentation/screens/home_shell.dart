@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/constants/app_dimensions.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'customers_screen.dart';
 import 'dashboard_screen.dart';
+
+abstract final class _Dims {
+  static const double placeholderIconSize = 48.0;
+}
 
 class HomeShell extends ConsumerStatefulWidget {
   const HomeShell({super.key});
@@ -29,10 +32,9 @@ class _HomeShellState extends ConsumerState<HomeShell> {
 
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: _screens),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(AppDimensions.radiusLarge),
-        ),
+      // Material wrapper lets the NavigationBarTheme's elevation and shadowColor
+      // render correctly. ClipRRect was previously masking the shadow entirely.
+      bottomNavigationBar: Material(
         child: NavigationBar(
           selectedIndex: _selectedIndex,
           onDestinationSelected: (i) => setState(() => _selectedIndex = i),
@@ -74,7 +76,13 @@ class _PlaceholderScreen extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: cs.surface,
-      body: Center(child: Icon(icon, size: 48, color: cs.outlineVariant)),
+      body: Center(
+        child: Icon(
+          icon,
+          size: _Dims.placeholderIconSize,
+          color: cs.outlineVariant,
+        ),
+      ),
     );
   }
 }

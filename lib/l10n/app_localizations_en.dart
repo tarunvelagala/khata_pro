@@ -110,6 +110,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appBarNotificationsTooltip => 'Notifications';
 
   @override
+  String get appBarGreetingMorning => 'Good morning';
+
+  @override
+  String get appBarGreetingAfternoon => 'Good afternoon';
+
+  @override
+  String get appBarGreetingEvening => 'Good evening';
+
+  @override
   String get quickActionAddCustomer => 'Add Customer';
 
   @override
@@ -155,4 +164,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String txnTimeYesterday(String time) {
     return 'Yesterday, $time';
   }
+
+  @override
+  String get txnTypeReceived => 'Received';
+
+  @override
+  String get txnTypePaid => 'Paid';
 }

@@ -190,9 +190,15 @@ void main() {
             expect(find.text(l10n.quickActionSendReminder), findsOneWidget);
             expect(find.text(l10n.quickActionRecordPayment), findsOneWidget);
 
-            // CREDIT/DEBIT always in English — financial bank-statement convention.
-            expect(find.text('CREDIT'), findsWidgets);
-            expect(find.text('DEBIT'),  findsWidgets);
+            // CREDIT/DEBIT badges removed — verify transaction tiles render
+            // with colorful deterministic avatars instead.
+            // Scroll to ensure tiles are visible on small viewports where the
+            // hero band pushes the list below the fold.
+            await tester.scrollUntilVisible(
+              find.byType(TransactionListTile).first,
+              80.0,
+            );
+            expect(find.byType(TransactionListTile), findsWidgets);
 
             // Balance card label is its own Text widget.
             expect(find.text(l10n.balanceCardLabel), findsOneWidget);

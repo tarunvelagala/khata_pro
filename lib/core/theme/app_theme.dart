@@ -49,6 +49,12 @@ abstract final class AppTheme {
     onErrorContainer: AppColors.onErrorContainer,
     surface: AppColors.surface,
     onSurface: AppColors.onSurface,
+    surfaceDim: AppColors.surfaceDim,
+    surfaceBright: AppColors.surfaceBright,
+    surfaceContainerLowest: AppColors.surfaceContainerLowest,
+    surfaceContainerLow: AppColors.surfaceContainerLow,
+    surfaceContainer: AppColors.surfaceContainer,
+    surfaceContainerHigh: AppColors.surfaceContainerHigh,
     surfaceContainerHighest: AppColors.surfaceContainerHighest,
     onSurfaceVariant: AppColors.onSurfaceVariant,
     outline: AppColors.outline,
@@ -80,6 +86,12 @@ abstract final class AppTheme {
     onErrorContainer: AppColors.darkOnErrorContainer,
     surface: AppColors.darkSurface,
     onSurface: AppColors.darkOnSurface,
+    surfaceDim: AppColors.darkSurfaceDim,
+    surfaceBright: AppColors.darkSurfaceBright,
+    surfaceContainerLowest: AppColors.darkSurfaceContainerLowest,
+    surfaceContainerLow: AppColors.darkSurfaceContainerLow,
+    surfaceContainer: AppColors.darkSurfaceContainer,
+    surfaceContainerHigh: AppColors.darkSurfaceContainerHigh,
     surfaceContainerHighest: AppColors.darkSurfaceContainerHighest,
     onSurfaceVariant: AppColors.darkOnSurfaceVariant,
     outline: AppColors.darkOutline,
@@ -106,6 +118,10 @@ abstract final class AppTheme {
     outlinedButtonTheme: _outlinedButtonTheme(
       fg: AppColors.primary,
       outline: AppColors.outline,
+    ),
+    filledButtonTheme: _filledButtonTheme(
+      bg: AppColors.primary,
+      fg: AppColors.onPrimary,
     ),
     inputDecorationTheme: _inputTheme(
       fill: AppColors.surfaceContainerHigh,
@@ -143,6 +159,10 @@ abstract final class AppTheme {
       fg: AppColors.darkPrimary,
       outline: AppColors.darkOutline,
     ),
+    filledButtonTheme: _filledButtonTheme(
+      bg: AppColors.darkPrimary,
+      fg: AppColors.darkOnPrimary,
+    ),
     inputDecorationTheme: _inputTheme(
       fill: AppColors.darkSurfaceContainerHigh,
       focusBorder: AppColors.darkPrimary,
@@ -172,8 +192,9 @@ abstract final class AppTheme {
   static CardThemeData _cardTheme(Color color) => CardThemeData(
     color: color,
     elevation: AppDimensions.elevationFlat,
+    shadowColor: AppColors.shadowCard,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      borderRadius: BorderRadius.circular(AppDimensions.radiusXLarge),
     ),
   );
 
@@ -190,7 +211,7 @@ abstract final class AppTheme {
         horizontal: AppDimensions.buttonPaddingH,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
       ),
     ),
   );
@@ -207,7 +228,27 @@ abstract final class AppTheme {
         horizontal: AppDimensions.buttonPaddingH,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+      ),
+    ),
+  );
+
+  // Primary CTAs (ScreenFooter "Continue", "Get Started", "Add Customer") use
+  // FilledButton. Pill shape signals a decisive, full-width action — distinct
+  // from the more neutral ElevatedButton used for inline actions.
+  static FilledButtonThemeData _filledButtonTheme({
+    required Color bg,
+    required Color fg,
+  }) => FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      backgroundColor: bg,
+      foregroundColor: fg,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppDimensions.buttonPaddingV,
+        horizontal: AppDimensions.buttonPaddingH,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
       ),
     ),
   );
@@ -250,6 +291,8 @@ abstract final class AppTheme {
     space: AppDimensions.dividerSpace,
   );
 
+  // The navigation bar uses elevationLifted so it visually separates from
+  // content when home_shell removes the ClipRRect.
   static NavigationBarThemeData _navigationBarTheme({
     required Color bg,
     required Color indicator,
@@ -258,7 +301,8 @@ abstract final class AppTheme {
     required Color unselectedIcon,
   }) => NavigationBarThemeData(
     backgroundColor: bg,
-    elevation: AppDimensions.elevationFlat,
+    elevation: AppDimensions.elevationLifted,
+    shadowColor: AppColors.shadowCard,
     indicatorColor: indicator,
     indicatorShape: const StadiumBorder(),
     labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
@@ -270,17 +314,9 @@ abstract final class AppTheme {
     }),
     labelTextStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return TextStyle(
-          color: selectedLabel,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        );
+        return AppTextStyles.labelSmall.copyWith(color: selectedLabel);
       }
-      return TextStyle(
-        color: unselectedIcon,
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-      );
+      return AppTextStyles.labelSmall.copyWith(color: unselectedIcon);
     }),
   );
 

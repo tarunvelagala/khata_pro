@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_dimensions.dart';
+import '../theme/app_colors.dart';
 
 class ScreenFooter extends StatelessWidget {
   const ScreenFooter({
@@ -16,8 +17,6 @@ class ScreenFooter extends StatelessWidget {
   final String? secondaryLabel;
   final VoidCallback? onSecondary;
 
-  static const double _topRadius    = 24.0;
-
   @override
   Widget build(BuildContext context) {
     final cs          = Theme.of(context).colorScheme;
@@ -25,10 +24,17 @@ class ScreenFooter extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: cs.surfaceContainerHighest,
+        color: cs.surfaceContainerLowest,
         borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(_topRadius),
+          top: Radius.circular(AppDimensions.radiusLarge),
         ),
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.shadowCard,
+            blurRadius: AppDimensions.shadowBlurCard,
+            offset: Offset(0, AppDimensions.shadowOffsetFooter),
+          ),
+        ],
       ),
       padding: EdgeInsets.fromLTRB(
         AppDimensions.buttonPaddingH,
@@ -48,6 +54,7 @@ class ScreenFooter extends StatelessWidget {
             TextButton(
               onPressed: onSecondary,
               style: TextButton.styleFrom(
+                foregroundColor: cs.onSurfaceVariant,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 padding: EdgeInsets.zero,
               ),

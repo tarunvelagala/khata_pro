@@ -109,6 +109,15 @@ class AppLocalizationsMr extends AppLocalizations {
   String get appBarNotificationsTooltip => 'सूचना';
 
   @override
+  String get appBarGreetingMorning => 'शुभ सकाळ';
+
+  @override
+  String get appBarGreetingAfternoon => 'शुभ दुपार';
+
+  @override
+  String get appBarGreetingEvening => 'शुभ संध्याकाळ';
+
+  @override
   String get quickActionAddCustomer => 'ग्राहक जोडा';
 
   @override
@@ -154,4 +163,10 @@ class AppLocalizationsMr extends AppLocalizations {
   String txnTimeYesterday(String time) {
     return 'काल, $time';
   }
+
+  @override
+  String get txnTypeReceived => 'मिळाले';
+
+  @override
+  String get txnTypePaid => 'दिले';
 }

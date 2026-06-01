@@ -25,13 +25,11 @@ const List<_Language> _languages = [
 
 // ── File-private layout constants ─────────────────────────────────────────────
 abstract final class _Dims {
-  static const int    gridColumns          = 2;
-  static const double gridChildRatio       = 2.8;
-  static const double illustrationIconSize = 56.0;
-  static const double headerTopPadding     = 40.0;
-  static const double iconToTitleGap       = 16.0;
-  static const double titleToSubtitleGap   = 8.0;
-  static const double subtitleToGridGap    = 32.0;
+  static const int    gridColumns        = 2;
+  static const double gridChildRatio     = 3.2;
+  static const double headerTopPadding   = 32.0;
+  static const double titleToSubtitleGap = 8.0;
+  static const double subtitleToGridGap  = 32.0;
 }
 
 class LanguageSelectionScreen extends ConsumerStatefulWidget {
@@ -67,7 +65,6 @@ class _LanguageSelectionScreenState
     final l10n        = AppLocalizations.of(context)!;
     final cs          = Theme.of(context).colorScheme;
     final tt          = Theme.of(context).textTheme;
-
     return Scaffold(
       backgroundColor: cs.surface,
       body: SafeArea(
@@ -82,8 +79,6 @@ class _LanguageSelectionScreenState
                 child: Column(
                   children: [
                     const SizedBox(height: _Dims.headerTopPadding),
-                    _IllustrationIcon(cs: cs),
-                    const SizedBox(height: _Dims.iconToTitleGap),
                     Text(
                       l10n.languageScreenTitle,
                       style: tt.headlineMedium,
@@ -131,18 +126,3 @@ class _LanguageSelectionScreenState
 }
 
 // ── Sub-widgets ───────────────────────────────────────────────────────────────
-
-class _IllustrationIcon extends StatelessWidget {
-  const _IllustrationIcon({required this.cs});
-
-  final ColorScheme cs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      Icons.translate_rounded,
-      size: _Dims.illustrationIconSize,
-      color: cs.primary,
-    );
-  }
-}

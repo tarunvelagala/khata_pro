@@ -11,17 +11,23 @@ abstract final class _Dims {
 }
 
 // ── Animation timing ──────────────────────────────────────────────────────────
-// Two-phase controller:
-//   Phase A (hold):      0 ms – 600 ms   bars fully visible, no change
-//   Phase B (fade-out):  600 ms – 900 ms  mark fades to 0
+// Three-phase controller:
+//   Phase A (scale-in):  0 ms – 200 ms   mark scales 0.85 → 1.0
+//   Phase B (hold):    200 ms – 800 ms   fully visible, no change
+//   Phase C (fade-out): 800 ms – 1100 ms  mark fades to 0
 // Flutter starts here after the native splash (which showed the static mark).
 abstract final class _T {
-  static const int holdMs = 600;
-  static const int fadeMs = 300;
-  static const int totalMs = holdMs + fadeMs; // 900 ms
+  static const int scaleMs = 200;
+  static const int holdMs  = 600;
+  static const int fadeMs  = 300;
+  static const int totalMs = scaleMs + holdMs + fadeMs; // 1100 ms
 
-  static const double fadeStart = holdMs / totalMs; // 0.667
-  static const double fadeEnd = 1.0;
+  static const double scaleEnd  = scaleMs / totalMs; // ≈ 0.182
+  static const double fadeStart = (scaleMs + holdMs) / totalMs; // ≈ 0.727
+  static const double fadeEnd   = 1.0;
+
+  static const double scaleFrom = 0.85;
+  static const double scaleTo   = 1.0;
 }
 
 // ── SplashScreen ──────────────────────────────────────────────────────────────
@@ -37,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
   late final Animation<double> _markOpacity;
+  late final Animation<double> _markScale;
 
   @override
   void initState() {
@@ -51,6 +58,13 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(
         parent: _ctrl,
         curve: const Interval(_T.fadeStart, _T.fadeEnd, curve: Curves.easeIn),
+      ),
+    );
+
+    _markScale = Tween<double>(begin: _T.scaleFrom, end: _T.scaleTo).animate(
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: const Interval(0, _T.scaleEnd, curve: Curves.easeOut),
       ),
     );
 
@@ -92,12 +106,15 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: cs.surface,
       body: Center(
         child: AnimatedBuilder(
-          animation: _markOpacity,
+          animation: _ctrl,
           builder: (context, _) => Opacity(
             opacity: _markOpacity.value,
-            child: SizedBox.square(
-              dimension: _Dims.markSize,
-              child: CustomPaint(painter: _KhataProMarkPainter(isDark: isDark)),
+            child: Transform.scale(
+              scale: _markScale.value,
+              child: SizedBox.square(
+                dimension: _Dims.markSize,
+                child: CustomPaint(painter: _KhataProMarkPainter(isDark: isDark)),
+              ),
             ),
           ),
         ),

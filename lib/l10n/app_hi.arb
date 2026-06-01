@@ -35,6 +35,9 @@
   "navReports": "रिपोर्ट",
   "navSettings": "सेटिंग्स",
   "appBarNotificationsTooltip": "सूचनाएं",
+  "appBarGreetingMorning": "शुभ प्रभात",
+  "appBarGreetingAfternoon": "शुभ दोपहर",
+  "appBarGreetingEvening": "शुभ संध्या",
   "quickActionAddCustomer": "ग्राहक जोड़ें",
   "quickActionGenerateBill": "बिल बनाएं",
   "quickActionSendReminder": "रिमाइंडर भेजें",
@@ -52,5 +55,7 @@
   "txnTimeToday": "आज, {time}",
   "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
   "txnTimeYesterday": "कल, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } }
+  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "txnTypeReceived": "मिला",
+  "txnTypePaid": "दिया"
 }

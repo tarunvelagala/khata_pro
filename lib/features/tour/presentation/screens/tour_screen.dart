@@ -16,7 +16,7 @@ import '../widgets/tour_slide.dart';
 
 // ── File-private layout constants ─────────────────────────────────────────────
 abstract final class _Dims {
-  static const double headerTopPadding = 24.0;
+  static const double dotBottomPadding = 16.0;
 }
 
 class TourScreen extends ConsumerStatefulWidget {
@@ -76,13 +76,11 @@ class _TourScreenState extends ConsumerState<TourScreen> {
         illustration: const IllustrationFrame(child: LedgerPhoneIllustration()),
         headline: l10n.tourHeadline1,
         body: l10n.tourBody1,
-        showSwipeHint: true,
       ),
       TourSlide(
         illustration: const IllustrationFrame(child: ReminderCardIllustration()),
         headline: l10n.tourHeadline2,
         body: l10n.tourBody2,
-        showSwipeHint: true,
       ),
       TourSlide(
         illustration: const IllustrationFrame(child: OfflineSafetyIllustration()),
@@ -97,10 +95,6 @@ class _TourScreenState extends ConsumerState<TourScreen> {
         bottom: false,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: _Dims.headerTopPadding),
-              child: DotIndicator(currentPage: _currentPage, count: _pageCount),
-            ),
             Expanded(
               child: PageView(
                 controller: _pageController,
@@ -110,6 +104,10 @@ class _TourScreenState extends ConsumerState<TourScreen> {
                 onPageChanged: (page) => setState(() => _currentPage = page),
                 children: slides,
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: _Dims.dotBottomPadding),
+              child: DotIndicator(currentPage: _currentPage, count: _pageCount),
             ),
             ScreenFooter(
               ctaLabel: isLast ? l10n.tourGetStarted : l10n.tourNext,
