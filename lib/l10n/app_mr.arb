@@ -2,7 +2,6 @@
   "@@locale": "mr",
   "appName": "खाता प्रो",
   "appTagline": "खाता प्रो डिजिटल बही खाता",
-
   "tourHeadline1": "प्रत्येक रुपया ट्रॅक करा",
   "tourBody1": "ग्राहक जोडा, त्यांचे आणि तुमचे उधार नोंदवा. शिल्लक लगेच अपडेट होते.",
   "tourHeadline2": "सहज रिमाइंडर पाठवा",
@@ -13,12 +12,10 @@
   "tourGetStarted": "सुरू करा",
   "tourSkip": "वगळा",
   "tourSwipeHint": "स्वाइप करा",
-
   "languageScreenTitle": "भाषा निवडा",
   "languageScreenSubtitle": "पसंतीची भाषा निवडा. बदल लगेच लागू होईल.",
   "languageContinueButton": "पुढे चला",
   "languageSkipButton": "आत्ता नाही",
-
   "balanceCardLabel": "एकूण शिल्लक",
   "balanceShowTooltip": "शिल्लक दाखवा",
   "balanceHideTooltip": "शिल्लक लपवा",
@@ -48,14 +45,86 @@
   "customersSearch": "ग्राहक शोधा...",
   "customersAddButton": "ग्राहक जोडा",
   "customersNoResults": "\"{query}\" साठी कोणतेही निकाल नाहीत",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} मिनिटांपूर्वी",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "आज, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "काल, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "मिळाले",
-  "txnTypePaid": "दिले"
+  "txnTypePaid": "दिले",
+  "addCustomerTitle": "ग्राहक जोडा",
+  "addCustomerNameLabel": "ग्राहकाचे नाव",
+  "addCustomerNameHint": "उदा. रवी कुमार",
+  "addCustomerPhoneLabel": "फोन नंबर",
+  "addCustomerPhoneHint": "उदा. 9876543210",
+  "addCustomerShopLabel": "दुकान / व्यवसायाचे नाव",
+  "addCustomerShopHint": "उदा. रवी जनरल स्टोअर",
+  "addCustomerBalanceLabel": "प्रारंभिक शिल्लक",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "त्यांनी मला द्यायचे आहे",
+  "addCustomerDirectionIOwe": "मी त्यांना द्यायचे आहे",
+  "addCustomerSave": "ग्राहक जतन करा",
+  "addCustomerError": "जतन करता आले नाही. पुन्हा प्रयत्न करा.",
+  "addCustomerNameRequired": "नाव आवश्यक आहे",
+  "addCustomerNameTooLong": "नाव ८० अक्षरांपेक्षा कमी असावे",
+  "addCustomerPhoneInvalid": "वैध फोन नंबर प्रविष्ट करा (10–15 अंक)",
+  "addCustomerBalanceInvalid": "वैध रक्कम प्रविष्ट करा",
+  "customerDetailOwesYou": "तुम्हाला द्यायचे आहे",
+  "customerDetailYouOwe": "तुम्ही द्यायचे आहे",
+  "customerDetailSettled": "बरोबर",
+  "customerDetailNoEntries": "अजून कोणतेही व्यवहार नाहीत",
+  "customerDetailNoEntriesBody": "या ग्राहकाचा पहिला व्यवहार नोंदवा.",
+  "customerDetailAddFirstEntry": "पहिली नोंद जोडा",
+  "addEntryTitle": "नोंद जोडा",
+  "addEntryGave": "तुम्ही दिले",
+  "addEntryReceived": "तुम्हाला मिळाले",
+  "addEntryAmountLabel": "रक्कम",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "नोट (पर्यायी)",
+  "addEntrySave": "जतन करा",
+  "addEntryAmountRequired": "रक्कम प्रविष्ट करा",
+  "addEntryAmountInvalid": "वैध रक्कम प्रविष्ट करा",
+  "retryButton": "पुन्हा प्रयत्न करा",
+  "dateToday": "आज",
+  "dateYesterday": "काल",
+  "txnDirectionGave": "तुम्ही दिले",
+  "txnDirectionReceived": "तुम्हाला मिळाले",
+  "offlineSafeLabel": "ऑफलाइन सुरक्षित",
+  "offlinePropertyPrivate": "खाजगी",
+  "offlinePropertyOffline": "ऑफलाइन",
+  "offlinePropertySecure": "सुरक्षित",
+  "addCustomerDuplicate": "या नाव, फोन आणि दुकानासह ग्राहक आधीच अस्तित्वात आहे.",
+  "editCustomerTitle": "ग्राहक संपादित करा",
+  "editEntryTitle": "नोंद संपादित करा",
+  "deleteConfirmTitle": "हटवायचे?",
+  "deleteCustomerConfirmBody": "हा ग्राहक आणि त्यांचे सर्व व्यवहार कायमचे हटवले जातील.",
+  "deleteTxnConfirmBody": "ही नोंद कायमची हटवली जाईल.",
+  "deleteAction": "हटवा",
+  "cancelAction": "रद्द करा"
 }

@@ -2,7 +2,6 @@
   "@@locale": "kn",
   "appName": "ಖಾತಾ ಪ್ರೋ",
   "appTagline": "ಖಾತಾ ಪ್ರೋ ಡಿಜಿಟಲ್ ಬಹಿ ಖಾತಾ",
-
   "tourHeadline1": "ಪ್ರತಿ ರೂಪಾಯಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ",
   "tourBody1": "ಗ್ರಾಹಕರನ್ನು ಸೇರಿಸಿ, ಅವರ ಸಾಲ ಮತ್ತು ನಿಮ್ಮ ಸಾಲ ದಾಖಲಿಸಿ. ಬ್ಯಾಲೆನ್ಸ್ ತಕ್ಷಣ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತದೆ.",
   "tourHeadline2": "ಸುಲಭವಾಗಿ ರಿಮೈಂಡರ್ ಕಳುಹಿಸಿ",
@@ -13,12 +12,10 @@
   "tourGetStarted": "ಪ್ರಾರಂಭಿಸಿ",
   "tourSkip": "ಬಿಡಿ",
   "tourSwipeHint": "ಸ್ವೈಪ್ ಮಾಡಿ",
-
   "languageScreenTitle": "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ",
   "languageScreenSubtitle": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ. ಬದಲಾವಣೆ ತಕ್ಷಣ ಅನ್ವಯಿಸುತ್ತದೆ.",
   "languageContinueButton": "ಮುಂದುವರಿಯಿರಿ",
   "languageSkipButton": "ಈಗ ಬೇಡ",
-
   "balanceCardLabel": "ಒಟ್ಟು ಬಾಕಿ",
   "balanceShowTooltip": "ಬಾಕಿ ತೋರಿಸು",
   "balanceHideTooltip": "ಬಾಕಿ ಮರೆಮಾಡು",
@@ -48,14 +45,86 @@
   "customersSearch": "ಗ್ರಾಹಕರನ್ನು ಹುಡುಕಿ...",
   "customersAddButton": "ಗ್ರಾಹಕ ಸೇರಿಸಿ",
   "customersNoResults": "\"{query}\" ಗೆ ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} ನಿಮಿಷ ಹಿಂದೆ",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "ಇಂದು, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "ನಿನ್ನೆ, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "ಸ್ವೀಕರಿಸಿದ",
-  "txnTypePaid": "ಪಾವತಿಸಿದ"
+  "txnTypePaid": "ಪಾವತಿಸಿದ",
+  "addCustomerTitle": "ಗ್ರಾಹಕರನ್ನು ಸೇರಿಸಿ",
+  "addCustomerNameLabel": "ಗ್ರಾಹಕರ ಹೆಸರು",
+  "addCustomerNameHint": "ಉದಾ. ರವಿ ಕುಮಾರ್",
+  "addCustomerPhoneLabel": "ಫೋನ್ ಸಂಖ್ಯೆ",
+  "addCustomerPhoneHint": "ಉದಾ. 9876543210",
+  "addCustomerShopLabel": "ಅಂಗಡಿ / ವ್ಯಾಪಾರದ ಹೆಸರು",
+  "addCustomerShopHint": "ಉದಾ. ರವಿ ಜನರಲ್ ಸ್ಟೋರ್",
+  "addCustomerBalanceLabel": "ಆರಂಭಿಕ ಬಾಕಿ",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "ಅವರು ನನಗೆ ಕೊಡಬೇಕು",
+  "addCustomerDirectionIOwe": "ನಾನು ಅವರಿಗೆ ಕೊಡಬೇಕು",
+  "addCustomerSave": "ಗ್ರಾಹಕ ಉಳಿಸಿ",
+  "addCustomerError": "ಉಳಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+  "addCustomerNameRequired": "ಹೆಸರು ಅಗತ್ಯ",
+  "addCustomerNameTooLong": "ಹೆಸರು 80 ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆ ಇರಬೇಕು",
+  "addCustomerPhoneInvalid": "ಮಾನ್ಯ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ (10–15 ಅಂಕಿ)",
+  "addCustomerBalanceInvalid": "ಮಾನ್ಯ ಮೊತ್ತ ನಮೂದಿಸಿ",
+  "customerDetailOwesYou": "ನಿಮಗೆ ಕೊಡಬೇಕು",
+  "customerDetailYouOwe": "ನೀವು ಕೊಡಬೇಕು",
+  "customerDetailSettled": "ಸರಿದೂಗಿಸಲಾಗಿದೆ",
+  "customerDetailNoEntries": "ಇನ್ನೂ ವ್ಯವಹಾರಗಳಿಲ್ಲ",
+  "customerDetailNoEntriesBody": "ಈ ಗ್ರಾಹಕರ ಮೊದಲ ವ್ಯವಹಾರ ದಾಖಲಿಸಿ.",
+  "customerDetailAddFirstEntry": "ಮೊದಲ ಎಂಟ್ರಿ ಸೇರಿಸಿ",
+  "addEntryTitle": "ಎಂಟ್ರಿ ಸೇರಿಸಿ",
+  "addEntryGave": "ನೀವು ಕೊಟ್ಟಿರಿ",
+  "addEntryReceived": "ನೀವು ಪಡೆದಿರಿ",
+  "addEntryAmountLabel": "ಮೊತ್ತ",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "ಟಿಪ್ಪಣಿ (ಐಚ್ಛಿಕ)",
+  "addEntrySave": "ಉಳಿಸಿ",
+  "addEntryAmountRequired": "ಮೊತ್ತ ನಮೂದಿಸಿ",
+  "addEntryAmountInvalid": "ಮಾನ್ಯ ಮೊತ್ತ ನಮೂದಿಸಿ",
+  "retryButton": "ಮರುಪ್ರಯತ್ನಿಸಿ",
+  "dateToday": "ಇಂದು",
+  "dateYesterday": "ನಿನ್ನೆ",
+  "txnDirectionGave": "ನೀವು ಕೊಟ್ಟಿರಿ",
+  "txnDirectionReceived": "ನೀವು ಪಡೆದಿರಿ",
+  "offlineSafeLabel": "ಆಫ್‌ಲೈನ್ ಸುರಕ್ಷಿತ",
+  "offlinePropertyPrivate": "ಖಾಸಗಿ",
+  "offlinePropertyOffline": "ಆಫ್‌ಲೈನ್",
+  "offlinePropertySecure": "ಸುರಕ್ಷಿತ",
+  "addCustomerDuplicate": "ಈ ಹೆಸರು, ಫೋನ್ ಮತ್ತು ಅಂಗಡಿಯ ಗ್ರಾಹಕ ಈಗಾಗಲೇ ಇದ್ದಾರೆ.",
+  "editCustomerTitle": "ಗ್ರಾಹಕ ಸಂಪಾದಿಸಿ",
+  "editEntryTitle": "ನಮೂದು ಸಂಪಾದಿಸಿ",
+  "deleteConfirmTitle": "ಅಳಿಸಬೇಕೇ?",
+  "deleteCustomerConfirmBody": "ಈ ಗ್ರಾಹಕ ಮತ್ತು ಅವರ ಎಲ್ಲ ವ್ಯವಹಾರಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.",
+  "deleteTxnConfirmBody": "ಈ ನಮೂದನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.",
+  "deleteAction": "ಅಳಿಸಿ",
+  "cancelAction": "ರದ್ದು"
 }

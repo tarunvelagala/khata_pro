@@ -65,5 +65,63 @@
   "txnTimeYesterday": "Yesterday, {time}",
   "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
   "txnTypeReceived": "Received",
-  "txnTypePaid": "Paid"
+  "txnTypePaid": "Paid",
+
+  "addCustomerTitle": "Add Customer",
+  "addCustomerNameLabel": "Customer Name",
+  "addCustomerNameHint": "e.g. Ravi Kumar",
+  "addCustomerPhoneLabel": "Phone Number",
+  "addCustomerPhoneHint": "e.g. 9876543210",
+  "addCustomerShopLabel": "Shop / Business Name",
+  "addCustomerShopHint": "e.g. Ravi General Store",
+  "addCustomerBalanceLabel": "Opening Balance",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "They owe me",
+  "addCustomerDirectionIOwe": "I owe them",
+  "addCustomerSave": "Save Customer",
+  "addCustomerError": "Couldn't save. Please try again.",
+  "addCustomerDuplicate": "A customer with this name, phone and shop already exists.",
+  "addCustomerNameRequired": "Name is required",
+  "addCustomerNameTooLong": "Name must be under 80 characters",
+  "addCustomerPhoneInvalid": "Enter a valid phone number (10–15 digits)",
+  "addCustomerBalanceInvalid": "Enter a valid amount",
+
+  "customerDetailOwesYou": "Owes you",
+  "customerDetailYouOwe": "You owe",
+  "customerDetailSettled": "Settled",
+  "customerDetailNoEntries": "No entries yet",
+  "customerDetailNoEntriesBody": "Record the first transaction for this customer.",
+  "customerDetailAddFirstEntry": "Add First Entry",
+
+  "addEntryTitle": "Add Entry",
+  "addEntryGave": "You Gave",
+  "addEntryReceived": "You Received",
+  "addEntryAmountLabel": "Amount",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "Note (optional)",
+  "addEntrySave": "Save",
+  "addEntryAmountRequired": "Enter an amount",
+  "addEntryAmountInvalid": "Enter a valid amount",
+
+  "retryButton": "Retry",
+
+  "dateToday": "Today",
+  "dateYesterday": "Yesterday",
+
+  "txnDirectionGave": "You gave",
+  "txnDirectionReceived": "You received",
+
+  "offlineSafeLabel": "OFFLINE SAFE",
+  "offlinePropertyPrivate": "Private",
+  "offlinePropertyOffline": "Offline",
+  "offlinePropertySecure": "Secure",
+
+  "editCustomerTitle": "Edit Customer",
+  "editEntryTitle": "Edit Entry",
+
+  "deleteConfirmTitle": "Delete?",
+  "deleteCustomerConfirmBody": "This will permanently delete the customer and all their transactions.",
+  "deleteTxnConfirmBody": "This entry will be permanently deleted.",
+  "deleteAction": "Delete",
+  "cancelAction": "Cancel"
 }

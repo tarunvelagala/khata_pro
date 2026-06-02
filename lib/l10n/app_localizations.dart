@@ -409,6 +409,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Paid'**
   String get txnTypePaid;
+
+  /// No description provided for @addCustomerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Customer'**
+  String get addCustomerTitle;
+
+  /// No description provided for @addCustomerNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get addCustomerNameLabel;
+
+  /// No description provided for @addCustomerNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Ravi Kumar'**
+  String get addCustomerNameHint;
+
+  /// No description provided for @addCustomerPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get addCustomerPhoneLabel;
+
+  /// No description provided for @addCustomerPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 9876543210'**
+  String get addCustomerPhoneHint;
+
+  /// No description provided for @addCustomerShopLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop / Business Name'**
+  String get addCustomerShopLabel;
+
+  /// No description provided for @addCustomerShopHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Ravi General Store'**
+  String get addCustomerShopHint;
+
+  /// No description provided for @addCustomerBalanceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Balance'**
+  String get addCustomerBalanceLabel;
+
+  /// No description provided for @addCustomerBalanceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'0'**
+  String get addCustomerBalanceHint;
+
+  /// No description provided for @addCustomerDirectionTheyOwe.
+  ///
+  /// In en, this message translates to:
+  /// **'They owe me'**
+  String get addCustomerDirectionTheyOwe;
+
+  /// No description provided for @addCustomerDirectionIOwe.
+  ///
+  /// In en, this message translates to:
+  /// **'I owe them'**
+  String get addCustomerDirectionIOwe;
+
+  /// No description provided for @addCustomerSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Customer'**
+  String get addCustomerSave;
+
+  /// No description provided for @addCustomerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save. Please try again.'**
+  String get addCustomerError;
+
+  /// No description provided for @addCustomerDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'A customer with this name, phone and shop already exists.'**
+  String get addCustomerDuplicate;
+
+  /// No description provided for @addCustomerNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get addCustomerNameRequired;
+
+  /// No description provided for @addCustomerNameTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Name must be under 80 characters'**
+  String get addCustomerNameTooLong;
+
+  /// No description provided for @addCustomerPhoneInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid phone number (10–15 digits)'**
+  String get addCustomerPhoneInvalid;
+
+  /// No description provided for @addCustomerBalanceInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount'**
+  String get addCustomerBalanceInvalid;
+
+  /// No description provided for @customerDetailOwesYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Owes you'**
+  String get customerDetailOwesYou;
+
+  /// No description provided for @customerDetailYouOwe.
+  ///
+  /// In en, this message translates to:
+  /// **'You owe'**
+  String get customerDetailYouOwe;
+
+  /// No description provided for @customerDetailSettled.
+  ///
+  /// In en, this message translates to:
+  /// **'Settled'**
+  String get customerDetailSettled;
+
+  /// No description provided for @customerDetailNoEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries yet'**
+  String get customerDetailNoEntries;
+
+  /// No description provided for @customerDetailNoEntriesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Record the first transaction for this customer.'**
+  String get customerDetailNoEntriesBody;
+
+  /// No description provided for @customerDetailAddFirstEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add First Entry'**
+  String get customerDetailAddFirstEntry;
+
+  /// No description provided for @addEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Entry'**
+  String get addEntryTitle;
+
+  /// No description provided for @addEntryGave.
+  ///
+  /// In en, this message translates to:
+  /// **'You Gave'**
+  String get addEntryGave;
+
+  /// No description provided for @addEntryReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'You Received'**
+  String get addEntryReceived;
+
+  /// No description provided for @addEntryAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get addEntryAmountLabel;
+
+  /// No description provided for @addEntryAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'0'**
+  String get addEntryAmountHint;
+
+  /// No description provided for @addEntryNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get addEntryNoteLabel;
+
+  /// No description provided for @addEntrySave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get addEntrySave;
+
+  /// No description provided for @addEntryAmountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount'**
+  String get addEntryAmountRequired;
+
+  /// No description provided for @addEntryAmountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount'**
+  String get addEntryAmountInvalid;
+
+  /// No description provided for @retryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryButton;
+
+  /// No description provided for @dateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get dateToday;
+
+  /// No description provided for @dateYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get dateYesterday;
+
+  /// No description provided for @txnDirectionGave.
+  ///
+  /// In en, this message translates to:
+  /// **'You gave'**
+  String get txnDirectionGave;
+
+  /// No description provided for @txnDirectionReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'You received'**
+  String get txnDirectionReceived;
+
+  /// No description provided for @offlineSafeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'OFFLINE SAFE'**
+  String get offlineSafeLabel;
+
+  /// No description provided for @offlinePropertyPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Private'**
+  String get offlinePropertyPrivate;
+
+  /// No description provided for @offlinePropertyOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get offlinePropertyOffline;
+
+  /// No description provided for @offlinePropertySecure.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure'**
+  String get offlinePropertySecure;
+
+  /// No description provided for @editCustomerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Customer'**
+  String get editCustomerTitle;
+
+  /// No description provided for @editEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Entry'**
+  String get editEntryTitle;
+
+  /// No description provided for @deleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete?'**
+  String get deleteConfirmTitle;
+
+  /// No description provided for @deleteCustomerConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete the customer and all their transactions.'**
+  String get deleteCustomerConfirmBody;
+
+  /// No description provided for @deleteTxnConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This entry will be permanently deleted.'**
+  String get deleteTxnConfirmBody;
+
+  /// No description provided for @deleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteAction;
+
+  /// No description provided for @cancelAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelAction;
 }
 
 class _AppLocalizationsDelegate

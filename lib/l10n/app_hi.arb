@@ -2,7 +2,6 @@
   "@@locale": "hi",
   "appName": "खाता प्रो",
   "appTagline": "खाता प्रो डिजिटल बही खाता",
-
   "tourHeadline1": "हर रुपया ट्रैक करें",
   "tourBody1": "ग्राहक जोड़ें, उनका उधार और आपका उधार रिकॉर्ड करें। बैलेंस तुरंत अपडेट होता है।",
   "tourHeadline2": "आसानी से रिमाइंडर भेजें",
@@ -13,12 +12,10 @@
   "tourGetStarted": "शुरू करें",
   "tourSkip": "छोड़ें",
   "tourSwipeHint": "स्वाइप करें",
-
   "languageScreenTitle": "भाषा चुनें",
   "languageScreenSubtitle": "अपनी पसंदीदा भाषा चुनें। बदलाव तुरंत लागू होगा।",
   "languageContinueButton": "जारी रखें",
   "languageSkipButton": "अभी नहीं",
-
   "balanceCardLabel": "कुल बकाया",
   "balanceShowTooltip": "बकाया दिखाएं",
   "balanceHideTooltip": "बकाया छुपाएं",
@@ -48,14 +45,86 @@
   "customersSearch": "ग्राहक खोजें...",
   "customersAddButton": "ग्राहक जोड़ें",
   "customersNoResults": "\"{query}\" के लिए कोई परिणाम नहीं",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} मिनट पहले",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "आज, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "कल, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "मिला",
-  "txnTypePaid": "दिया"
+  "txnTypePaid": "दिया",
+  "addCustomerTitle": "ग्राहक जोड़ें",
+  "addCustomerNameLabel": "ग्राहक का नाम",
+  "addCustomerNameHint": "जैसे रवि कुमार",
+  "addCustomerPhoneLabel": "फ़ोन नंबर",
+  "addCustomerPhoneHint": "जैसे 9876543210",
+  "addCustomerShopLabel": "दुकान / व्यवसाय का नाम",
+  "addCustomerShopHint": "जैसे रवि जनरल स्टोर",
+  "addCustomerBalanceLabel": "शुरुआती बकाया",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "उन्हें देना है",
+  "addCustomerDirectionIOwe": "मुझे देना है",
+  "addCustomerSave": "ग्राहक सहेजें",
+  "addCustomerError": "सहेजा नहीं जा सका। फिर से प्रयास करें।",
+  "addCustomerNameRequired": "नाम आवश्यक है",
+  "addCustomerNameTooLong": "नाम 80 अक्षरों से कम होना चाहिए",
+  "addCustomerPhoneInvalid": "वैध फ़ोन नंबर दर्ज करें (10–15 अंक)",
+  "addCustomerBalanceInvalid": "वैध राशि दर्ज करें",
+  "customerDetailOwesYou": "आपको देना है",
+  "customerDetailYouOwe": "आपको देना है",
+  "customerDetailSettled": "बराबर",
+  "customerDetailNoEntries": "अभी कोई लेन-देन नहीं",
+  "customerDetailNoEntriesBody": "इस ग्राहक का पहला लेन-देन दर्ज करें।",
+  "customerDetailAddFirstEntry": "पहला लेन-देन जोड़ें",
+  "addEntryTitle": "एंट्री जोड़ें",
+  "addEntryGave": "आपने दिया",
+  "addEntryReceived": "आपको मिला",
+  "addEntryAmountLabel": "राशि",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "नोट (वैकल्पिक)",
+  "addEntrySave": "सहेजें",
+  "addEntryAmountRequired": "राशि दर्ज करें",
+  "addEntryAmountInvalid": "वैध राशि दर्ज करें",
+  "retryButton": "पुनः प्रयास करें",
+  "dateToday": "आज",
+  "dateYesterday": "कल",
+  "txnDirectionGave": "आपने दिया",
+  "txnDirectionReceived": "आपने पाया",
+  "offlineSafeLabel": "ऑफ़लाइन सुरक्षित",
+  "offlinePropertyPrivate": "निजी",
+  "offlinePropertyOffline": "ऑफ़लाइन",
+  "offlinePropertySecure": "सुरक्षित",
+  "addCustomerDuplicate": "इस नाम, फ़ोन और दुकान वाला ग्राहक पहले से मौजूद है।",
+  "editCustomerTitle": "ग्राहक संपादित करें",
+  "editEntryTitle": "एंट्री संपादित करें",
+  "deleteConfirmTitle": "हटाएं?",
+  "deleteCustomerConfirmBody": "यह ग्राहक और उनके सभी लेनदेन स्थायी रूप से हटा दिए जाएंगे।",
+  "deleteTxnConfirmBody": "यह एंट्री स्थायी रूप से हटा दी जाएगी।",
+  "deleteAction": "हटाएं",
+  "cancelAction": "रद्द करें"
 }

@@ -58,8 +58,8 @@ class SelectionCard extends StatelessWidget {
           borderRadius: borderRadius,
           // Contained highlight — no spreading ring, just a tonal overlay
           // that fades within the card boundary. Matches GPay's tap feedback.
-          splashColor: cs.primary.withValues(alpha: 0.08),
-          highlightColor: cs.primary.withValues(alpha: 0.04),
+          splashColor: cs.primary.withValues(alpha: AppDimensions.splashAlpha),
+          highlightColor: cs.primary.withValues(alpha: AppDimensions.highlightAlpha),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: _Dims.paddingH,

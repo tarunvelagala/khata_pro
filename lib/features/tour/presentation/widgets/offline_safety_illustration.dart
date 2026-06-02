@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_dimensions.dart';
+import '../../../../l10n/app_localizations.dart';
+
 abstract final class _Dims {
   static const double shieldIconSize   = 80.0;
   static const double shieldToPillGap  = 12.0;
@@ -44,6 +47,7 @@ class _OfflineSafePill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: _Dims.pillPaddingH,
@@ -51,14 +55,14 @@ class _OfflineSafePill extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: cs.secondaryContainer,
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
       ),
       child: Text(
-        'OFFLINE SAFE',
+        l10n.offlineSafeLabel,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
           color: cs.onSecondaryContainer,
           fontWeight: FontWeight.w700,
-          letterSpacing: 1.0,
+          letterSpacing: AppDimensions.letterSpacingCaps,
         ),
       ),
     );
@@ -72,12 +76,13 @@ class _PropertyRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _PropertyItem(cs: cs, icon: Icons.lock_outline_rounded,    label: 'Private'),
-        _PropertyItem(cs: cs, icon: Icons.wifi_off_rounded,        label: 'Offline'),
-        _PropertyItem(cs: cs, icon: Icons.verified_user_outlined,  label: 'Secure'),
+        _PropertyItem(cs: cs, icon: Icons.lock_outline_rounded,    label: l10n.offlinePropertyPrivate),
+        _PropertyItem(cs: cs, icon: Icons.wifi_off_rounded,        label: l10n.offlinePropertyOffline),
+        _PropertyItem(cs: cs, icon: Icons.verified_user_outlined,  label: l10n.offlinePropertySecure),
       ],
     );
   }
@@ -105,7 +110,7 @@ class _PropertyItem extends StatelessWidget {
           label,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
             color: cs.onSurfaceVariant,
-            letterSpacing: 0.8,
+            letterSpacing: AppDimensions.letterSpacingLabel,
           ),
         ),
       ],

@@ -17,11 +17,14 @@ class CustomerListTile extends StatelessWidget {
     required this.customer,
     required this.isMasked,
     required this.onTap,
+    this.onMoreTap,
   });
 
   final Customer customer;
   final bool isMasked;
   final VoidCallback onTap;
+  /// Called when the trailing ••• button is tapped. Null hides the button.
+  final VoidCallback? onMoreTap;
 
   String? get _subtitle {
     if (customer.shopName != null) return customer.shopName;
@@ -106,6 +109,13 @@ class CustomerListTile extends StatelessWidget {
                 fontFeatures: const [FontFeature.tabularFigures()],
               ),
             ),
+            if (onMoreTap != null) ...[
+              const SizedBox(width: AppDimensions.buttonStackGap),
+              GestureDetector(
+                onTap: onMoreTap,
+                child: Icon(Icons.more_vert_rounded, size: 20, color: cs.onSurfaceVariant),
+              ),
+            ],
           ],
         ),
       ),

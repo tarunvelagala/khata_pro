@@ -2,7 +2,6 @@
   "@@locale": "te",
   "appName": "ఖాతా ప్రో",
   "appTagline": "ఖాతా ప్రో డిజిటల్ బహి ఖాతా",
-
   "tourHeadline1": "ప్రతి రూపాయి ట్రాక్ చేయండి",
   "tourBody1": "కస్టమర్లను జోడించండి, అప్పులు నమోదు చేయండి. బ్యాలెన్స్ వెంటనే అప్‌డేట్ అవుతుంది.",
   "tourHeadline2": "సులభంగా రిమైండర్లు పంపండి",
@@ -13,12 +12,10 @@
   "tourGetStarted": "ప్రారంభించండి",
   "tourSkip": "దాటవేయి",
   "tourSwipeHint": "స్వైప్ చేయండి",
-
   "languageScreenTitle": "భాష ఎంచుకోండి",
   "languageScreenSubtitle": "మీకు ఇష్టమైన భాష ఎంచుకోండి. మార్పు వెంటనే వర్తిస్తుంది.",
   "languageContinueButton": "కొనసాగించు",
   "languageSkipButton": "ఇప్పుడు వద్దు",
-
   "balanceCardLabel": "మొత్తం బాకీ",
   "balanceShowTooltip": "బ్యాలెన్స్ చూపించు",
   "balanceHideTooltip": "బ్యాలెన్స్ దాచు",
@@ -48,14 +45,86 @@
   "customersSearch": "కస్టమర్లను వెతకండి...",
   "customersAddButton": "కస్టమర్ జోడించు",
   "customersNoResults": "\"{query}\" కు ఫలితాలు లేవు",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} నిమిషాల క్రితం",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "ఈరోజు, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "నిన్న, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "స్వీకరించారు",
-  "txnTypePaid": "చెల్లించారు"
+  "txnTypePaid": "చెల్లించారు",
+  "addCustomerTitle": "కస్టమర్‌ని జోడించు",
+  "addCustomerNameLabel": "కస్టమర్ పేరు",
+  "addCustomerNameHint": "ఉదా. రవి కుమార్",
+  "addCustomerPhoneLabel": "ఫోన్ నంబర్",
+  "addCustomerPhoneHint": "ఉదా. 9876543210",
+  "addCustomerShopLabel": "దుకాణం / వ్యాపార పేరు",
+  "addCustomerShopHint": "ఉదా. రవి జనరల్ స్టోర్",
+  "addCustomerBalanceLabel": "ప్రారంభ బ్యాలెన్స్",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "వారు నాకు ఇవ్వాలి",
+  "addCustomerDirectionIOwe": "నేను వారికి ఇవ్వాలి",
+  "addCustomerSave": "కస్టమర్‌ని సేవ్ చేయి",
+  "addCustomerError": "సేవ్ చేయలేదు. మళ్ళీ ప్రయత్నించు.",
+  "addCustomerNameRequired": "పేరు అవసరం",
+  "addCustomerNameTooLong": "పేరు 80 అక్షరాల కంటే తక్కువగా ఉండాలి",
+  "addCustomerPhoneInvalid": "చెల్లుబాటు అయ్యే ఫోన్ నంబర్ నమోదు చేయండి (10–15 అంకెలు)",
+  "addCustomerBalanceInvalid": "చెల్లుబాటు అయ్యే మొత్తం నమోదు చేయండి",
+  "customerDetailOwesYou": "మీకు ఇవ్వాలి",
+  "customerDetailYouOwe": "మీరు ఇవ్వాలి",
+  "customerDetailSettled": "సమతుల్యం",
+  "customerDetailNoEntries": "ఇంకా లావాదేవీలు లేవు",
+  "customerDetailNoEntriesBody": "ఈ కస్టమర్ యొక్క మొదటి లావాదేవీని నమోదు చేయండి.",
+  "customerDetailAddFirstEntry": "మొదటి ఎంట్రీ జోడించు",
+  "addEntryTitle": "ఎంట్రీ జోడించు",
+  "addEntryGave": "మీరు ఇచ్చారు",
+  "addEntryReceived": "మీరు అందుకున్నారు",
+  "addEntryAmountLabel": "మొత్తం",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "గమనిక (ఐచ్ఛికం)",
+  "addEntrySave": "సేవ్ చేయి",
+  "addEntryAmountRequired": "మొత్తం నమోదు చేయండి",
+  "addEntryAmountInvalid": "చెల్లుబాటు అయ్యే మొత్తం నమోదు చేయండి",
+  "retryButton": "మళ్ళీ ప్రయత్నించండి",
+  "dateToday": "ఈరోజు",
+  "dateYesterday": "నిన్న",
+  "txnDirectionGave": "మీరు ఇచ్చారు",
+  "txnDirectionReceived": "మీరు పొందారు",
+  "offlineSafeLabel": "ఆఫ్‌లైన్ సురక్షితం",
+  "offlinePropertyPrivate": "ప్రైవేట్",
+  "offlinePropertyOffline": "ఆఫ్‌లైన్",
+  "offlinePropertySecure": "సురక్షితం",
+  "addCustomerDuplicate": "ఈ పేరు, ఫోన్ మరియు షాప్ తో ఒక కస్టమర్ ఇప్పటికే ఉన్నారు.",
+  "editCustomerTitle": "కస్టమర్‌ని సవరించు",
+  "editEntryTitle": "ఎంట్రీ సవరించు",
+  "deleteConfirmTitle": "తొలగించాలా?",
+  "deleteCustomerConfirmBody": "ఈ కస్టమర్ మరియు వారి అన్ని లావాదేవీలు శాశ్వతంగా తొలగించబడతాయి.",
+  "deleteTxnConfirmBody": "ఈ ఎంట్రీ శాశ్వతంగా తొలగించబడుతుంది.",
+  "deleteAction": "తొలగించు",
+  "cancelAction": "రద్దు"
 }

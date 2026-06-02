@@ -169,4 +169,154 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'दिले';
+
+  @override
+  String get addCustomerTitle => 'ग्राहक जोडा';
+
+  @override
+  String get addCustomerNameLabel => 'ग्राहकाचे नाव';
+
+  @override
+  String get addCustomerNameHint => 'उदा. रवी कुमार';
+
+  @override
+  String get addCustomerPhoneLabel => 'फोन नंबर';
+
+  @override
+  String get addCustomerPhoneHint => 'उदा. 9876543210';
+
+  @override
+  String get addCustomerShopLabel => 'दुकान / व्यवसायाचे नाव';
+
+  @override
+  String get addCustomerShopHint => 'उदा. रवी जनरल स्टोअर';
+
+  @override
+  String get addCustomerBalanceLabel => 'प्रारंभिक शिल्लक';
+
+  @override
+  String get addCustomerBalanceHint => '0';
+
+  @override
+  String get addCustomerDirectionTheyOwe => 'त्यांनी मला द्यायचे आहे';
+
+  @override
+  String get addCustomerDirectionIOwe => 'मी त्यांना द्यायचे आहे';
+
+  @override
+  String get addCustomerSave => 'ग्राहक जतन करा';
+
+  @override
+  String get addCustomerError => 'जतन करता आले नाही. पुन्हा प्रयत्न करा.';
+
+  @override
+  String get addCustomerDuplicate =>
+      'या नाव, फोन आणि दुकानासह ग्राहक आधीच अस्तित्वात आहे.';
+
+  @override
+  String get addCustomerNameRequired => 'नाव आवश्यक आहे';
+
+  @override
+  String get addCustomerNameTooLong => 'नाव ८० अक्षरांपेक्षा कमी असावे';
+
+  @override
+  String get addCustomerPhoneInvalid => 'वैध फोन नंबर प्रविष्ट करा (10–15 अंक)';
+
+  @override
+  String get addCustomerBalanceInvalid => 'वैध रक्कम प्रविष्ट करा';
+
+  @override
+  String get customerDetailOwesYou => 'तुम्हाला द्यायचे आहे';
+
+  @override
+  String get customerDetailYouOwe => 'तुम्ही द्यायचे आहे';
+
+  @override
+  String get customerDetailSettled => 'बरोबर';
+
+  @override
+  String get customerDetailNoEntries => 'अजून कोणतेही व्यवहार नाहीत';
+
+  @override
+  String get customerDetailNoEntriesBody =>
+      'या ग्राहकाचा पहिला व्यवहार नोंदवा.';
+
+  @override
+  String get customerDetailAddFirstEntry => 'पहिली नोंद जोडा';
+
+  @override
+  String get addEntryTitle => 'नोंद जोडा';
+
+  @override
+  String get addEntryGave => 'तुम्ही दिले';
+
+  @override
+  String get addEntryReceived => 'तुम्हाला मिळाले';
+
+  @override
+  String get addEntryAmountLabel => 'रक्कम';
+
+  @override
+  String get addEntryAmountHint => '0';
+
+  @override
+  String get addEntryNoteLabel => 'नोट (पर्यायी)';
+
+  @override
+  String get addEntrySave => 'जतन करा';
+
+  @override
+  String get addEntryAmountRequired => 'रक्कम प्रविष्ट करा';
+
+  @override
+  String get addEntryAmountInvalid => 'वैध रक्कम प्रविष्ट करा';
+
+  @override
+  String get retryButton => 'पुन्हा प्रयत्न करा';
+
+  @override
+  String get dateToday => 'आज';
+
+  @override
+  String get dateYesterday => 'काल';
+
+  @override
+  String get txnDirectionGave => 'तुम्ही दिले';
+
+  @override
+  String get txnDirectionReceived => 'तुम्हाला मिळाले';
+
+  @override
+  String get offlineSafeLabel => 'ऑफलाइन सुरक्षित';
+
+  @override
+  String get offlinePropertyPrivate => 'खाजगी';
+
+  @override
+  String get offlinePropertyOffline => 'ऑफलाइन';
+
+  @override
+  String get offlinePropertySecure => 'सुरक्षित';
+
+  @override
+  String get editCustomerTitle => 'ग्राहक संपादित करा';
+
+  @override
+  String get editEntryTitle => 'नोंद संपादित करा';
+
+  @override
+  String get deleteConfirmTitle => 'हटवायचे?';
+
+  @override
+  String get deleteCustomerConfirmBody =>
+      'हा ग्राहक आणि त्यांचे सर्व व्यवहार कायमचे हटवले जातील.';
+
+  @override
+  String get deleteTxnConfirmBody => 'ही नोंद कायमची हटवली जाईल.';
+
+  @override
+  String get deleteAction => 'हटवा';
+
+  @override
+  String get cancelAction => 'रद्द करा';
 }

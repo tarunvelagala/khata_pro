@@ -169,4 +169,154 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'दिया';
+
+  @override
+  String get addCustomerTitle => 'ग्राहक जोड़ें';
+
+  @override
+  String get addCustomerNameLabel => 'ग्राहक का नाम';
+
+  @override
+  String get addCustomerNameHint => 'जैसे रवि कुमार';
+
+  @override
+  String get addCustomerPhoneLabel => 'फ़ोन नंबर';
+
+  @override
+  String get addCustomerPhoneHint => 'जैसे 9876543210';
+
+  @override
+  String get addCustomerShopLabel => 'दुकान / व्यवसाय का नाम';
+
+  @override
+  String get addCustomerShopHint => 'जैसे रवि जनरल स्टोर';
+
+  @override
+  String get addCustomerBalanceLabel => 'शुरुआती बकाया';
+
+  @override
+  String get addCustomerBalanceHint => '0';
+
+  @override
+  String get addCustomerDirectionTheyOwe => 'उन्हें देना है';
+
+  @override
+  String get addCustomerDirectionIOwe => 'मुझे देना है';
+
+  @override
+  String get addCustomerSave => 'ग्राहक सहेजें';
+
+  @override
+  String get addCustomerError => 'सहेजा नहीं जा सका। फिर से प्रयास करें।';
+
+  @override
+  String get addCustomerDuplicate =>
+      'इस नाम, फ़ोन और दुकान वाला ग्राहक पहले से मौजूद है।';
+
+  @override
+  String get addCustomerNameRequired => 'नाम आवश्यक है';
+
+  @override
+  String get addCustomerNameTooLong => 'नाम 80 अक्षरों से कम होना चाहिए';
+
+  @override
+  String get addCustomerPhoneInvalid => 'वैध फ़ोन नंबर दर्ज करें (10–15 अंक)';
+
+  @override
+  String get addCustomerBalanceInvalid => 'वैध राशि दर्ज करें';
+
+  @override
+  String get customerDetailOwesYou => 'आपको देना है';
+
+  @override
+  String get customerDetailYouOwe => 'आपको देना है';
+
+  @override
+  String get customerDetailSettled => 'बराबर';
+
+  @override
+  String get customerDetailNoEntries => 'अभी कोई लेन-देन नहीं';
+
+  @override
+  String get customerDetailNoEntriesBody =>
+      'इस ग्राहक का पहला लेन-देन दर्ज करें।';
+
+  @override
+  String get customerDetailAddFirstEntry => 'पहला लेन-देन जोड़ें';
+
+  @override
+  String get addEntryTitle => 'एंट्री जोड़ें';
+
+  @override
+  String get addEntryGave => 'आपने दिया';
+
+  @override
+  String get addEntryReceived => 'आपको मिला';
+
+  @override
+  String get addEntryAmountLabel => 'राशि';
+
+  @override
+  String get addEntryAmountHint => '0';
+
+  @override
+  String get addEntryNoteLabel => 'नोट (वैकल्पिक)';
+
+  @override
+  String get addEntrySave => 'सहेजें';
+
+  @override
+  String get addEntryAmountRequired => 'राशि दर्ज करें';
+
+  @override
+  String get addEntryAmountInvalid => 'वैध राशि दर्ज करें';
+
+  @override
+  String get retryButton => 'पुनः प्रयास करें';
+
+  @override
+  String get dateToday => 'आज';
+
+  @override
+  String get dateYesterday => 'कल';
+
+  @override
+  String get txnDirectionGave => 'आपने दिया';
+
+  @override
+  String get txnDirectionReceived => 'आपने पाया';
+
+  @override
+  String get offlineSafeLabel => 'ऑफ़लाइन सुरक्षित';
+
+  @override
+  String get offlinePropertyPrivate => 'निजी';
+
+  @override
+  String get offlinePropertyOffline => 'ऑफ़लाइन';
+
+  @override
+  String get offlinePropertySecure => 'सुरक्षित';
+
+  @override
+  String get editCustomerTitle => 'ग्राहक संपादित करें';
+
+  @override
+  String get editEntryTitle => 'एंट्री संपादित करें';
+
+  @override
+  String get deleteConfirmTitle => 'हटाएं?';
+
+  @override
+  String get deleteCustomerConfirmBody =>
+      'यह ग्राहक और उनके सभी लेनदेन स्थायी रूप से हटा दिए जाएंगे।';
+
+  @override
+  String get deleteTxnConfirmBody => 'यह एंट्री स्थायी रूप से हटा दी जाएगी।';
+
+  @override
+  String get deleteAction => 'हटाएं';
+
+  @override
+  String get cancelAction => 'रद्द करें';
 }

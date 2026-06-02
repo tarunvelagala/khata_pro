@@ -169,4 +169,154 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'দিয়েছি';
+
+  @override
+  String get addCustomerTitle => 'গ্রাহক যোগ করুন';
+
+  @override
+  String get addCustomerNameLabel => 'গ্রাহকের নাম';
+
+  @override
+  String get addCustomerNameHint => 'যেমন রবি কুমার';
+
+  @override
+  String get addCustomerPhoneLabel => 'ফোন নম্বর';
+
+  @override
+  String get addCustomerPhoneHint => 'যেমন 9876543210';
+
+  @override
+  String get addCustomerShopLabel => 'দোকান / ব্যবসার নাম';
+
+  @override
+  String get addCustomerShopHint => 'যেমন রবি জেনারেল স্টোর';
+
+  @override
+  String get addCustomerBalanceLabel => 'প্রারম্ভিক ব্যালেন্স';
+
+  @override
+  String get addCustomerBalanceHint => '0';
+
+  @override
+  String get addCustomerDirectionTheyOwe => 'তারা আমাকে দেবে';
+
+  @override
+  String get addCustomerDirectionIOwe => 'আমি তাদের দেব';
+
+  @override
+  String get addCustomerSave => 'গ্রাহক সংরক্ষণ করুন';
+
+  @override
+  String get addCustomerError => 'সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get addCustomerDuplicate =>
+      'এই নাম, ফোন এবং দোকান সহ একজন গ্রাহক ইতিমধ্যে বিদ্যমান।';
+
+  @override
+  String get addCustomerNameRequired => 'নাম প্রয়োজন';
+
+  @override
+  String get addCustomerNameTooLong => 'নাম ৮০ অক্ষরের কম হতে হবে';
+
+  @override
+  String get addCustomerPhoneInvalid => 'সঠিক ফোন নম্বর দিন (১০–১৫ সংখ্যা)';
+
+  @override
+  String get addCustomerBalanceInvalid => 'সঠিক পরিমাণ দিন';
+
+  @override
+  String get customerDetailOwesYou => 'আপনাকে দিতে হবে';
+
+  @override
+  String get customerDetailYouOwe => 'আপনি দিতে হবে';
+
+  @override
+  String get customerDetailSettled => 'সমতা';
+
+  @override
+  String get customerDetailNoEntries => 'এখনো কোনো লেনদেন নেই';
+
+  @override
+  String get customerDetailNoEntriesBody =>
+      'এই গ্রাহকের প্রথম লেনদেন রেকর্ড করুন।';
+
+  @override
+  String get customerDetailAddFirstEntry => 'প্রথম এন্ট্রি যোগ করুন';
+
+  @override
+  String get addEntryTitle => 'এন্ট্রি যোগ করুন';
+
+  @override
+  String get addEntryGave => 'আপনি দিয়েছেন';
+
+  @override
+  String get addEntryReceived => 'আপনি পেয়েছেন';
+
+  @override
+  String get addEntryAmountLabel => 'পরিমাণ';
+
+  @override
+  String get addEntryAmountHint => '0';
+
+  @override
+  String get addEntryNoteLabel => 'নোট (ঐচ্ছিক)';
+
+  @override
+  String get addEntrySave => 'সংরক্ষণ করুন';
+
+  @override
+  String get addEntryAmountRequired => 'পরিমাণ লিখুন';
+
+  @override
+  String get addEntryAmountInvalid => 'সঠিক পরিমাণ লিখুন';
+
+  @override
+  String get retryButton => 'পুনরায় চেষ্টা করুন';
+
+  @override
+  String get dateToday => 'আজ';
+
+  @override
+  String get dateYesterday => 'গতকাল';
+
+  @override
+  String get txnDirectionGave => 'আপনি দিয়েছেন';
+
+  @override
+  String get txnDirectionReceived => 'আপনি পেয়েছেন';
+
+  @override
+  String get offlineSafeLabel => 'অফলাইন নিরাপদ';
+
+  @override
+  String get offlinePropertyPrivate => 'ব্যক্তিগত';
+
+  @override
+  String get offlinePropertyOffline => 'অফলাইন';
+
+  @override
+  String get offlinePropertySecure => 'নিরাপদ';
+
+  @override
+  String get editCustomerTitle => 'গ্রাহক সম্পাদনা করুন';
+
+  @override
+  String get editEntryTitle => 'এন্ট্রি সম্পাদনা করুন';
+
+  @override
+  String get deleteConfirmTitle => 'মুছবেন?';
+
+  @override
+  String get deleteCustomerConfirmBody =>
+      'এই গ্রাহক এবং তাদের সমস্ত লেনদেন স্থায়ীভাবে মুছে যাবে।';
+
+  @override
+  String get deleteTxnConfirmBody => 'এই এন্ট্রি স্থায়ীভাবে মুছে যাবে।';
+
+  @override
+  String get deleteAction => 'মুছুন';
+
+  @override
+  String get cancelAction => 'বাতিল';
 }

@@ -170,4 +170,156 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'చెల్లించారు';
+
+  @override
+  String get addCustomerTitle => 'కస్టమర్‌ని జోడించు';
+
+  @override
+  String get addCustomerNameLabel => 'కస్టమర్ పేరు';
+
+  @override
+  String get addCustomerNameHint => 'ఉదా. రవి కుమార్';
+
+  @override
+  String get addCustomerPhoneLabel => 'ఫోన్ నంబర్';
+
+  @override
+  String get addCustomerPhoneHint => 'ఉదా. 9876543210';
+
+  @override
+  String get addCustomerShopLabel => 'దుకాణం / వ్యాపార పేరు';
+
+  @override
+  String get addCustomerShopHint => 'ఉదా. రవి జనరల్ స్టోర్';
+
+  @override
+  String get addCustomerBalanceLabel => 'ప్రారంభ బ్యాలెన్స్';
+
+  @override
+  String get addCustomerBalanceHint => '0';
+
+  @override
+  String get addCustomerDirectionTheyOwe => 'వారు నాకు ఇవ్వాలి';
+
+  @override
+  String get addCustomerDirectionIOwe => 'నేను వారికి ఇవ్వాలి';
+
+  @override
+  String get addCustomerSave => 'కస్టమర్‌ని సేవ్ చేయి';
+
+  @override
+  String get addCustomerError => 'సేవ్ చేయలేదు. మళ్ళీ ప్రయత్నించు.';
+
+  @override
+  String get addCustomerDuplicate =>
+      'ఈ పేరు, ఫోన్ మరియు షాప్ తో ఒక కస్టమర్ ఇప్పటికే ఉన్నారు.';
+
+  @override
+  String get addCustomerNameRequired => 'పేరు అవసరం';
+
+  @override
+  String get addCustomerNameTooLong => 'పేరు 80 అక్షరాల కంటే తక్కువగా ఉండాలి';
+
+  @override
+  String get addCustomerPhoneInvalid =>
+      'చెల్లుబాటు అయ్యే ఫోన్ నంబర్ నమోదు చేయండి (10–15 అంకెలు)';
+
+  @override
+  String get addCustomerBalanceInvalid =>
+      'చెల్లుబాటు అయ్యే మొత్తం నమోదు చేయండి';
+
+  @override
+  String get customerDetailOwesYou => 'మీకు ఇవ్వాలి';
+
+  @override
+  String get customerDetailYouOwe => 'మీరు ఇవ్వాలి';
+
+  @override
+  String get customerDetailSettled => 'సమతుల్యం';
+
+  @override
+  String get customerDetailNoEntries => 'ఇంకా లావాదేవీలు లేవు';
+
+  @override
+  String get customerDetailNoEntriesBody =>
+      'ఈ కస్టమర్ యొక్క మొదటి లావాదేవీని నమోదు చేయండి.';
+
+  @override
+  String get customerDetailAddFirstEntry => 'మొదటి ఎంట్రీ జోడించు';
+
+  @override
+  String get addEntryTitle => 'ఎంట్రీ జోడించు';
+
+  @override
+  String get addEntryGave => 'మీరు ఇచ్చారు';
+
+  @override
+  String get addEntryReceived => 'మీరు అందుకున్నారు';
+
+  @override
+  String get addEntryAmountLabel => 'మొత్తం';
+
+  @override
+  String get addEntryAmountHint => '0';
+
+  @override
+  String get addEntryNoteLabel => 'గమనిక (ఐచ్ఛికం)';
+
+  @override
+  String get addEntrySave => 'సేవ్ చేయి';
+
+  @override
+  String get addEntryAmountRequired => 'మొత్తం నమోదు చేయండి';
+
+  @override
+  String get addEntryAmountInvalid => 'చెల్లుబాటు అయ్యే మొత్తం నమోదు చేయండి';
+
+  @override
+  String get retryButton => 'మళ్ళీ ప్రయత్నించండి';
+
+  @override
+  String get dateToday => 'ఈరోజు';
+
+  @override
+  String get dateYesterday => 'నిన్న';
+
+  @override
+  String get txnDirectionGave => 'మీరు ఇచ్చారు';
+
+  @override
+  String get txnDirectionReceived => 'మీరు పొందారు';
+
+  @override
+  String get offlineSafeLabel => 'ఆఫ్‌లైన్ సురక్షితం';
+
+  @override
+  String get offlinePropertyPrivate => 'ప్రైవేట్';
+
+  @override
+  String get offlinePropertyOffline => 'ఆఫ్‌లైన్';
+
+  @override
+  String get offlinePropertySecure => 'సురక్షితం';
+
+  @override
+  String get editCustomerTitle => 'కస్టమర్‌ని సవరించు';
+
+  @override
+  String get editEntryTitle => 'ఎంట్రీ సవరించు';
+
+  @override
+  String get deleteConfirmTitle => 'తొలగించాలా?';
+
+  @override
+  String get deleteCustomerConfirmBody =>
+      'ఈ కస్టమర్ మరియు వారి అన్ని లావాదేవీలు శాశ్వతంగా తొలగించబడతాయి.';
+
+  @override
+  String get deleteTxnConfirmBody => 'ఈ ఎంట్రీ శాశ్వతంగా తొలగించబడుతుంది.';
+
+  @override
+  String get deleteAction => 'తొలగించు';
+
+  @override
+  String get cancelAction => 'రద్దు';
 }

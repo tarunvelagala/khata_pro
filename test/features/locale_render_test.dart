@@ -28,12 +28,12 @@ final _stubCustomers = [
 
 final _stubTransactions = [
   Transaction(
-    id: '1', customerName: 'Anjali Sharma', shopName: 'Boutique',
+    id: '1', customerId: '1', customerName: 'Anjali Sharma', shopName: 'Boutique',
     avatarLabel: 'AS', amount: 1200, isCredit: true,
     timestamp: DateTime.now().subtract(const Duration(hours: 2)),
   ),
   Transaction(
-    id: '2', customerName: 'Ravi Kumar', shopName: 'Kirana Store',
+    id: '2', customerId: '2', customerName: 'Ravi Kumar', shopName: 'Kirana Store',
     avatarLabel: 'RK', amount: 350, isCredit: false,
     timestamp: DateTime.now().subtract(const Duration(days: 1)),
   ),
@@ -99,14 +99,14 @@ class _StubCustomerNotifier extends CustomerNotifier {
   _StubCustomerNotifier(this._data);
   final List<Customer> _data;
   @override
-  List<Customer> build() => _data;
+  Stream<List<Customer>> build() => Stream.value(_data);
 }
 
 class _StubTransactionNotifier extends TransactionNotifier {
   _StubTransactionNotifier(this._data);
   final List<Transaction> _data;
   @override
-  List<Transaction> build() => _data;
+  Stream<List<Transaction>> build() => Stream.value(_data);
 }
 
 // ── Locales ────────────────────────────────────────────────────────────────────

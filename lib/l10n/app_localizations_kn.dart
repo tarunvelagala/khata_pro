@@ -169,4 +169,154 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'ಪಾವತಿಸಿದ';
+
+  @override
+  String get addCustomerTitle => 'ಗ್ರಾಹಕರನ್ನು ಸೇರಿಸಿ';
+
+  @override
+  String get addCustomerNameLabel => 'ಗ್ರಾಹಕರ ಹೆಸರು';
+
+  @override
+  String get addCustomerNameHint => 'ಉದಾ. ರವಿ ಕುಮಾರ್';
+
+  @override
+  String get addCustomerPhoneLabel => 'ಫೋನ್ ಸಂಖ್ಯೆ';
+
+  @override
+  String get addCustomerPhoneHint => 'ಉದಾ. 9876543210';
+
+  @override
+  String get addCustomerShopLabel => 'ಅಂಗಡಿ / ವ್ಯಾಪಾರದ ಹೆಸರು';
+
+  @override
+  String get addCustomerShopHint => 'ಉದಾ. ರವಿ ಜನರಲ್ ಸ್ಟೋರ್';
+
+  @override
+  String get addCustomerBalanceLabel => 'ಆರಂಭಿಕ ಬಾಕಿ';
+
+  @override
+  String get addCustomerBalanceHint => '0';
+
+  @override
+  String get addCustomerDirectionTheyOwe => 'ಅವರು ನನಗೆ ಕೊಡಬೇಕು';
+
+  @override
+  String get addCustomerDirectionIOwe => 'ನಾನು ಅವರಿಗೆ ಕೊಡಬೇಕು';
+
+  @override
+  String get addCustomerSave => 'ಗ್ರಾಹಕ ಉಳಿಸಿ';
+
+  @override
+  String get addCustomerError => 'ಉಳಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get addCustomerDuplicate =>
+      'ಈ ಹೆಸರು, ಫೋನ್ ಮತ್ತು ಅಂಗಡಿಯ ಗ್ರಾಹಕ ಈಗಾಗಲೇ ಇದ್ದಾರೆ.';
+
+  @override
+  String get addCustomerNameRequired => 'ಹೆಸರು ಅಗತ್ಯ';
+
+  @override
+  String get addCustomerNameTooLong => 'ಹೆಸರು 80 ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆ ಇರಬೇಕು';
+
+  @override
+  String get addCustomerPhoneInvalid =>
+      'ಮಾನ್ಯ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ (10–15 ಅಂಕಿ)';
+
+  @override
+  String get addCustomerBalanceInvalid => 'ಮಾನ್ಯ ಮೊತ್ತ ನಮೂದಿಸಿ';
+
+  @override
+  String get customerDetailOwesYou => 'ನಿಮಗೆ ಕೊಡಬೇಕು';
+
+  @override
+  String get customerDetailYouOwe => 'ನೀವು ಕೊಡಬೇಕು';
+
+  @override
+  String get customerDetailSettled => 'ಸರಿದೂಗಿಸಲಾಗಿದೆ';
+
+  @override
+  String get customerDetailNoEntries => 'ಇನ್ನೂ ವ್ಯವಹಾರಗಳಿಲ್ಲ';
+
+  @override
+  String get customerDetailNoEntriesBody => 'ಈ ಗ್ರಾಹಕರ ಮೊದಲ ವ್ಯವಹಾರ ದಾಖಲಿಸಿ.';
+
+  @override
+  String get customerDetailAddFirstEntry => 'ಮೊದಲ ಎಂಟ್ರಿ ಸೇರಿಸಿ';
+
+  @override
+  String get addEntryTitle => 'ಎಂಟ್ರಿ ಸೇರಿಸಿ';
+
+  @override
+  String get addEntryGave => 'ನೀವು ಕೊಟ್ಟಿರಿ';
+
+  @override
+  String get addEntryReceived => 'ನೀವು ಪಡೆದಿರಿ';
+
+  @override
+  String get addEntryAmountLabel => 'ಮೊತ್ತ';
+
+  @override
+  String get addEntryAmountHint => '0';
+
+  @override
+  String get addEntryNoteLabel => 'ಟಿಪ್ಪಣಿ (ಐಚ್ಛಿಕ)';
+
+  @override
+  String get addEntrySave => 'ಉಳಿಸಿ';
+
+  @override
+  String get addEntryAmountRequired => 'ಮೊತ್ತ ನಮೂದಿಸಿ';
+
+  @override
+  String get addEntryAmountInvalid => 'ಮಾನ್ಯ ಮೊತ್ತ ನಮೂದಿಸಿ';
+
+  @override
+  String get retryButton => 'ಮರುಪ್ರಯತ್ನಿಸಿ';
+
+  @override
+  String get dateToday => 'ಇಂದು';
+
+  @override
+  String get dateYesterday => 'ನಿನ್ನೆ';
+
+  @override
+  String get txnDirectionGave => 'ನೀವು ಕೊಟ್ಟಿರಿ';
+
+  @override
+  String get txnDirectionReceived => 'ನೀವು ಪಡೆದಿರಿ';
+
+  @override
+  String get offlineSafeLabel => 'ಆಫ್‌ಲೈನ್ ಸುರಕ್ಷಿತ';
+
+  @override
+  String get offlinePropertyPrivate => 'ಖಾಸಗಿ';
+
+  @override
+  String get offlinePropertyOffline => 'ಆಫ್‌ಲೈನ್';
+
+  @override
+  String get offlinePropertySecure => 'ಸುರಕ್ಷಿತ';
+
+  @override
+  String get editCustomerTitle => 'ಗ್ರಾಹಕ ಸಂಪಾದಿಸಿ';
+
+  @override
+  String get editEntryTitle => 'ನಮೂದು ಸಂಪಾದಿಸಿ';
+
+  @override
+  String get deleteConfirmTitle => 'ಅಳಿಸಬೇಕೇ?';
+
+  @override
+  String get deleteCustomerConfirmBody =>
+      'ಈ ಗ್ರಾಹಕ ಮತ್ತು ಅವರ ಎಲ್ಲ ವ್ಯವಹಾರಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.';
+
+  @override
+  String get deleteTxnConfirmBody => 'ಈ ನಮೂದನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.';
+
+  @override
+  String get deleteAction => 'ಅಳಿಸಿ';
+
+  @override
+  String get cancelAction => 'ರದ್ದು';
 }

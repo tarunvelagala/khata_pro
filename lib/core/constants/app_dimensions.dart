@@ -114,4 +114,41 @@ abstract final class AppDimensions {
   /// Bottom scroll padding that keeps list content clear of the FAB.
   /// FAB diameter (56) + bottom safe area allowance + breathing room.
   static const double fabClearance = 96;
+
+  // ── Empty / error states ──────────────────────────────────────────
+  /// Large icon in full-screen empty states (e.g. no customers, no entries).
+  static const double emptyIconSize = 64.0;
+
+  /// Medium icon in inline empty/error states (search-no-results, error view).
+  static const double errorIconSize = 48.0;
+
+  /// Vertical gap between icon and error/retry button in error views.
+  static const double errorIconGap = 16.0;
+
+  // ── Segmented button ──────────────────────────────────────────────
+  /// Horizontal padding inside each segment — keeps label text away from edges
+  /// and matches the overall input padding rhythm.
+  static const double segmentPaddingH = 16.0;
+
+  /// Vertical padding inside each segment.
+  static const double segmentPaddingV = 10.0;
+
+  // ── Pill toggle ───────────────────────────────────────────────────
+  /// Fixed height of the binary PillToggle widget. Matches standard
+  /// input / button height so it sits flush in a form column.
+  static const double pillToggleHeight = 48.0;
+
+  // ── Ink feedback ─────────────────────────────────────────────────
+  /// Alpha for ripple splash on tonal surfaces (e.g. selection cards).
+  static const double splashAlpha = 0.08;
+
+  /// Alpha for pressed highlight on tonal surfaces.
+  static const double highlightAlpha = 0.04;
+
+  // ── Typography detail ─────────────────────────────────────────────
+  /// Letter spacing for ALL-CAPS badge / pill labels.
+  static const double letterSpacingCaps = 1.0;
+
+  /// Letter spacing for small property labels beneath icons.
+  static const double letterSpacingLabel = 0.8;
 }

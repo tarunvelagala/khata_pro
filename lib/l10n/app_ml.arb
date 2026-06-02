@@ -2,7 +2,6 @@
   "@@locale": "ml",
   "appName": "ഖാതാ പ്രോ",
   "appTagline": "ഖാതാ പ്രോ ഡിജിറ്റൽ ബഹി ഖാതാ",
-
   "tourHeadline1": "ഓരോ രൂപയും ട്രാക്ക് ചെയ്യൂ",
   "tourBody1": "ഉപഭോക്താക്കളെ ചേർക്കൂ, കടം രേഖപ്പെടുത്തൂ. ബാലൻസ് ഉടനടി അപ്‌ഡേറ്റ് ആകും.",
   "tourHeadline2": "എളുപ്പത്തിൽ റിമൈൻഡർ അയക്കൂ",
@@ -13,12 +12,10 @@
   "tourGetStarted": "തുടങ്ങൂ",
   "tourSkip": "ഒഴിവാക്കൂ",
   "tourSwipeHint": "സ്വൈപ്പ് ചെയ്യൂ",
-
   "languageScreenTitle": "ഭാഷ തിരഞ്ഞെടുക്കൂ",
   "languageScreenSubtitle": "ഇഷ്ടമുള്ള ഭാഷ തിരഞ്ഞെടുക്കൂ. മാറ്റം ഉടനടി ബാധകമാകും.",
   "languageContinueButton": "തുടരൂ",
   "languageSkipButton": "ഇപ്പോൾ വേണ്ട",
-
   "balanceCardLabel": "മൊത്തം ബാക്കി",
   "balanceShowTooltip": "ബാലൻസ് കാണിക്കൂ",
   "balanceHideTooltip": "ബാലൻസ് മറയ്ക്കൂ",
@@ -48,14 +45,86 @@
   "customersSearch": "ഉപഭോക്താക്കളെ തിരയൂ...",
   "customersAddButton": "ഉപഭോക്താവിനെ ചേർക്കൂ",
   "customersNoResults": "\"{query}\" ക്ക് ഫലങ്ങളൊന്നുമില്ല",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} മിനിറ്റ് മുമ്പ്",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "ഇന്ന്, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "ഇന്നലെ, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "ലഭിച്ചു",
-  "txnTypePaid": "കൊടുത്തു"
+  "txnTypePaid": "കൊടുത്തു",
+  "addCustomerTitle": "ഉപഭോക്താവിനെ ചേർക്കുക",
+  "addCustomerNameLabel": "ഉപഭോക്താവിന്റെ പേര്",
+  "addCustomerNameHint": "ഉദാ. രവി കുമാർ",
+  "addCustomerPhoneLabel": "ഫോൺ നമ്പർ",
+  "addCustomerPhoneHint": "ഉദാ. 9876543210",
+  "addCustomerShopLabel": "കട / ബിസിനസ്സ് പേര്",
+  "addCustomerShopHint": "ഉദാ. രവി ജനറൽ സ്റ്റോർ",
+  "addCustomerBalanceLabel": "തുടക്ക ബാലൻസ്",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "അവർ എനിക്ക് കൊടുക്കണം",
+  "addCustomerDirectionIOwe": "ഞാൻ അവർക്ക് കൊടുക്കണം",
+  "addCustomerSave": "ഉപഭോക്താവിനെ സംരക്ഷിക്കുക",
+  "addCustomerError": "സംരക്ഷിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.",
+  "addCustomerNameRequired": "പേര് ആവശ്യമാണ്",
+  "addCustomerNameTooLong": "പേര് 80 അക്ഷരങ്ങളിൽ കുറവായിരിക്കണം",
+  "addCustomerPhoneInvalid": "സാധുവായ ഫോൺ നമ്പർ നൽകുക (10–15 അക്കങ്ങൾ)",
+  "addCustomerBalanceInvalid": "സാധുവായ തുക നൽകുക",
+  "customerDetailOwesYou": "നിങ്ങൾക്ക് കൊടുക്കണം",
+  "customerDetailYouOwe": "നിങ്ങൾ കൊടുക്കണം",
+  "customerDetailSettled": "തീർക്കപ്പെട്ടു",
+  "customerDetailNoEntries": "ഇനിയും ഇടപാടുകൾ ഇല്ല",
+  "customerDetailNoEntriesBody": "ഈ ഉപഭോക്താവിന്റെ ആദ്യ ഇടപാട് രേഖപ്പെടുത്തുക.",
+  "customerDetailAddFirstEntry": "ആദ്യ എൻട്രി ചേർക്കുക",
+  "addEntryTitle": "എൻട്രി ചേർക്കുക",
+  "addEntryGave": "നിങ്ങൾ കൊടുത്തു",
+  "addEntryReceived": "നിങ്ങൾ കിട്ടി",
+  "addEntryAmountLabel": "തുക",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "കുറിപ്പ് (ഐഛിക)",
+  "addEntrySave": "സംരക്ഷിക്കുക",
+  "addEntryAmountRequired": "തുക നൽകുക",
+  "addEntryAmountInvalid": "സാധുവായ തുക നൽകുക",
+  "retryButton": "വീണ്ടും ശ്രമിക്കുക",
+  "dateToday": "ഇന്ന്",
+  "dateYesterday": "ഇന്നലെ",
+  "txnDirectionGave": "നിങ്ങൾ കൊടുത്തു",
+  "txnDirectionReceived": "നിങ്ങൾ സ്വീകരിച്ചു",
+  "offlineSafeLabel": "ഓഫ്‌ലൈൻ സുരക്ഷിതം",
+  "offlinePropertyPrivate": "സ്വകാര്യം",
+  "offlinePropertyOffline": "ഓഫ്‌ലൈൻ",
+  "offlinePropertySecure": "സുരക്ഷിതം",
+  "addCustomerDuplicate": "ഈ പേര്, ഫോൺ, ഷോപ്പ് എന്നിവയുള്ള ഒരു കസ്റ്റമർ ഇതിനകം നിലവിലുണ്ട്.",
+  "editCustomerTitle": "കസ്റ്റമർ എഡിറ്റ് ചെയ്യുക",
+  "editEntryTitle": "എൻട്രി എഡിറ്റ് ചെയ്യുക",
+  "deleteConfirmTitle": "ഇല്ലാതാക്കണോ?",
+  "deleteCustomerConfirmBody": "ഈ കസ്റ്റമറും അവരുടെ എല്ലാ ഇടപാടുകളും സ്ഥിരമായി ഇല്ലാതാകും.",
+  "deleteTxnConfirmBody": "ഈ എൻട്രി സ്ഥിരമായി ഇല്ലാതാകും.",
+  "deleteAction": "ഇല്ലാതാക്കുക",
+  "cancelAction": "റദ്ദാക്കുക"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -30,20 +31,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n         = AppLocalizations.of(context)!;
-    final cs           = Theme.of(context).colorScheme;
-    final tt           = Theme.of(context).textTheme;
-    final topInset     = MediaQuery.paddingOf(context).top;
-    final customers    = ref.watch(customerProvider);
-    final transactions = ref.watch(transactionProvider);
-
-    final netBalance   = customers.fold(0.0, (sum, c) => sum + c.netBalance);
-    final totalIncome  = customers
-        .where((c) => c.netBalance > 0)
-        .fold(0.0, (sum, c) => sum + c.netBalance);
-    final totalExpense = customers
-        .where((c) => c.netBalance < 0)
-        .fold(0.0, (sum, c) => sum + c.netBalance.abs());
+    final l10n             = AppLocalizations.of(context)!;
+    final cs               = Theme.of(context).colorScheme;
+    final tt               = Theme.of(context).textTheme;
+    final topInset         = MediaQuery.paddingOf(context).top;
+    final customersAsync   = ref.watch(customerProvider);
+    final transactionsAsync = ref.watch(transactionProvider);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: cs.brightness == Brightness.dark
@@ -51,12 +44,35 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           : SystemUiOverlayStyle.dark,
       child: Scaffold(
         backgroundColor: cs.surface,
-        body: customers.isEmpty
-            ? SafeArea(
+        body: customersAsync.when(
+          loading: () => const _LoadingView(),
+          error: (e, _) => _ErrorView(
+            onRetry: () => ref.invalidate(customerProvider),
+          ),
+          data: (customers) {
+            final netBalance   = customers.fold(0.0, (sum, c) => sum + c.netBalance);
+            final totalIncome  = customers
+                .where((c) => c.netBalance > 0)
+                .fold(0.0, (sum, c) => sum + c.netBalance);
+            final totalExpense = customers
+                .where((c) => c.netBalance < 0)
+                .fold(0.0, (sum, c) => sum + c.netBalance.abs());
+
+            if (customers.isEmpty) {
+              return SafeArea(
                 bottom: false,
-                child: HomeEmptyState(onAddCustomer: () {}),
-              )
-            : CustomScrollView(
+                child: HomeEmptyState(
+                  onAddCustomer: () => context.push('/customers/add'),
+                ),
+              );
+            }
+
+            return transactionsAsync.when(
+              loading: () => const _LoadingView(),
+              error: (e, _) => _ErrorView(
+                onRetry: () => ref.invalidate(transactionProvider),
+              ),
+              data: (transactions) => CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
                     child: _HeroBand(
@@ -65,7 +81,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       totalIncome: totalIncome,
                       totalExpense: totalExpense,
                       isMasked: _isMasked,
-                      onToggleMask: () => setState(() => _isMasked = !_isMasked),
+                      onToggleMask: () =>
+                          setState(() => _isMasked = !_isMasked),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -116,8 +133,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   ),
                 ],
               ),
+            );
+          },
+        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () => context.push('/customers/add'),
           tooltip: l10n.homeAddEntry,
           child: const Icon(Icons.add_rounded),
         ),
@@ -187,6 +207,36 @@ class _HeroBand extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _LoadingView extends StatelessWidget {
+  const _LoadingView();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator());
+  }
+}
+
+class _ErrorView extends StatelessWidget {
+  const _ErrorView({required this.onRetry});
+
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.error_outline_rounded, color: cs.error, size: AppDimensions.errorIconSize),
+          const SizedBox(height: AppDimensions.errorIconGap),
+          FilledButton(onPressed: onRetry, child: Text(AppLocalizations.of(context)!.retryButton)),
+        ],
+      ),
     );
   }
 }

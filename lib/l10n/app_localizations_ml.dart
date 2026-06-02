@@ -170,4 +170,155 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'കൊടുത്തു';
+
+  @override
+  String get addCustomerTitle => 'ഉപഭോക്താവിനെ ചേർക്കുക';
+
+  @override
+  String get addCustomerNameLabel => 'ഉപഭോക്താവിന്റെ പേര്';
+
+  @override
+  String get addCustomerNameHint => 'ഉദാ. രവി കുമാർ';
+
+  @override
+  String get addCustomerPhoneLabel => 'ഫോൺ നമ്പർ';
+
+  @override
+  String get addCustomerPhoneHint => 'ഉദാ. 9876543210';
+
+  @override
+  String get addCustomerShopLabel => 'കട / ബിസിനസ്സ് പേര്';
+
+  @override
+  String get addCustomerShopHint => 'ഉദാ. രവി ജനറൽ സ്റ്റോർ';
+
+  @override
+  String get addCustomerBalanceLabel => 'തുടക്ക ബാലൻസ്';
+
+  @override
+  String get addCustomerBalanceHint => '0';
+
+  @override
+  String get addCustomerDirectionTheyOwe => 'അവർ എനിക്ക് കൊടുക്കണം';
+
+  @override
+  String get addCustomerDirectionIOwe => 'ഞാൻ അവർക്ക് കൊടുക്കണം';
+
+  @override
+  String get addCustomerSave => 'ഉപഭോക്താവിനെ സംരക്ഷിക്കുക';
+
+  @override
+  String get addCustomerError => 'സംരക്ഷിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get addCustomerDuplicate =>
+      'ഈ പേര്, ഫോൺ, ഷോപ്പ് എന്നിവയുള്ള ഒരു കസ്റ്റമർ ഇതിനകം നിലവിലുണ്ട്.';
+
+  @override
+  String get addCustomerNameRequired => 'പേര് ആവശ്യമാണ്';
+
+  @override
+  String get addCustomerNameTooLong => 'പേര് 80 അക്ഷരങ്ങളിൽ കുറവായിരിക്കണം';
+
+  @override
+  String get addCustomerPhoneInvalid =>
+      'സാധുവായ ഫോൺ നമ്പർ നൽകുക (10–15 അക്കങ്ങൾ)';
+
+  @override
+  String get addCustomerBalanceInvalid => 'സാധുവായ തുക നൽകുക';
+
+  @override
+  String get customerDetailOwesYou => 'നിങ്ങൾക്ക് കൊടുക്കണം';
+
+  @override
+  String get customerDetailYouOwe => 'നിങ്ങൾ കൊടുക്കണം';
+
+  @override
+  String get customerDetailSettled => 'തീർക്കപ്പെട്ടു';
+
+  @override
+  String get customerDetailNoEntries => 'ഇനിയും ഇടപാടുകൾ ഇല്ല';
+
+  @override
+  String get customerDetailNoEntriesBody =>
+      'ഈ ഉപഭോക്താവിന്റെ ആദ്യ ഇടപാട് രേഖപ്പെടുത്തുക.';
+
+  @override
+  String get customerDetailAddFirstEntry => 'ആദ്യ എൻട്രി ചേർക്കുക';
+
+  @override
+  String get addEntryTitle => 'എൻട്രി ചേർക്കുക';
+
+  @override
+  String get addEntryGave => 'നിങ്ങൾ കൊടുത്തു';
+
+  @override
+  String get addEntryReceived => 'നിങ്ങൾ കിട്ടി';
+
+  @override
+  String get addEntryAmountLabel => 'തുക';
+
+  @override
+  String get addEntryAmountHint => '0';
+
+  @override
+  String get addEntryNoteLabel => 'കുറിപ്പ് (ഐഛിക)';
+
+  @override
+  String get addEntrySave => 'സംരക്ഷിക്കുക';
+
+  @override
+  String get addEntryAmountRequired => 'തുക നൽകുക';
+
+  @override
+  String get addEntryAmountInvalid => 'സാധുവായ തുക നൽകുക';
+
+  @override
+  String get retryButton => 'വീണ്ടും ശ്രമിക്കുക';
+
+  @override
+  String get dateToday => 'ഇന്ന്';
+
+  @override
+  String get dateYesterday => 'ഇന്നലെ';
+
+  @override
+  String get txnDirectionGave => 'നിങ്ങൾ കൊടുത്തു';
+
+  @override
+  String get txnDirectionReceived => 'നിങ്ങൾ സ്വീകരിച്ചു';
+
+  @override
+  String get offlineSafeLabel => 'ഓഫ്‌ലൈൻ സുരക്ഷിതം';
+
+  @override
+  String get offlinePropertyPrivate => 'സ്വകാര്യം';
+
+  @override
+  String get offlinePropertyOffline => 'ഓഫ്‌ലൈൻ';
+
+  @override
+  String get offlinePropertySecure => 'സുരക്ഷിതം';
+
+  @override
+  String get editCustomerTitle => 'കസ്റ്റമർ എഡിറ്റ് ചെയ്യുക';
+
+  @override
+  String get editEntryTitle => 'എൻട്രി എഡിറ്റ് ചെയ്യുക';
+
+  @override
+  String get deleteConfirmTitle => 'ഇല്ലാതാക്കണോ?';
+
+  @override
+  String get deleteCustomerConfirmBody =>
+      'ഈ കസ്റ്റമറും അവരുടെ എല്ലാ ഇടപാടുകളും സ്ഥിരമായി ഇല്ലാതാകും.';
+
+  @override
+  String get deleteTxnConfirmBody => 'ഈ എൻട്രി സ്ഥിരമായി ഇല്ലാതാകും.';
+
+  @override
+  String get deleteAction => 'ഇല്ലാതാക്കുക';
+
+  @override
+  String get cancelAction => 'റദ്ദാക്കുക';
 }

@@ -2,7 +2,6 @@
   "@@locale": "ta",
   "appName": "கணக்கு ப்ரோ",
   "appTagline": "கணக்கு ப்ரோ டிஜிட்டல் பஹி கணக்கு",
-
   "tourHeadline1": "ஒவ்வொரு ரூபாயையும் கண்காணியுங்கள்",
   "tourBody1": "வாடிக்கையாளர்களை சேர்க்கவும், கடன் பதிவு செய்யவும். இருப்பு உடனடியாக புதுப்பிக்கப்படும்.",
   "tourHeadline2": "எளிதாக நினைவூட்டல் அனுப்புங்கள்",
@@ -13,12 +12,10 @@
   "tourGetStarted": "தொடங்குங்கள்",
   "tourSkip": "தவிர்",
   "tourSwipeHint": "ஸ்வைப் செய்யுங்கள்",
-
   "languageScreenTitle": "மொழி தேர்ந்தெடுக்கவும்",
   "languageScreenSubtitle": "விருப்பமான மொழியை தேர்வு செய்யுங்கள். மாற்றம் உடனடியாக பயன்படுத்தப்படும்.",
   "languageContinueButton": "தொடர்க",
   "languageSkipButton": "இப்போது வேண்டாம்",
-
   "balanceCardLabel": "மொத்த இருப்பு",
   "balanceShowTooltip": "இருப்பு காட்டு",
   "balanceHideTooltip": "இருப்பு மறை",
@@ -48,14 +45,86 @@
   "customersSearch": "வாடிக்கையாளர்களை தேடுங்கள்...",
   "customersAddButton": "வாடிக்கையாளர் சேர்க்கவும்",
   "customersNoResults": "\"{query}\" க்கு எந்த முடிவும் இல்லை",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} நிமிடம் முன்பு",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "இன்று, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "நேற்று, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "பெற்றது",
-  "txnTypePaid": "கொடுத்தது"
+  "txnTypePaid": "கொடுத்தது",
+  "addCustomerTitle": "வாடிக்கையாளரை சேர்க்கவும்",
+  "addCustomerNameLabel": "வாடிக்கையாளர் பெயர்",
+  "addCustomerNameHint": "எ.கா. ரவி குமார்",
+  "addCustomerPhoneLabel": "தொலைபேசி எண்",
+  "addCustomerPhoneHint": "எ.கா. 9876543210",
+  "addCustomerShopLabel": "கடை / வணிக பெயர்",
+  "addCustomerShopHint": "எ.கா. ரவி ஜெனரல் ஸ்டோர்",
+  "addCustomerBalanceLabel": "ஆரம்ப இருப்பு",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "அவர்கள் எனக்கு கொடுக்க வேண்டும்",
+  "addCustomerDirectionIOwe": "நான் அவர்களுக்கு கொடுக்க வேண்டும்",
+  "addCustomerSave": "வாடிக்கையாளரை சேமிக்கவும்",
+  "addCustomerError": "சேமிக்கவில்லை. மீண்டும் முயற்சிக்கவும்.",
+  "addCustomerNameRequired": "பெயர் தேவை",
+  "addCustomerNameTooLong": "பெயர் 80 எழுத்துகளுக்கு குறைவாக இருக்க வேண்டும்",
+  "addCustomerPhoneInvalid": "சரியான தொலைபேசி எண் உள்ளிடவும் (10–15 இலக்கங்கள்)",
+  "addCustomerBalanceInvalid": "சரியான தொகை உள்ளிடவும்",
+  "customerDetailOwesYou": "உங்களுக்கு கொடுக்க வேண்டும்",
+  "customerDetailYouOwe": "நீங்கள் கொடுக்க வேண்டும்",
+  "customerDetailSettled": "தீர்வு செய்யப்பட்டது",
+  "customerDetailNoEntries": "இன்னும் பதிவுகள் இல்லை",
+  "customerDetailNoEntriesBody": "இந்த வாடிக்கையாளரின் முதல் பரிவர்த்தனையை பதிவு செய்யுங்கள்.",
+  "customerDetailAddFirstEntry": "முதல் பதிவை சேர்க்கவும்",
+  "addEntryTitle": "பதிவு சேர்க்கவும்",
+  "addEntryGave": "நீங்கள் கொடுத்தீர்கள்",
+  "addEntryReceived": "நீங்கள் பெற்றீர்கள்",
+  "addEntryAmountLabel": "தொகை",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "குறிப்பு (விருப்பமானது)",
+  "addEntrySave": "சேமிக்கவும்",
+  "addEntryAmountRequired": "தொகையை உள்ளிடவும்",
+  "addEntryAmountInvalid": "சரியான தொகை உள்ளிடவும்",
+  "retryButton": "மீண்டும் முயற்சி",
+  "dateToday": "இன்று",
+  "dateYesterday": "நேற்று",
+  "txnDirectionGave": "நீங்கள் கொடுத்தீர்கள்",
+  "txnDirectionReceived": "நீங்கள் பெற்றீர்கள்",
+  "offlineSafeLabel": "ஆஃப்லைன் பாதுகாப்பானது",
+  "offlinePropertyPrivate": "தனிப்பட்டது",
+  "offlinePropertyOffline": "ஆஃப்லைன்",
+  "offlinePropertySecure": "பாதுகாப்பானது",
+  "addCustomerDuplicate": "இந்த பெயர், தொலைபேசி மற்றும் கடையுடன் வாடிக்கையாளர் ஏற்கனவே உள்ளார்.",
+  "editCustomerTitle": "வாடிக்கையாளரை திருத்து",
+  "editEntryTitle": "உள்ளீட்டை திருத்து",
+  "deleteConfirmTitle": "நீக்கவா?",
+  "deleteCustomerConfirmBody": "இந்த வாடிக்கையாளர் மற்றும் அவர்களின் அனைத்து பரிவர்த்தனைகளும் நிரந்தரமாக நீக்கப்படும்.",
+  "deleteTxnConfirmBody": "இந்த உள்ளீடு நிரந்தரமாக நீக்கப்படும்.",
+  "deleteAction": "நீக்கு",
+  "cancelAction": "ரத்து"
 }

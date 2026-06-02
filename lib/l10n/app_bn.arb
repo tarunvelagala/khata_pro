@@ -2,7 +2,6 @@
   "@@locale": "bn",
   "appName": "খাতা প্রো",
   "appTagline": "খাতা প্রো ডিজিটাল বহি খাতা",
-
   "tourHeadline1": "প্রতিটি টাকা ট্র্যাক করুন",
   "tourBody1": "গ্রাহক যোগ করুন, তাদের পাওনা ও দেনা রেকর্ড করুন। ব্যালেন্স তাৎক্ষণিক আপডেট হয়।",
   "tourHeadline2": "সহজে রিমাইন্ডার পাঠান",
@@ -13,12 +12,10 @@
   "tourGetStarted": "শুরু করুন",
   "tourSkip": "এড়িয়ে যান",
   "tourSwipeHint": "সোয়াইপ করুন",
-
   "languageScreenTitle": "ভাষা বেছে নিন",
   "languageScreenSubtitle": "পছন্দের ভাষা বেছে নিন। পরিবর্তন তাৎক্ষণিক কার্যকর হবে।",
   "languageContinueButton": "চালিয়ে যান",
   "languageSkipButton": "এখন নয়",
-
   "balanceCardLabel": "মোট বাকি",
   "balanceShowTooltip": "ব্যালেন্স দেখান",
   "balanceHideTooltip": "ব্যালেন্স লুকান",
@@ -48,14 +45,86 @@
   "customersSearch": "গ্রাহক খুঁজুন...",
   "customersAddButton": "গ্রাহক যোগ করুন",
   "customersNoResults": "\"{query}\" এর জন্য কোনো ফলাফল নেই",
-  "@customersNoResults": { "placeholders": { "query": { "type": "String" } } },
-
+  "@customersNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeMinutesAgo": "{minutes} মিনিট আগে",
-  "@txnTimeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "@txnTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "txnTimeToday": "আজ, {time}",
-  "@txnTimeToday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTimeYesterday": "গতকাল, {time}",
-  "@txnTimeYesterday": { "placeholders": { "time": { "type": "String" } } },
+  "@txnTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "txnTypeReceived": "পেয়েছি",
-  "txnTypePaid": "দিয়েছি"
+  "txnTypePaid": "দিয়েছি",
+  "addCustomerTitle": "গ্রাহক যোগ করুন",
+  "addCustomerNameLabel": "গ্রাহকের নাম",
+  "addCustomerNameHint": "যেমন রবি কুমার",
+  "addCustomerPhoneLabel": "ফোন নম্বর",
+  "addCustomerPhoneHint": "যেমন 9876543210",
+  "addCustomerShopLabel": "দোকান / ব্যবসার নাম",
+  "addCustomerShopHint": "যেমন রবি জেনারেল স্টোর",
+  "addCustomerBalanceLabel": "প্রারম্ভিক ব্যালেন্স",
+  "addCustomerBalanceHint": "0",
+  "addCustomerDirectionTheyOwe": "তারা আমাকে দেবে",
+  "addCustomerDirectionIOwe": "আমি তাদের দেব",
+  "addCustomerSave": "গ্রাহক সংরক্ষণ করুন",
+  "addCustomerError": "সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+  "addCustomerNameRequired": "নাম প্রয়োজন",
+  "addCustomerNameTooLong": "নাম ৮০ অক্ষরের কম হতে হবে",
+  "addCustomerPhoneInvalid": "সঠিক ফোন নম্বর দিন (১০–১৫ সংখ্যা)",
+  "addCustomerBalanceInvalid": "সঠিক পরিমাণ দিন",
+  "customerDetailOwesYou": "আপনাকে দিতে হবে",
+  "customerDetailYouOwe": "আপনি দিতে হবে",
+  "customerDetailSettled": "সমতা",
+  "customerDetailNoEntries": "এখনো কোনো লেনদেন নেই",
+  "customerDetailNoEntriesBody": "এই গ্রাহকের প্রথম লেনদেন রেকর্ড করুন।",
+  "customerDetailAddFirstEntry": "প্রথম এন্ট্রি যোগ করুন",
+  "addEntryTitle": "এন্ট্রি যোগ করুন",
+  "addEntryGave": "আপনি দিয়েছেন",
+  "addEntryReceived": "আপনি পেয়েছেন",
+  "addEntryAmountLabel": "পরিমাণ",
+  "addEntryAmountHint": "0",
+  "addEntryNoteLabel": "নোট (ঐচ্ছিক)",
+  "addEntrySave": "সংরক্ষণ করুন",
+  "addEntryAmountRequired": "পরিমাণ লিখুন",
+  "addEntryAmountInvalid": "সঠিক পরিমাণ লিখুন",
+  "retryButton": "পুনরায় চেষ্টা করুন",
+  "dateToday": "আজ",
+  "dateYesterday": "গতকাল",
+  "txnDirectionGave": "আপনি দিয়েছেন",
+  "txnDirectionReceived": "আপনি পেয়েছেন",
+  "offlineSafeLabel": "অফলাইন নিরাপদ",
+  "offlinePropertyPrivate": "ব্যক্তিগত",
+  "offlinePropertyOffline": "অফলাইন",
+  "offlinePropertySecure": "নিরাপদ",
+  "addCustomerDuplicate": "এই নাম, ফোন এবং দোকান সহ একজন গ্রাহক ইতিমধ্যে বিদ্যমান।",
+  "editCustomerTitle": "গ্রাহক সম্পাদনা করুন",
+  "editEntryTitle": "এন্ট্রি সম্পাদনা করুন",
+  "deleteConfirmTitle": "মুছবেন?",
+  "deleteCustomerConfirmBody": "এই গ্রাহক এবং তাদের সমস্ত লেনদেন স্থায়ীভাবে মুছে যাবে।",
+  "deleteTxnConfirmBody": "এই এন্ট্রি স্থায়ীভাবে মুছে যাবে।",
+  "deleteAction": "মুছুন",
+  "cancelAction": "বাতিল"
 }

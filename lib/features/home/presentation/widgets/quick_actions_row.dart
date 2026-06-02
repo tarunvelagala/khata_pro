@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -24,13 +25,26 @@ class QuickActionsRow extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
 
     final actions = [
-      (icon: Icons.person_add_rounded, label: l10n.quickActionAddCustomer),
-      (icon: Icons.receipt_long_rounded, label: l10n.quickActionGenerateBill),
+      (
+        icon: Icons.person_add_rounded,
+        label: l10n.quickActionAddCustomer,
+        onTap: () => context.push('/customers/add'),
+      ),
+      (
+        icon: Icons.receipt_long_rounded,
+        label: l10n.quickActionGenerateBill,
+        onTap: null,
+      ),
       (
         icon: Icons.notifications_active_rounded,
         label: l10n.quickActionSendReminder,
+        onTap: null,
       ),
-      (icon: Icons.payments_rounded, label: l10n.quickActionRecordPayment),
+      (
+        icon: Icons.payments_rounded,
+        label: l10n.quickActionRecordPayment,
+        onTap: null,
+      ),
     ];
 
     return Row(
@@ -61,7 +75,7 @@ class QuickActionsRow extends StatelessWidget {
                     borderRadius: BorderRadius.circular(_Dims.squircleRadius),
                   ),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: a.onTap,
                     customBorder: ContinuousRectangleBorder(
                       borderRadius: BorderRadius.circular(_Dims.squircleRadius),
                     ),
