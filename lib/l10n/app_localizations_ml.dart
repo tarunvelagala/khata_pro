@@ -70,10 +70,10 @@ class AppLocalizationsMl extends AppLocalizations {
   String get balanceHideTooltip => 'ബാലൻസ് മറയ്ക്കൂ';
 
   @override
-  String get summaryIncomeLabel => 'നിങ്ങൾക്ക് കിട്ടണം';
+  String get summaryIncomeLabel => 'നിങ്ങൾ കൊടുത്തു';
 
   @override
-  String get summaryExpenseLabel => 'നിങ്ങൾ കൊടുക്കണം';
+  String get summaryExpenseLabel => 'നിങ്ങൾ കിട്ടി';
 
   @override
   String get homeCustomersHeader => 'ഉപഭോക്താക്കൾ';
@@ -140,6 +140,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get homeAddEntry => 'എൻട്രി ചേർക്കൂ';
 
   @override
+  String get homeNoTransactions => 'ഇതുവരെ ഇടപാടുകൾ ഒന്നുമില്ല';
+
+  @override
   String get customersSearch => 'ഉപഭോക്താക്കളെ തിരയൂ...';
 
   @override
@@ -170,6 +173,12 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get txnTypePaid => 'കൊടുത്തു';
+
+  @override
+  String get txnColGave => 'നിങ്ങൾ കൊടുത്തു';
+
+  @override
+  String get txnColGot => 'നിങ്ങൾ കിട്ടി';
 
   @override
   String get addCustomerTitle => 'ഉപഭോക്താവിനെ ചേർക്കുക';
@@ -228,10 +237,10 @@ class AppLocalizationsMl extends AppLocalizations {
   String get addCustomerBalanceInvalid => 'സാധുവായ തുക നൽകുക';
 
   @override
-  String get customerDetailOwesYou => 'നിങ്ങൾക്ക് കൊടുക്കണം';
+  String get customerDetailOwesYou => 'നിങ്ങൾ കൊടുത്തു';
 
   @override
-  String get customerDetailYouOwe => 'നിങ്ങൾ കൊടുക്കണം';
+  String get customerDetailYouOwe => 'നിങ്ങൾ കിട്ടി';
 
   @override
   String get customerDetailSettled => 'തീർക്കപ്പെട്ടു';
@@ -242,9 +251,6 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get customerDetailNoEntriesBody =>
       'ഈ ഉപഭോക്താവിന്റെ ആദ്യ ഇടപാട് രേഖപ്പെടുത്തുക.';
-
-  @override
-  String get customerDetailAddFirstEntry => 'ആദ്യ എൻട്രി ചേർക്കുക';
 
   @override
   String get addEntryTitle => 'എൻട്രി ചേർക്കുക';
@@ -262,7 +268,7 @@ class AppLocalizationsMl extends AppLocalizations {
   String get addEntryAmountHint => '0';
 
   @override
-  String get addEntryNoteLabel => 'കുറിപ്പ് (ഐഛിക)';
+  String get addEntryNoteLabel => 'വിവരണം (ഐഛിക)';
 
   @override
   String get addEntrySave => 'സംരക്ഷിക്കുക';
@@ -277,6 +283,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get retryButton => 'വീണ്ടും ശ്രമിക്കുക';
 
   @override
+  String get errorGeneric => 'എന്തോ തെറ്റ് സംഭവിച്ചു';
+
+  @override
   String get dateToday => 'ഇന്ന്';
 
   @override
@@ -286,7 +295,7 @@ class AppLocalizationsMl extends AppLocalizations {
   String get txnDirectionGave => 'നിങ്ങൾ കൊടുത്തു';
 
   @override
-  String get txnDirectionReceived => 'നിങ്ങൾ സ്വീകരിച്ചു';
+  String get txnDirectionReceived => 'നിങ്ങൾ കിട്ടി';
 
   @override
   String get offlineSafeLabel => 'ഓഫ്‌ലൈൻ സുരക്ഷിതം';
@@ -307,6 +316,18 @@ class AppLocalizationsMl extends AppLocalizations {
   String get editEntryTitle => 'എൻട്രി എഡിറ്റ് ചെയ്യുക';
 
   @override
+  String get contactsImportButton => 'കോൺടാക്റ്റ്സിൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യൂ';
+
+  @override
+  String get contactsSyncToggle => 'ഫോൺ കോൺടാക്റ്റ്സിൽ സേവ് ചെയ്യൂ';
+
+  @override
+  String get contactsSynced => 'കോൺടാക്റ്റ്സുമായി സിങ്ക് ചെയ്തു';
+
+  @override
+  String get contactsPermissionDenied => 'കോൺടാക്റ്റ്സ് അനുമതി നിഷേധിച്ചു';
+
+  @override
   String get deleteConfirmTitle => 'ഇല്ലാതാക്കണോ?';
 
   @override
@@ -321,4 +342,491 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get cancelAction => 'റദ്ദാക്കുക';
+
+  @override
+  String get reportsFilterMonth => 'ഈ മാസം';
+
+  @override
+  String get reportsFilterYear => 'ഈ വർഷം';
+
+  @override
+  String get reportsFilterAll => 'എല്ലാ സമയവും';
+
+  @override
+  String get reportsTotalGave => 'മൊത്തം കൊടുത്തത്';
+
+  @override
+  String get reportsTotalGot => 'മൊത്തം കിട്ടിയത്';
+
+  @override
+  String get reportsNetBalance => 'നെറ്റ് ബാലൻസ്';
+
+  @override
+  String get reportsColCustomer => 'ഉപഭോക്താവ്';
+
+  @override
+  String get reportsColGave => 'കൊടുത്തത്';
+
+  @override
+  String get reportsColGot => 'കിട്ടിയത്';
+
+  @override
+  String get reportsColNet => 'നെറ്റ്';
+
+  @override
+  String get reportsEmpty => 'ഈ കാലയളവിൽ ഇടപാടുകളൊന്നുമില്ല';
+
+  @override
+  String get reportsDownloadPdf => 'PDF പങ്കിടുക';
+
+  @override
+  String get reportsFilterHint => 'കാലയളവ് തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get reportsPdfTitle => 'KhataPro സ്റ്റേറ്റ്മെന്റ്';
+
+  @override
+  String reportsPdfPeriod(String period) {
+    return 'കാലയളവ്: $period';
+  }
+
+  @override
+  String get settingsTitle => 'ക്രമീകരണങ്ങൾ';
+
+  @override
+  String get settingsLanguage => 'ഭാഷ';
+
+  @override
+  String get settingsLanguageSubtitle => 'ആപ്പ് ഭാഷ മാറ്റുക';
+
+  @override
+  String get settingsAboutSection => 'കുറിച്ച്';
+
+  @override
+  String get settingsVersion => 'പതിപ്പ്';
+
+  @override
+  String get settingsPrivacyPolicy => 'സ്വകാര്യതാ നയം';
+
+  @override
+  String get settingsRateApp => 'KhataPro റേറ്റ് ചെയ്യുക';
+
+  @override
+  String get recordPaymentPickerTitle => 'ഉപഭോക്താവിനെ തിരഞ്ഞെടുക്കൂ';
+
+  @override
+  String get recordPaymentPickerHint => 'ഉപഭോക്താക്കളെ തിരയൂ...';
+
+  @override
+  String get profileSetupTitle => 'നിങ്ങളെ കുറിച്ച്';
+
+  @override
+  String get profileSetupSubtitle =>
+      'നിങ്ങളുടെ അനുഭവം വ്യക്തിഗതമാക്കാൻ സഹായിക്കൂ.';
+
+  @override
+  String get profileNameLabel => 'നിങ്ങളുടെ പേര്';
+
+  @override
+  String get profileNameHint => 'ഉദാ. രവി കുമാർ';
+
+  @override
+  String get profileNameRequired => 'പേര് ആവശ്യമാണ്';
+
+  @override
+  String get profileNameTooLong => 'പേര് 80 അക്ഷരങ്ങളിൽ കുറവായിരിക്കണം';
+
+  @override
+  String get profileShopLabel => 'ബിസിനസ്സ് / കട പേര്';
+
+  @override
+  String get profileShopHint => 'ഉദാ. രവി ജനറൽ സ്റ്റോർ';
+
+  @override
+  String get profileContinueButton => 'തുടരൂ';
+
+  @override
+  String get profileScreenTitle => 'എന്റെ പ്രൊഫൈൽ';
+
+  @override
+  String get profileEditButton => 'എഡിറ്റ് ചെയ്യൂ';
+
+  @override
+  String get profileAuthSection => 'അക്കൗണ്ട്';
+
+  @override
+  String get profileSignInButton =>
+      'സിങ്ക് ചെയ്യാനും ബാക്കപ്പ് ചെയ്യാനും സൈൻ ഇൻ ചെയ്യൂ';
+
+  @override
+  String get reminderNoPhone => 'ഈ ഉപഭോക്താവിന്റെ ഫോൺ നമ്പർ സേവ് ചെയ്തിട്ടില്ല';
+
+  @override
+  String get reminderNoBalance => 'ഈ ഉപഭോക്താവിന് കുടിശ്ശിക ഒന്നുമില്ല';
+
+  @override
+  String get reminderShareUnavailable =>
+      'മെസേജിംഗ് ആപ്പ് കണ്ടെത്തിയില്ല. സന്ദേശം കോപ്പി ചെയ്ത് സ്വയം അയയ്ക്കൂ.';
+
+  @override
+  String get copyAction => 'കോപ്പി ചെയ്യുക';
+
+  @override
+  String get reminderSent => 'WhatsApp തുറക്കുന്നു…';
+
+  @override
+  String get reminderSendButton => 'റിമൈൻഡർ അയക്കൂ';
+
+  @override
+  String reminderMessage(String name, String amount, String business) {
+    return 'നമസ്കാരം $name, നിങ്ങൾക്ക് ₹$amount കുടിശ്ശിക ഉണ്ട്. ദയവായി ഉടൻ അടക്കൂ. – $business';
+  }
+
+  @override
+  String get catalogSectionTitle => 'വിസിറ്റിംഗ് കാർഡ് & കാറ്റലോഗ്';
+
+  @override
+  String get catalogAddPhoto => 'ഫോട്ടോ ചേർക്കുക';
+
+  @override
+  String get catalogTakePhoto => 'ഫോട്ടോ എടുക്കുക';
+
+  @override
+  String get catalogChooseGallery => 'ഗ്യാലറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get catalogDeleteConfirm => 'ഈ ചിത്രം നീക്കണോ?';
+
+  @override
+  String get reminderAttachTitle => 'കാർഡ് അറ്റാച്ച് ചെയ്യണോ?';
+
+  @override
+  String get reminderSendWithImage => 'ചിത്രത്തോടൊപ്പം അയയ്ക്കുക';
+
+  @override
+  String get reminderSendWithoutImage => 'ചിത്രം ഇല്ലാതെ അയയ്ക്കുക';
+
+  @override
+  String get generateBillTitle => 'ബിൽ ഉണ്ടാക്കുക';
+
+  @override
+  String get billScreenTitle => 'അക്കൗണ്ട് സ്റ്റേറ്റ്മെന്റ്';
+
+  @override
+  String get billPeriodMonth => 'ഈ മാസം';
+
+  @override
+  String get billPeriodYear => 'ഈ വർഷം';
+
+  @override
+  String get billPeriodAll => 'എല്ലാ സമയവും';
+
+  @override
+  String get billPeriodCustom => 'കസ്റ്റം';
+
+  @override
+  String billPeriodLabel(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String get billColDate => 'തീയതി';
+
+  @override
+  String get billColNote => 'വിവരണം';
+
+  @override
+  String get billColGave => 'നൽകി';
+
+  @override
+  String get billColGot => 'ലഭിച്ചു';
+
+  @override
+  String get billTotalGave => 'ആകെ നൽകി';
+
+  @override
+  String get billTotalGot => 'ആകെ ലഭിച്ചു';
+
+  @override
+  String get billNetBalance => 'ബാക്കി തുക';
+
+  @override
+  String get billYouAreOwed => 'നിങ്ങൾക്ക് കിട്ടാനുണ്ട്';
+
+  @override
+  String get billYouOwe => 'നിങ്ങൾ കൊടുക്കാനുണ്ട്';
+
+  @override
+  String get billEmpty => 'ഈ കാലയളവിൽ ഇടപാടുകൾ ഇല്ല';
+
+  @override
+  String get billShareButton => 'PDF ആയി പങ്കിടുക';
+
+  @override
+  String get billCustomRange => 'തീയതി ശ്രേണി തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get billFilterHint => 'കാലയളവ് തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get backupSectionTitle => 'ഡേറ്റ';
+
+  @override
+  String get backupTileTitle => 'ഡേറ്റ ബാക്കപ്പ് ചെയ്യുക';
+
+  @override
+  String get backupTileSubtitle =>
+      'എല്ലാ ഉപഭോക്താക്കളും ഇടപാടുകളും കയറ്റുമതി ചെയ്യുക';
+
+  @override
+  String get restoreTileTitle => 'ബാക്കപ്പിൽ നിന്ന് പുനഃസ്ഥാപിക്കുക';
+
+  @override
+  String get restoreTileSubtitle =>
+      'ബാക്കപ്പ് ഫയലിൽ നിന്ന് എല്ലാ ഡേറ്റയും മാറ്റുക';
+
+  @override
+  String get restoreConfirmTitle => 'എല്ലാ ഡേറ്റയും മാറ്റണോ?';
+
+  @override
+  String get restoreConfirmBody =>
+      'ഇത് നിങ്ങളുടെ നിലവിലെ എല്ലാ ഡേറ്റയും ബാക്കപ്പ് ഉപയോഗിച്ച് സ്ഥിരമായി മാറ്റും. ഇത് പഴയ നിലയിലേക്ക് മാറ്റാൻ കഴിയില്ല.';
+
+  @override
+  String get restoreSuccess => 'ഡേറ്റ വിജയകരമായി പുനഃസ്ഥാപിച്ചു';
+
+  @override
+  String get restoreError =>
+      'ബാക്കപ്പ് പുനഃസ്ഥാപിക്കാൻ കഴിഞ്ഞില്ല. ഫയൽ അസാധുവോ കേടായതോ ആകാം.';
+
+  @override
+  String get remindersSectionTitle => 'ഓർമ്മപ്പെടുത്തലുകൾ';
+
+  @override
+  String get defaultReminderTitle => 'ഡിഫോൾട്ട് ഓർമ്മപ്പെടുത്തൽ';
+
+  @override
+  String get defaultReminderSubtitle =>
+      'പുതിയ ഉപഭോക്താക്കൾക്ക് സ്വയം ബാധകമാകും';
+
+  @override
+  String get defaultReminderSheetHint =>
+      'പുതിയ ഉപഭോക്താവിനെ ചേർക്കുമ്പോൾ മുൻകൂട്ടി തിരഞ്ഞെടുക്കപ്പെടും. ഓരോ ഉപഭോക്താവിന്റെ ഓർമ്മപ്പെടുത്തലും പ്രത്യേകം സജ്ജമാക്കുന്നു.';
+
+  @override
+  String get setReminderTitle => 'ഓർമ്മപ്പെടുത്തൽ സജ്ജമാക്കുക';
+
+  @override
+  String get reminderFrequencyNone => 'ഒന്നുമില്ല';
+
+  @override
+  String get reminderFrequencyWeekly => 'പ്രതിവാരം';
+
+  @override
+  String get reminderFrequencyFortnightly => 'എല്ലാ 2 ആഴ്ചയും';
+
+  @override
+  String get reminderFrequencyMonthly => 'പ്രതിമാസം';
+
+  @override
+  String get reminderModeRecurring => 'ആവർത്തിച്ച്';
+
+  @override
+  String get reminderModeOnDate => 'ഒരു തീയതിയിൽ';
+
+  @override
+  String get reminderDateLabel => 'ഓർമ്മപ്പെടുത്തൽ തീയതി';
+
+  @override
+  String get reminderDateHint => 'തീയതി തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get reminderDatePast => 'ഭാവിയിലെ തീയതി തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get reminderTimeMorning => 'രാവിലെ · 9 മണി';
+
+  @override
+  String get reminderTimeAfternoon => 'ഉച്ചയ്ക്ക് · 1 മണി';
+
+  @override
+  String get reminderTimeEvening => 'വൈകുന്നേരം · 6 മണി';
+
+  @override
+  String reminderActiveChip(String freq) {
+    return '$freq ഓർമ്മപ്പെടുത്തൽ';
+  }
+
+  @override
+  String get reminderNotifTitle => 'പേയ്‌മെന്റ് ഓർമ്മപ്പെടുത്തൽ';
+
+  @override
+  String reminderNotifBody(String name, String amount) {
+    return '$name ₹$amount ബാക്കിയുണ്ട് — ഓർമ്മപ്പെടുത്തൽ അയയ്ക്കാൻ ടാപ്പ് ചെയ്യുക';
+  }
+
+  @override
+  String get authSignInTitle => 'സിങ്ക്, ബാക്കപ്പിനായി സൈൻ ഇൻ ചെയ്യുക';
+
+  @override
+  String get authSignInSubtitle =>
+      'നിങ്ങളുടെ ഡാറ്റ എല്ലാ ഉപകരണങ്ങളിലും സുരക്ഷിതമായിരിക്കും';
+
+  @override
+  String get authPhoneButton => 'ഫോൺ ഉപയോഗിച്ച് തുടരുക';
+
+  @override
+  String get authGoogleButton => 'Google ഉപയോഗിച്ച് തുടരുക';
+
+  @override
+  String get authOrDivider => 'അല്ലെങ്കിൽ';
+
+  @override
+  String get authPhoneStepTitle => 'നിങ്ങളുടെ ഫോൺ നമ്പർ നൽകുക';
+
+  @override
+  String get authPhoneStepSubtitle =>
+      'നിങ്ങളുടെ നമ്പർ സ്ഥിരീകരിക്കാൻ ഞങ്ങൾ ഒരു കോഡ് അയക്കും';
+
+  @override
+  String get authPhoneLabel => 'ഫോൺ നമ്പർ';
+
+  @override
+  String get authPhoneHint => '+91 98765 43210';
+
+  @override
+  String get authSendOtpButton => 'OTP അയക്കുക';
+
+  @override
+  String get authOtpTitle => 'OTP നൽകുക';
+
+  @override
+  String get authOtpLabel => '6 അക്ക കോഡ്';
+
+  @override
+  String authOtpSubtitle(String phone) {
+    return '$phone ലേക്ക് അയച്ചു';
+  }
+
+  @override
+  String get authVerifyButton => 'സ്ഥിരീകരിക്കുക';
+
+  @override
+  String get authResendOtp => 'OTP വീണ്ടും അയക്കുക';
+
+  @override
+  String get authOtpResent => 'OTP വിജയകരമായി വീണ്ടും അയച്ചു';
+
+  @override
+  String get authDidntReceive => 'ലഭിച്ചില്ലേ?';
+
+  @override
+  String authResendIn(int seconds) {
+    return '${seconds}s ൽ വീണ്ടും അയക്കുക';
+  }
+
+  @override
+  String get authSignOut => 'സൈൻ ഔട്ട്';
+
+  @override
+  String authSignedInAs(String name) {
+    return '$name ആയി സൈൻ ഇൻ ചെയ്തു';
+  }
+
+  @override
+  String get authSkip => 'ഇപ്പോൾ ഒഴിവാക്കുക';
+
+  @override
+  String get authSyncingData => 'Syncing your dataâ¦';
+
+  @override
+  String get authDataSynced => 'എല്ലാ ഡാറ്റയും ക്ലൗഡിൽ സമന്വയിപ്പിച്ചു';
+
+  @override
+  String get syncUnsyncedBanner =>
+      'സമന്വയിക്കാത്ത മാറ്റങ്ങൾ — സമന്വയിക്കാൻ ഇന്റർനെറ്റിലേക്ക് കണക്റ്റ് ചെയ്യുക.';
+
+  @override
+  String get syncCloudWinsTitle => 'ലോക്കൽ ഡാറ്റ മാറ്റണോ?';
+
+  @override
+  String get syncCloudWinsBody =>
+      'സൈൻ ഇൻ ചെയ്യുന്നതോടെ നിങ്ങളുടെ എല്ലാ ലോക്കൽ ഡാറ്റയും ക്ലൗഡ് ബാക്കപ്പ് ഉപയോഗിച്ച് മാറ്റിസ്ഥാപിക്കും. ഇത് പഴയപടിയാക്കാൻ കഴിയില്ല.';
+
+  @override
+  String get offlineBar => 'ഇന്റർനെറ്റ് കണക്ഷൻ ഇല്ല';
+
+  @override
+  String get firstRunTitle => 'KhataPro-ലേക്ക് സ്വാഗതം!';
+
+  @override
+  String get firstRunBody =>
+      'ഉപഭോക്താക്കൾ എത്ര കടം ഉണ്ടെന്ന് ട്രാക്ക് ചെയ്യൂ — കടലാസ് വേണ്ട.';
+
+  @override
+  String get firstRunStep1 => 'ഒരു ഉപഭോക്താവിനെ ചേർക്കൂ';
+
+  @override
+  String get firstRunStep2 => 'പേയ്മെന്റ് രേഖപ്പെടുത്തൂ';
+
+  @override
+  String get firstRunStep3 => 'റിമൈൻഡർ അയക്കൂ';
+
+  @override
+  String get firstRunDismiss => 'മനസ്സിലായി';
+
+  @override
+  String get reportsFilterCustomer => 'എല്ലാ ഉപഭോക്താക്കളും';
+
+  @override
+  String get reportsFilterByCustomer => 'ഉപഭോക്താവ് അനുസരിച്ച് ഫിൽട്ടർ ചെയ്യൂ';
+
+  @override
+  String reportsCustomerSelected(String name) {
+    return '$name റിപ്പോർട്ട്';
+  }
+
+  @override
+  String get appLockSectionTitle => 'സുരക്ഷ';
+
+  @override
+  String get appLockTileTitle => 'ആപ് ലോക്ക്';
+
+  @override
+  String get appLockTileSubtitle =>
+      'തുറക്കാൻ ബയോമെട്രിക് അല്ലെങ്കിൽ PIN ആവശ്യം';
+
+  @override
+  String get appLockSetPin => 'PIN സജ്ജമാക്കൂ';
+
+  @override
+  String get pinSetupTitle => 'PIN ഉണ്ടാക്കൂ';
+
+  @override
+  String get pinSetupSubtitle => 'ബയോമെട്രിക് പരാജയപ്പെട്ടാൽ ഇത് ഉപയോഗിക്കും';
+
+  @override
+  String get pinConfirmTitle => 'നിങ്ങളുടെ PIN സ്ഥിരീകരിക്കൂ';
+
+  @override
+  String get pinMismatch => 'PIN പൊരുത്തമില്ല. വീണ്ടും ശ്രമിക്കൂ.';
+
+  @override
+  String get pinIncorrect => 'തെറ്റായ PIN. വീണ്ടും ശ്രമിക്കൂ.';
+
+  @override
+  String get pinEnterTitle => 'നിങ്ങളുടെ PIN നൽകൂ';
+
+  @override
+  String get pinForgot => 'PIN മറന്നോ? റീസെറ്റ് ചെയ്യാൻ സൈൻ ഇൻ ചെയ്യൂ';
+
+  @override
+  String get biometricReason => 'KhataPro അൺലോക്ക് ചെയ്യൂ';
+
+  @override
+  String get appLockDisabledInfo => 'ആപ് ലോക്ക് പ്രവർത്തനരഹിതമാണ്';
+
+  @override
+  String get notifPermDenied =>
+      'അറിയിപ്പ് അനുമതി നിരസിക്കപ്പെട്ടു. റിമൈൻഡറുകൾ ലഭിക്കാൻ ക്രമീകരണത്തിൽ അത് പ്രവർത്തനക്ഷമമാക്കൂ.';
 }
