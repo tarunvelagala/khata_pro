@@ -7,45 +7,23 @@ import '../../../../core/theme/app_colors.dart';
 
 // ── Layout constants ───────────────────────────────────────────────────────────
 abstract final class _Dims {
-  static const double markSize      = 160.0;
-  static const double wordmarkGap   = 20.0;
-  static const double wordmarkSize  = 18.0;
+  static const double tileSize        = 120.0;  // launcher icon tile (dp)
+  static const double tileRadius      = 26.0;   // rounded-square corner radius
+  static const double wordmarkSize    = 17.0;
+  static const double wordmarkBottom  = 56.0;   // distance from screen bottom
 }
 
-// ── Animation timing (DESIGN.md § Splash "Opening the Ledger") ────────────────
-// Phase A (0–400ms):   mark scales 0.85 → 1.0 ease-out
-// Phase B (400–800ms): wordmark fades in (opacity 0 → 1)
-// Phase C (800–1200ms): hold
-// Phase D (1200–1400ms): settle pulse 1.0 → 1.02 → 1.0, then navigate
+// ── Animation timing — GPay style ─────────────────────────────────────────────
+// Phase A (0–500ms):  tile + wordmark scale from 0.2 → 1.0, ease-out spring
+// Phase B (500–800ms): hold
+// Navigate immediately after (no fade-out; app UI appears on top)
 abstract final class _T {
-  static const int phaseAMs  = 400;
-  static const int phaseBMs  = 400;
-  static const int phaseCMs  = 400;
-  static const int phaseDMs  = 200;
-  static const int totalMs   = phaseAMs + phaseBMs + phaseCMs + phaseDMs; // 1400
+  static const int animMs  = 500;
+  static const int holdMs  = 300;
+  static const int totalMs = animMs + holdMs; // 800 ms
 
-  static const double _aEnd  = phaseAMs / totalMs;              // 0.286
-  static const double _bEnd  = (phaseAMs + phaseBMs) / totalMs; // 0.571
-
-  static const double scaleFrom = 0.85;
-  static const double pulsePeak = 1.02;
-
-  static Animatable<double> markScale = TweenSequence([
-    TweenSequenceItem(
-      tween: Tween(begin: scaleFrom, end: 1.0).chain(CurveTween(curve: Curves.easeOut)),
-      weight: phaseAMs.toDouble(),
-    ),
-    TweenSequenceItem(tween: ConstantTween(1.0), weight: (phaseBMs + phaseCMs).toDouble()),
-    TweenSequenceItem(
-      tween: TweenSequence([
-        TweenSequenceItem(tween: Tween(begin: 1.0, end: pulsePeak), weight: 1),
-        TweenSequenceItem(tween: Tween(begin: pulsePeak, end: 1.0), weight: 1),
-      ]),
-      weight: phaseDMs.toDouble(),
-    ),
-  ]);
-
-  static const Interval wordmarkInterval = Interval(_aEnd, _bEnd, curve: Curves.easeOut);
+  static const double scaleFrom = 0.2;
+  static const double scaleTo   = 1.0;
 }
 
 // ── SplashScreen ──────────────────────────────────────────────────────────────
@@ -60,7 +38,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<double> _markScale;
+  late final Animation<double> _scale;
   late final Animation<double> _wordmarkOpacity;
 
   @override
@@ -72,10 +50,18 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: _T.totalMs),
     );
 
-    _markScale = _T.markScale.animate(_ctrl);
+    _scale = Tween<double>(begin: _T.scaleFrom, end: _T.scaleTo).animate(
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: const Interval(0, _T.animMs / _T.totalMs, curve: Curves.easeOutBack),
+      ),
+    );
 
     _wordmarkOpacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _ctrl, curve: _T.wordmarkInterval),
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: Interval(0, _T.animMs / _T.totalMs, curve: Curves.easeOut),
+      ),
     );
 
     _ctrl.addStatusListener((status) {
@@ -109,85 +95,116 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
 
+    // GPay-style: always dark background regardless of system theme
+    const bg = AppColors.darkSurface;
+    const wordmarkColor = AppColors.darkOnSurface;
+
     return Scaffold(
-      backgroundColor: cs.surface,
-      body: Center(
-        child: AnimatedBuilder(
-          animation: _ctrl,
-          builder: (context, _) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Transform.scale(
-                scale: _markScale.value,
-                child: SizedBox.square(
-                  dimension: _Dims.markSize,
-                  child: CustomPaint(painter: _KhataProMarkPainter(isDark: isDark)),
-                ),
+      backgroundColor: bg,
+      body: Stack(
+        children: [
+          // ── Centered icon tile ─────────────────────────────────────────
+          Center(
+            child: AnimatedBuilder(
+              animation: _scale,
+              builder: (context, child) => Transform.scale(
+                scale: _scale.value,
+                child: const _IconTile(),
               ),
-              const SizedBox(height: _Dims.wordmarkGap),
-              Opacity(
+            ),
+          ),
+
+          // ── Bottom wordmark ────────────────────────────────────────────
+          Positioned(
+            bottom: _Dims.wordmarkBottom,
+            left: 0,
+            right: 0,
+            child: AnimatedBuilder(
+              animation: _wordmarkOpacity,
+              builder: (context, child) => Opacity(
                 opacity: _wordmarkOpacity.value,
                 child: Text(
                   'KhataPro',
+                  textAlign: TextAlign.center,
                   style: tt.titleMedium?.copyWith(
                     fontSize: _Dims.wordmarkSize,
                     fontWeight: FontWeight.w700,
-                    color: cs.onSurface,
+                    color: wordmarkColor,
                     letterSpacing: 0.5,
                   ),
                 ),
               ),
-            ],
+            ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Icon tile: rounded square + pill mark ─────────────────────────────────────
+
+class _IconTile extends StatelessWidget {
+  const _IconTile();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.square(
+      dimension: _Dims.tileSize,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: AppColors.surface,   // #FAF9FD — light tile on dark bg
+          borderRadius: BorderRadius.circular(_Dims.tileRadius),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x33000000),
+              blurRadius: 24,
+              offset: Offset(0, 8),
+            ),
+          ],
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(16),
+          child: CustomPaint(painter: _MarkPainter()),
         ),
       ),
     );
   }
 }
 
-// ── CustomPainter ─────────────────────────────────────────────────────────────
+// ── Mark painter — same-color logo for both themes ────────────────────────────
 
-class _KhataProMarkPainter extends CustomPainter {
-  const _KhataProMarkPainter({required this.isDark});
+class _MarkPainter extends CustomPainter {
+  const _MarkPainter();
 
-  final bool isDark;
+  // Reference: icon fg.svg geometry (1024×1024, 102px padding, 820×820 mark).
+  // 3 columns, width=238, gap=53, rx=119.
+  // Blue pills: h=250, gap=35. Green/Red: h=820, full-height.
+  static const double _ref   = 1024;
+  static const double _colW  = 238;
+  static const double _rx    = 119;
+  static const double _pad   = 102;
 
-  // Reference canvas: splash_fg.svg (1024×1024).
-  // Geometry: 3-column pill design, mark centered slightly above midpoint.
-  // Columns (left=blue×3, center=green, right=red), all equal width 119px,
-  // gaps 26.5px, rx=59.5 (= half-width → perfect stadium pill).
-  static const double _ref     = 1024;
-  static const double _colW    = 119;
-  // Column gap kept as geometry reference (not used in paint directly)
-  // ignore: unused_field
-  static const double _colGap  = 26.5; // kept for geometry documentation
-  static const double _rx      = 59.5;
+  // Blue
+  static const double _bx    = _pad;
+  static const double _bph   = 250;
+  static const double _bpg   = 35;
+  static const double _bp1y  = _pad;
+  static const double _bp2y  = _pad + _bph + _bpg;           // 387
+  static const double _bp3y  = _pad + 2 * (_bph + _bpg);     // 672
 
-  // Blue pill positions (y, height)
-  static const double _bx      = 307;
-  static const double _bp1y    = 277;
-  static const double _bp2y    = 419.5;
-  static const double _bp3y    = 562;
-  static const double _pillH   = 125;
-
-  // Green / Red column
-  static const double _gx      = 452.5;
-  static const double _redX    = 598;
-  static const double _tallY   = 277;
-  static const double _tallH   = 410;
+  // Green / Red
+  static const double _gx    = _pad + _colW + 53;            // 393
+  static const double _rx2   = _pad + 2 * (_colW + 53);      // 684
+  static const double _tallY = _pad;
+  static const double _tallH = 820;
 
   @override
   void paint(Canvas canvas, Size size) {
     final s = size.width / _ref;
     canvas.scale(s, s);
-
-    final Color blue  = isDark ? AppColors.darkPrimary   : AppColors.primary;
-    final Color green = isDark ? AppColors.darkSecondary  : AppColors.secondary;
-    final Color red   = isDark ? AppColors.darkTertiary   : AppColors.tertiary;
 
     void pill(double x, double y, double w, double h, Color c) =>
         canvas.drawRRect(
@@ -195,16 +212,13 @@ class _KhataProMarkPainter extends CustomPainter {
           Paint()..color = c,
         );
 
-    // Blue stacked pills
-    pill(_bx, _bp1y, _colW, _pillH, blue);
-    pill(_bx, _bp2y, _colW, _pillH, blue);
-    pill(_bx, _bp3y, _colW, _pillH, blue);
-    // Green full-height pill
-    pill(_gx, _tallY, _colW, _tallH, green);
-    // Red full-height pill
-    pill(_redX, _tallY, _colW, _tallH, red);
+    pill(_bx,   _bp1y,  _colW, _bph,   AppColors.primary);
+    pill(_bx,   _bp2y,  _colW, _bph,   AppColors.primary);
+    pill(_bx,   _bp3y,  _colW, _bph,   AppColors.primary);
+    pill(_gx,   _tallY, _colW, _tallH, AppColors.secondary);
+    pill(_rx2,  _tallY, _colW, _tallH, AppColors.tertiary);
   }
 
   @override
-  bool shouldRepaint(_KhataProMarkPainter old) => old.isDark != isDark;
+  bool shouldRepaint(_MarkPainter old) => false;
 }
