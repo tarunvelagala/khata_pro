@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/widgets/avatar_palette.dart';
+import '../../../../core/widgets/amount_text.dart';
+import '../../../../core/widgets/app_avatar.dart';
+import '../../../../core/widgets/more_icon_button.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
 
 abstract final class _Dims {
-  static const double avatarRadius   = 22.0;
-  static const double avatarFontSize = 16.0;
-  static const double tileMinHeight  = 64.0;
+  static const double tileMinHeight = 64.0;
 }
 
 class CustomerListTile extends StatelessWidget {
@@ -23,7 +23,6 @@ class CustomerListTile extends StatelessWidget {
   final Customer customer;
   final bool isMasked;
   final VoidCallback onTap;
-  /// Called when the trailing ••• button is tapped. Null hides the button.
   final VoidCallback? onMoreTap;
 
   String? get _subtitle {
@@ -39,22 +38,23 @@ class CustomerListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs     = Theme.of(context).colorScheme;
     final tt     = Theme.of(context).textTheme;
-    final locale = Localizations.localeOf(context).toString();
-
-    final isPositive = customer.netBalance >= 0;
-    final amountColor = isPositive ? cs.secondary : cs.tertiary;
-
-    final formatted = isMasked
-        ? '₹ ••••'
-        : NumberFormat.currency(
-            locale: locale,
-            symbol: '₹ ',
-            decimalDigits: 0,
-          ).format(customer.netBalance.abs());
+    final l10n   = AppLocalizations.of(context)!;
 
     final initial = customer.name.isNotEmpty
         ? customer.name.characters.first.toUpperCase()
         : '?';
+
+    final balance   = customer.netBalance;
+    final dirLabel  = balance > 0
+        ? l10n.customerDetailOwesYou
+        : balance < 0
+            ? l10n.customerDetailYouOwe
+            : l10n.customerDetailSettled;
+    final labelColor = balance > 0
+        ? cs.tertiary
+        : balance < 0
+            ? cs.secondary
+            : cs.onSurfaceVariant;
 
     return InkWell(
       onTap: onTap,
@@ -66,18 +66,7 @@ class CustomerListTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: _Dims.avatarRadius,
-              backgroundColor: avatarColorFor(initial),
-              child: Text(
-                initial,
-                style: tt.titleSmall?.copyWith(
-                  fontSize: _Dims.avatarFontSize,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+            ListTileAvatar(initial: initial),
             const SizedBox(width: AppDimensions.inputPaddingH),
             Expanded(
               child: Column(
@@ -101,20 +90,28 @@ class CustomerListTile extends StatelessWidget {
                 ],
               ),
             ),
-            Text(
-              formatted,
-              style: tt.titleMedium?.copyWith(
-                color: amountColor,
-                fontWeight: FontWeight.w700,
-                fontFeatures: const [FontFeature.tabularFigures()],
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 120),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  AmountText.balance(
+                    balance: balance,
+                    isMasked: isMasked,
+                  ),
+                  Text(
+                    dirLabel,
+                    style: tt.labelSmall?.copyWith(color: labelColor),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
               ),
             ),
             if (onMoreTap != null) ...[
               const SizedBox(width: AppDimensions.buttonStackGap),
-              GestureDetector(
-                onTap: onMoreTap,
-                child: Icon(Icons.more_vert_rounded, size: 20, color: cs.onSurfaceVariant),
-              ),
+              MoreIconButton(onTap: onMoreTap!),
             ],
           ],
         ),

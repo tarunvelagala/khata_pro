@@ -4,19 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/widgets/kp_empty_state.dart';
+import '../../../../core/widgets/kp_error_view.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../providers/customer_provider.dart';
+import '../providers/dashboard_summary_provider.dart';
+import '../providers/shell_nav_provider.dart';
 import '../providers/transaction_provider.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/dashboard_app_bar.dart' show DashboardHeader;
-import '../widgets/home_empty_state.dart';
+import '../widgets/first_run_banner.dart';
 import '../widgets/quick_actions_row.dart';
-import '../widgets/summary_pills.dart';
 import '../widgets/transaction_list_tile.dart';
 
 abstract final class _Dims {
   static const double sectionGap    = 16.0;
-  static const double listHeaderGap = 8.0;
 }
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -46,30 +48,36 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         backgroundColor: cs.surface,
         body: customersAsync.when(
           loading: () => const _LoadingView(),
-          error: (e, _) => _ErrorView(
+          error: (e, _) => KpErrorView(
             onRetry: () => ref.invalidate(customerProvider),
           ),
           data: (customers) {
-            final netBalance   = customers.fold(0.0, (sum, c) => sum + c.netBalance);
-            final totalIncome  = customers
-                .where((c) => c.netBalance > 0)
-                .fold(0.0, (sum, c) => sum + c.netBalance);
-            final totalExpense = customers
-                .where((c) => c.netBalance < 0)
-                .fold(0.0, (sum, c) => sum + c.netBalance.abs());
+            final summary = ref.watch(dashboardSummaryProvider);
 
             if (customers.isEmpty) {
               return SafeArea(
                 bottom: false,
-                child: HomeEmptyState(
-                  onAddCustomer: () => context.push('/customers/add'),
+                child: Column(
+                  children: [
+                    const FirstRunBanner(),
+                    Expanded(
+                      child: KpEmptyState(
+                        icon: Icons.people_outline_rounded,
+                        title: l10n.homeEmptyTitle,
+                        body: l10n.homeEmptyBody,
+                        ctaLabel: l10n.homeEmptyAddCustomer,
+                        ctaIcon: Icons.person_add_rounded,
+                        onCta: () => context.push('/customers/add'),
+                      ),
+                    ),
+                  ],
                 ),
               );
             }
 
             return transactionsAsync.when(
               loading: () => const _LoadingView(),
-              error: (e, _) => _ErrorView(
+              error: (e, _) => KpErrorView(
                 onRetry: () => ref.invalidate(transactionProvider),
               ),
               data: (transactions) => CustomScrollView(
@@ -77,9 +85,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   SliverToBoxAdapter(
                     child: _HeroBand(
                       topInset: topInset,
-                      netBalance: netBalance,
-                      totalIncome: totalIncome,
-                      totalExpense: totalExpense,
+                      netBalance: summary.netBalance,
+                      totalIncome: summary.totalIncome,
+                      totalExpense: summary.totalExpense,
                       isMasked: _isMasked,
                       onToggleMask: () =>
                           setState(() => _isMasked = !_isMasked),
@@ -89,7 +97,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(
                         AppDimensions.buttonPaddingH,
-                        AppDimensions.heroCardOverlap + _Dims.sectionGap,
+                        _Dims.sectionGap,
                         AppDimensions.buttonPaddingH,
                         0,
                       ),
@@ -108,46 +116,56 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(l10n.homeSeeAll),
-                              ),
+                              if (transactions.isNotEmpty)
+                                Flexible(
+                                  child: TextButton(
+                                    onPressed: () => ref
+                                        .read(shellNavProvider.notifier)
+                                        .select(1),
+                                    child: Text(
+                                      l10n.homeSeeAll,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
-                          const SizedBox(height: _Dims.listHeaderGap),
                         ],
                       ),
                     ),
                   ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => TransactionListTile(
-                        transaction: transactions[index],
-                        isMasked: _isMasked,
+                  if (transactions.isEmpty)
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: KpEmptyState(
+                        icon: Icons.receipt_long_outlined,
+                        title: l10n.homeNoTransactions,
                       ),
-                      childCount: transactions.length,
+                    )
+                  else
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => TransactionListTile(
+                          transaction: transactions[index],
+                          isMasked: _isMasked,
+                        ),
+                        childCount: transactions.length,
+                      ),
                     ),
-                  ),
                   const SliverToBoxAdapter(
-                    child: SizedBox(height: AppDimensions.fabClearance),
+                    child: SizedBox(height: AppDimensions.buttonPaddingV),
                   ),
                 ],
               ),
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => context.push('/customers/add'),
-          tooltip: l10n.homeAddEntry,
-          child: const Icon(Icons.add_rounded),
-        ),
       ),
     );
   }
 }
 
-/// Hero band: plain surface background, header + balance stacked above the
-/// overlapping summary card. No illustration or gradient.
+/// Hero band: plain surface background, header + balance + inline stats.
 class _HeroBand extends StatelessWidget {
   const _HeroBand({
     required this.topInset,
@@ -168,45 +186,30 @@ class _HeroBand extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          color: cs.surfaceContainerLow,
-          padding: EdgeInsets.only(
-            top: topInset + AppDimensions.heroContentPaddingTop,
-            bottom: AppDimensions.heroContentPaddingBottom +
-                AppDimensions.heroCardOverlap,
+    return Container(
+      color: cs.surfaceContainerLow,
+      padding: EdgeInsets.only(
+        top: topInset + AppDimensions.heroContentPaddingTop,
+        bottom: AppDimensions.heroContentPaddingBottom,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppDimensions.buttonPaddingH,
+            ),
+            child: DashboardHeader(foregroundColor: cs.onSurface),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.buttonPaddingH,
-                ),
-                child: DashboardHeader(foregroundColor: cs.onSurface),
-              ),
-              const SizedBox(height: _Dims.sectionGap),
-              BalanceCard(
-                netBalance: netBalance,
-                isMasked: isMasked,
-                onToggleMask: onToggleMask,
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          left: AppDimensions.buttonPaddingH,
-          right: AppDimensions.buttonPaddingH,
-          bottom: -AppDimensions.heroCardOverlap,
-          child: SummaryPills(
+          BalanceCard(
+            netBalance: netBalance,
             totalIncome: totalIncome,
             totalExpense: totalExpense,
             isMasked: isMasked,
+            onToggleMask: onToggleMask,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -220,23 +223,3 @@ class _LoadingView extends StatelessWidget {
   }
 }
 
-class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.error_outline_rounded, color: cs.error, size: AppDimensions.errorIconSize),
-          const SizedBox(height: AppDimensions.errorIconGap),
-          FilledButton(onPressed: onRetry, child: Text(AppLocalizations.of(context)!.retryButton)),
-        ],
-      ),
-    );
-  }
-}

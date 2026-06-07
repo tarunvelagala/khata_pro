@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 
 import '../../../../core/database/app_database.dart' as db;
 import '../../domain/models/customer.dart';
+import '../../domain/models/reminder_frequency.dart';
 import 'i_customer_repository.dart';
 class DriftCustomerRepository implements ICustomerRepository {
   const DriftCustomerRepository(this._db);
@@ -66,6 +67,9 @@ class DriftCustomerRepository implements ICustomerRepository {
         shopName: Value(customer.shopName),
         netBalance: Value(customer.netBalance),
         createdAt: DateTime.now().millisecondsSinceEpoch,
+        contactId: Value(customer.contactId),
+        reminderFrequency: Value(customer.reminderFrequency.toDbString()),
+        reminderDate: Value(customer.reminderDate?.millisecondsSinceEpoch),
       ),
     );
     return customer;
@@ -80,6 +84,9 @@ class DriftCustomerRepository implements ICustomerRepository {
         phone: Value(customer.phone),
         shopName: Value(customer.shopName),
         netBalance: Value(customer.netBalance),
+        contactId: Value(customer.contactId),
+        reminderFrequency: Value(customer.reminderFrequency.toDbString()),
+        reminderDate: Value(customer.reminderDate?.millisecondsSinceEpoch),
       ),
     );
   }
@@ -94,6 +101,7 @@ class DriftCustomerRepository implements ICustomerRepository {
     });
   }
 
+  @override
   Future<void> adjustBalance(String customerId, double delta) async {
     final row = await (_db.select(_db.customers)
           ..where((c) => c.id.equals(customerId)))
@@ -110,5 +118,10 @@ class DriftCustomerRepository implements ICustomerRepository {
     phone: row.phone,
     shopName: row.shopName,
     netBalance: row.netBalance,
+    contactId: row.contactId,
+    reminderFrequency: ReminderFrequency.fromString(row.reminderFrequency),
+    reminderDate: row.reminderDate == null
+        ? null
+        : DateTime.fromMillisecondsSinceEpoch(row.reminderDate!),
   );
 }

@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/repositories/drift_transaction_repository.dart';
+import '../../../../core/services/sync_service.dart';
 import '../../domain/models/transaction.dart';
-import 'database_provider.dart';
+import 'repository_providers.dart';
 
 class CustomerTransactionsNotifier extends StreamNotifier<List<Transaction>> {
   CustomerTransactionsNotifier(this.customerId);
@@ -11,16 +13,17 @@ class CustomerTransactionsNotifier extends StreamNotifier<List<Transaction>> {
 
   @override
   Stream<List<Transaction>> build() {
-    final db = ref.watch(databaseProvider);
-    return DriftTransactionRepository(db).watchForCustomer(customerId);
+    return ref.watch(transactionRepoProvider).watchForCustomer(customerId);
   }
 
   Future<void> addTransaction(Transaction txn) async {
-    await DriftTransactionRepository(ref.read(databaseProvider)).insert(txn);
+    await ref.read(transactionRepoProvider).insert(txn);
+    unawaited(ref.read(syncServiceProvider).pushTransaction(txn));
   }
 
   Future<void> deleteTransaction(String id) async {
-    await DriftTransactionRepository(ref.read(databaseProvider)).delete(id);
+    await ref.read(transactionRepoProvider).delete(id);
+    unawaited(ref.read(syncServiceProvider).deleteTransaction(id));
   }
 }
 

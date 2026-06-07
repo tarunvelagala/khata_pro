@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/widgets/pill_toggle.dart';
+import '../../../../core/widgets/balance_direction_toggle.dart';
+import '../../../../core/widgets/sticky_footer_cta.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
 import '../../domain/models/transaction.dart';
@@ -13,10 +14,10 @@ import '../providers/customer_provider.dart';
 import '../providers/customer_transactions_provider.dart';
 
 abstract final class _Dims {
-  static const double fieldGap       = 16.0;
-  static const double sectionGap     = 24.0;
-  static const double amountFontSize = 48.0;
-  static const double footerPaddingV = 12.0;
+  static const double fieldGap          = 16.0;
+  static const double sectionGap        = 24.0;
+  static const double amountFontSize    = 48.0;
+  static const double toolbarHeightTall = 64.0;
 }
 
 class AddEntryScreen extends ConsumerStatefulWidget {
@@ -24,11 +25,14 @@ class AddEntryScreen extends ConsumerStatefulWidget {
     super.key,
     required this.customerId,
     this.existingTxn,
+    this.initialIsGave = true,
   });
 
   final String customerId;
   /// When non-null the screen operates in edit mode (delete-old + insert-new).
   final Transaction? existingTxn;
+  /// Pre-selects the direction toggle. Ignored in edit mode.
+  final bool initialIsGave;
 
   @override
   ConsumerState<AddEntryScreen> createState() => _AddEntryScreenState();
@@ -48,7 +52,7 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
       text: e != null ? e.amount.toStringAsFixed(e.amount % 1 == 0 ? 0 : 2) : '',
     );
     _noteCtrl = TextEditingController(text: e?.note ?? '');
-    _isGave   = e?.isCredit ?? true;
+    _isGave   = e?.isCredit ?? widget.initialIsGave;
   }
 
   @override
@@ -63,7 +67,6 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
     final l10n   = AppLocalizations.of(context)!;
     final cs     = Theme.of(context).colorScheme;
     final tt     = Theme.of(context).textTheme;
-    final bottom = MediaQuery.paddingOf(context).bottom;
     final isEdit = widget.existingTxn != null;
 
     final customersAsync = ref.watch(customerProvider);
@@ -71,12 +74,20 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
         ?.where((c) => c.id == widget.customerId)
         .firstOrNull;
 
+    final hasTwoLines = !isEdit && customer?.shopName != null;
+
     return Scaffold(
       backgroundColor: cs.surface,
       appBar: AppBar(
         backgroundColor: cs.surface,
         surfaceTintColor: Colors.transparent,
-        title: Text(isEdit ? l10n.editEntryTitle : (customer?.name ?? l10n.addEntryTitle)),
+        toolbarHeight: hasTwoLines ? _Dims.toolbarHeightTall : kToolbarHeight,
+        title: _AppBarTitle(
+          isEdit: isEdit,
+          customer: customer,
+          fallback: l10n.addEntryTitle,
+          editLabel: l10n.editEntryTitle,
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.close_rounded),
@@ -94,17 +105,11 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  PillToggle(
-                    labelA: l10n.addEntryGave,
-                    labelB: l10n.addEntryReceived,
-                    selectedIndex: _isGave ? 0 : 1,
-                    onChanged: (i) => setState(() => _isGave = i == 0),
-                    selectedColor: _isGave
-                        ? cs.secondaryContainer
-                        : cs.tertiaryContainer,
-                    selectedTextColor: _isGave
-                        ? cs.onSecondaryContainer
-                        : cs.onTertiaryContainer,
+                  BalanceDirectionToggle(
+                    labelPositive: l10n.addEntryGave,
+                    labelNegative: l10n.addEntryReceived,
+                    isPositive: _isGave,
+                    onChanged: (v) => setState(() => _isGave = v),
                   ),
                   const SizedBox(height: _Dims.sectionGap),
 
@@ -125,19 +130,22 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
                       fontSize: _Dims.amountFontSize,
                     ),
                     decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.only(left: AppDimensions.inputPaddingH),
+                        child: Text(
+                          '₹',
+                          style: tt.displaySmall?.copyWith(
+                            color: cs.onSurface,
+                            fontSize: _Dims.amountFontSize,
+                          ),
+                        ),
+                      ),
+                      prefixIconConstraints: const BoxConstraints(),
                       hintText: '0',
                       hintStyle: tt.displaySmall?.copyWith(
                         color: cs.onSurfaceVariant,
                         fontSize: _Dims.amountFontSize,
                       ),
-                      prefixText: '₹  ',
-                      prefixStyle: tt.displaySmall?.copyWith(
-                        color: cs.onSurfaceVariant,
-                        fontSize: _Dims.amountFontSize,
-                      ),
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
                     ),
                   ),
                   const SizedBox(height: _Dims.fieldGap),
@@ -148,6 +156,15 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                       labelText: l10n.addEntryNoteLabel,
+                      alignLabelWithHint: true,
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppDimensions.inputPaddingH,
+                          bottom: 48, // pins icon to top of 3-line field
+                        ),
+                        child: Icon(Icons.notes_rounded, color: cs.onSurfaceVariant),
+                      ),
+                      prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
                     ),
                   ),
                 ],
@@ -156,35 +173,10 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
           ),
 
           // ── Sticky footer CTA ────────────────────────────────────
-          Container(
-            decoration: BoxDecoration(
-              color: cs.surface,
-              boxShadow: [
-                BoxShadow(
-                  color: cs.shadow.withValues(alpha: AppDimensions.splashAlpha),
-                  blurRadius: AppDimensions.shadowBlurCard,
-                  offset: const Offset(0, AppDimensions.shadowOffsetFooter),
-                ),
-              ],
-            ),
-            padding: EdgeInsets.fromLTRB(
-              AppDimensions.buttonPaddingH,
-              _Dims.footerPaddingV,
-              AppDimensions.buttonPaddingH,
-              _Dims.footerPaddingV + bottom,
-            ),
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: _saving ? null : () => _submit(customer),
-                child: _saving
-                    ? const SizedBox.square(
-                        dimension: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : Text(l10n.addEntrySave),
-              ),
-            ),
+          StickyFooterCta(
+            label: l10n.addEntrySave,
+            onPressed: _saving ? null : () => _submit(customer),
+            loading: _saving,
           ),
         ],
       ),
@@ -235,5 +227,59 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
         );
       }
     }
+  }
+}
+
+// ── Two-line app bar title ─────────────────────────────────────────────────────
+
+class _AppBarTitle extends StatelessWidget {
+  const _AppBarTitle({
+    required this.isEdit,
+    required this.customer,
+    required this.fallback,
+    required this.editLabel,
+  });
+
+  final bool isEdit;
+  final Customer? customer;
+  final String fallback;
+  final String editLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    if (isEdit) {
+      return Text(editLabel);
+    }
+
+    final name     = customer?.name ?? fallback;
+    final shopName = customer?.shopName;
+
+    if (shopName == null) {
+      return Text(name, overflow: TextOverflow.ellipsis);
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          name,
+          style: tt.titleMedium?.copyWith(
+            color: cs.onSurface,
+            fontWeight: FontWeight.w600,
+          ),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+        Text(
+          shopName,
+          style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+      ],
+    );
   }
 }

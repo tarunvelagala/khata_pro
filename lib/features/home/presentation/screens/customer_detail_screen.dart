@@ -4,17 +4,30 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/widgets/avatar_palette.dart';
+import '../../../../core/services/reminder_service.dart';
+import '../../../../core/utils/date_formatter.dart';
+import '../../../../core/widgets/amount_text.dart';
+import '../../../../core/widgets/app_avatar.dart';
+import '../../../../core/widgets/kp_action_sheet.dart';
+import '../../../../core/widgets/kp_delete_dialog.dart';
+import '../../../../core/widgets/kp_empty_state.dart';
+import '../../../../core/widgets/kp_error_view.dart';
+import '../../../../core/widgets/more_icon_button.dart';
+import '../../../../core/widgets/set_reminder_sheet.dart';
+import '../../../../core/widgets/sticky_footer_cta.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
+import '../widgets/catalog_image_row.dart';
+import '../../domain/models/reminder_frequency.dart';
 import '../../domain/models/transaction.dart';
 import '../providers/customer_provider.dart';
 import '../providers/customer_transactions_provider.dart';
+import '../screens/attach_image_screen.dart';
+import '../../../settings/presentation/providers/profile_provider.dart';
+import '../../../settings/domain/extensions/profile_extensions.dart';
 
 abstract final class _Dims {
   static const double heroExpandedHeight = 200.0;
-  static const double avatarRadius       = 32.0;
-  static const double avatarFontSize     = 22.0;
   static const double balanceFontSize    = 28.0;
   static const double dateLabelGap       = 8.0;
   static const double tileMinHeight      = 64.0;
@@ -45,40 +58,19 @@ class CustomerDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
-  final _scrollCtrl = ScrollController();
-  bool  _isMasked   = false;
-  bool  _fabVisible = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollCtrl.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollCtrl.removeListener(_onScroll);
-    _scrollCtrl.dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    final scrollingDown = _scrollCtrl.position.userScrollDirection.index == 2;
-    if (scrollingDown && _fabVisible) setState(() => _fabVisible = false);
-    if (!scrollingDown && !_fabVisible) setState(() => _fabVisible = true);
-  }
+  bool _isMasked = false;
 
   @override
   Widget build(BuildContext context) {
-    final l10n       = AppLocalizations.of(context)!;
-    final cs         = Theme.of(context).colorScheme;
+    final l10n          = AppLocalizations.of(context)!;
+    final cs            = Theme.of(context).colorScheme;
     final customerAsync = ref.watch(customerProvider);
-    final txnsAsync  = ref.watch(customerTransactionsProvider(widget.customerId));
+    final txnsAsync     = ref.watch(customerTransactionsProvider(widget.customerId));
 
     return customerAsync.when(
       loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(
-        body: Center(child: Text(e.toString())),
+        body: KpErrorView(onRetry: () => ref.invalidate(customerProvider)),
       ),
       data: (customers) {
         final customer = customers.where((c) => c.id == widget.customerId).firstOrNull;
@@ -91,26 +83,21 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
 
         return Scaffold(
           backgroundColor: cs.surface,
+          bottomNavigationBar: StickyFooterCta(
+              label: l10n.addEntryTitle,
+              onPressed: () =>
+                  context.push('/customers/${widget.customerId}/entry'),
+              icon: const Icon(Icons.add_rounded,
+                  size: AppDimensions.iconSizeSmall),
+            ),
           body: txnsAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(
-              child: Text(e.toString(), style: TextStyle(color: cs.error)),
-            ),
-            data: (txns) => _buildBody(context, l10n, cs, customer, txns),
-          ),
-          floatingActionButton: AnimatedSlide(
-            offset: _fabVisible ? Offset.zero : const Offset(0, 2),
-            duration: AppDimensions.animShort,
-            child: AnimatedOpacity(
-              opacity: _fabVisible ? 1.0 : 0.0,
-              duration: AppDimensions.animShort,
-              child: FloatingActionButton(
-                onPressed: () =>
-                    context.push('/customers/${widget.customerId}/entry'),
-                tooltip: l10n.homeAddEntry,
-                child: const Icon(Icons.add_rounded),
+            error: (e, _) => KpErrorView(
+              onRetry: () => ref.invalidate(
+                customerTransactionsProvider(widget.customerId),
               ),
             ),
+            data: (txns) => _buildBody(context, l10n, cs, customer, txns),
           ),
         );
       },
@@ -127,7 +114,6 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
     final items = _buildListItems(txns, l10n);
 
     return CustomScrollView(
-      controller: _scrollCtrl,
       slivers: [
         SliverAppBar(
           pinned: true,
@@ -145,8 +131,13 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
               onPressed: () => setState(() => _isMasked = !_isMasked),
             ),
             IconButton(
+              icon: const Icon(Icons.share_rounded),
+              tooltip: l10n.reminderSendButton,
+              onPressed: () => _sendReminder(context, l10n, customer),
+            ),
+            IconButton(
               icon: const Icon(Icons.more_vert_rounded),
-              onPressed: () => _showCustomerActions(context, l10n, cs, customer),
+              onPressed: () => _showCustomerActions(context, l10n, customer),
             ),
           ],
           flexibleSpace: FlexibleSpaceBar(
@@ -158,19 +149,42 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
           ),
         ),
         if (txns.isEmpty)
+          ...[
+          SliverToBoxAdapter(
+            child: CatalogImageRow(customerId: customer.id),
+          ),
           SliverFillRemaining(
-            child: _EmptyState(customerId: widget.customerId),
-          )
-        else
+            hasScrollBody: false,
+            child: Builder(
+              builder: (ctx) {
+                final l = AppLocalizations.of(ctx)!;
+                return KpEmptyState(
+                  icon: Icons.receipt_long_outlined,
+                  title: l.customerDetailNoEntries,
+                  body: l.customerDetailNoEntriesBody,
+                );
+              },
+            ),
+          ),
+        ]
+        else ...[
+          SliverToBoxAdapter(
+            child: CatalogImageRow(customerId: customer.id),
+          ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (ctx, i) => _buildListItem(ctx, items[i], cs),
               childCount: items.length,
             ),
           ),
-        const SliverToBoxAdapter(
-          child: SizedBox(height: AppDimensions.fabClearance),
-        ),
+          // Fills remaining viewport with surface color so there's no
+          // background mismatch below the last list item.
+          SliverFillRemaining(
+            hasScrollBody: false,
+            fillOverscroll: false,
+            child: ColoredBox(color: cs.surface),
+          ),
+        ],
       ],
     );
   }
@@ -188,7 +202,7 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
           ),
           child: Text(
             label,
-            style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+            style: tt.labelMedium?.copyWith(color: cs.onSurfaceVariant),
           ),
         );
       case _TxnRow(:final txn):
@@ -204,7 +218,7 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
     String? lastDate;
 
     for (final txn in sorted) {
-      final dateLabel = _dateLabel(txn.timestamp, l10n);
+      final dateLabel = DateFormatter.dayLabel(txn.timestamp, l10n);
       if (dateLabel != lastDate) {
         items.add(_DateHeader(dateLabel));
         lastDate = dateLabel;
@@ -215,74 +229,90 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
     return items;
   }
 
-  String _dateLabel(DateTime dt, AppLocalizations l10n) {
-    final now   = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final date  = DateTime(dt.year, dt.month, dt.day);
-    final diff  = today.difference(date).inDays;
-
-    if (diff == 0) return l10n.dateToday;
-    if (diff == 1) return l10n.dateYesterday;
-    return DateFormat('d MMMM yyyy').format(dt);
+  Future<void> _sendReminder(
+    BuildContext context,
+    AppLocalizations l10n,
+    Customer customer,
+  ) async {
+    final phone = customer.phone;
+    if (phone == null || phone.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.reminderNoPhone)),
+      );
+      return;
+    }
+    final balance = customer.netBalance;
+    if (balance == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.reminderNoBalance)),
+      );
+      return;
+    }
+    final profile      = ref.read(profileProvider).value;
+    final businessName = profile.businessName;
+    final message = l10n.reminderMessage(
+      customer.name,
+      balance.abs().toStringAsFixed(0),
+      businessName,
+    );
+    final catalogPaths = profile?.catalogImagePaths ?? const [];
+    if (catalogPaths.isEmpty) {
+      await ReminderService.send(
+          context: context, phone: phone, message: message);
+      return;
+    }
+    if (!context.mounted) return;
+    final result = await context.push<AttachResult>(
+      '/reminder/attach',
+      extra: AttachImageExtra(message: message, imagePaths: catalogPaths),
+    );
+    if (!context.mounted) return;
+    await ReminderService.send(
+      context: context,
+      phone: phone,
+      message: message,
+      imagePath: result?.imagePath,
+    );
   }
 
   void _showCustomerActions(
     BuildContext context,
     AppLocalizations l10n,
-    ColorScheme cs,
     Customer customer,
   ) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.edit_outlined),
-              title: Text(l10n.editCustomerTitle),
-              onTap: () {
-                Navigator.of(ctx).pop();
-                context.push('/customers/${customer.id}/edit', extra: customer);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.delete_outline_rounded, color: cs.error),
-              title: Text(l10n.deleteAction, style: TextStyle(color: cs.error)),
-              onTap: () {
-                Navigator.of(ctx).pop();
-                _confirmDeleteCustomer(context, l10n, cs, customer);
-              },
-            ),
-          ],
-        ),
+    KpActionSheet.show(context, actions: [
+      KpAction(
+        icon: Icons.alarm_rounded,
+        label: l10n.setReminderTitle,
+        onTap: () => SetReminderSheet.show(context, ref, customer),
       ),
-    );
+      KpAction(
+        icon: Icons.receipt_long_rounded,
+        label: l10n.generateBillTitle,
+        onTap: () => context.push('/customers/${customer.id}/bill'),
+      ),
+      KpAction(
+        icon: Icons.edit_outlined,
+        label: l10n.editCustomerTitle,
+        onTap: () => context.push('/customers/${customer.id}/edit', extra: customer),
+      ),
+      KpAction(
+        icon: Icons.delete_outline_rounded,
+        label: l10n.deleteAction,
+        isDestructive: true,
+        onTap: () => _confirmDeleteCustomer(context, l10n, customer),
+      ),
+    ]);
   }
 
   Future<void> _confirmDeleteCustomer(
     BuildContext context,
     AppLocalizations l10n,
-    ColorScheme cs,
     Customer customer,
   ) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.deleteConfirmTitle),
-        content: Text(l10n.deleteCustomerConfirmBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(l10n.cancelAction),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            style: TextButton.styleFrom(foregroundColor: cs.error),
-            child: Text(l10n.deleteAction),
-          ),
-        ],
-      ),
+    final confirmed = await KpDeleteDialog.show(
+      context,
+      body: l10n.deleteCustomerConfirmBody,
     );
     if (confirmed == true && context.mounted) {
       await ref.read(customerProvider.notifier).deleteCustomer(customer.id);
@@ -304,24 +334,15 @@ class _CustomerHeroBand extends StatelessWidget {
     final cs     = Theme.of(context).colorScheme;
     final tt     = Theme.of(context).textTheme;
     final l10n   = AppLocalizations.of(context)!;
-    final locale = Localizations.localeOf(context).toString();
 
     final initial = customer.name.isNotEmpty ? customer.name[0].toUpperCase() : '?';
     final balance = customer.netBalance;
 
     final (amountColor, dirLabel) = switch (balance) {
-      > 0 => (cs.secondary, l10n.customerDetailOwesYou),
-      < 0 => (cs.tertiary,  l10n.customerDetailYouOwe),
+      > 0 => (cs.tertiary,  l10n.customerDetailOwesYou),
+      < 0 => (cs.secondary, l10n.customerDetailYouOwe),
       _   => (cs.onSurfaceVariant, l10n.customerDetailSettled),
     };
-
-    final formattedBalance = isMasked
-        ? '₹ ••••'
-        : NumberFormat.currency(
-            locale: locale,
-            symbol: '₹ ',
-            decimalDigits: 0,
-          ).format(balance.abs());
 
     return Container(
       color: cs.surfaceContainerLow,
@@ -334,20 +355,10 @@ class _CustomerHeroBand extends StatelessWidget {
       alignment: Alignment.bottomLeft,
       child: Row(
         children: [
-          CircleAvatar(
-            radius: _Dims.avatarRadius,
-            backgroundColor: avatarColorFor(initial),
-            child: Text(
-              initial,
-              style: tt.headlineSmall?.copyWith(
-                fontSize: _Dims.avatarFontSize,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
+          HeroAvatar(initial: initial),
           const SizedBox(width: AppDimensions.inputPaddingH),
           Expanded(
+            flex: 3,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,36 +370,41 @@ class _CustomerHeroBand extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
                 if (customer.shopName != null)
                   Text(
                     customer.shopName!,
                     style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
               ],
             ),
           ),
-          Flexible(
+          const SizedBox(width: AppDimensions.inputPaddingH),
+          Expanded(
+            flex: 2,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  formattedBalance,
+                AmountText.balance(
+                  balance: balance,
+                  isMasked: isMasked,
                   style: tt.titleLarge?.copyWith(
                     fontSize: _Dims.balanceFontSize,
-                    color: amountColor,
-                    fontWeight: FontWeight.w700,
-                    fontFeatures: const [FontFeature.tabularFigures()],
                   ),
-                  overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   dirLabel,
                   style: tt.labelSmall?.copyWith(color: amountColor),
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  textAlign: TextAlign.end,
                 ),
+                if (customer.reminderFrequency != ReminderFrequency.none)
+                  _ReminderChip(frequency: customer.reminderFrequency),
               ],
             ),
           ),
@@ -408,26 +424,15 @@ class _TxnListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cs     = Theme.of(context).colorScheme;
-    final tt     = Theme.of(context).textTheme;
-    final locale = Localizations.localeOf(context).toString();
-    final l10n   = AppLocalizations.of(context)!;
+    final cs   = Theme.of(context).colorScheme;
+    final tt   = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
-    final amountColor  = transaction.isCredit ? cs.secondary : cs.tertiary;
-    final amountPrefix = transaction.isCredit ? '+ ' : '- ';
-
-    final formattedAmount = isMasked
-        ? '₹ ••••'
-        : '$amountPrefix₹ ${NumberFormat.currency(
-            locale: locale,
-            symbol: '',
-            decimalDigits: 0,
-          ).format(transaction.amount).trim()}';
-
-    final timeStr = DateFormat.jm().format(transaction.timestamp);
+    final timeStr  = DateFormat.jm(l10n.localeName).format(transaction.timestamp);
+    final isCredit = transaction.isCredit;
 
     return InkWell(
-      onTap: () => _showActions(context, ref, l10n, cs, tt),
+      onTap: () => _showActions(context, ref, l10n),
       child: Container(
         constraints: const BoxConstraints(minHeight: _Dims.tileMinHeight),
         padding: const EdgeInsets.symmetric(
@@ -449,7 +454,7 @@ class _TxnListTile extends ConsumerWidget {
                     )
                   else
                     Text(
-                      transaction.isCredit ? l10n.txnDirectionGave : l10n.txnDirectionReceived,
+                      isCredit ? l10n.txnDirectionGave : l10n.txnDirectionReceived,
                       style: tt.bodyMedium?.copyWith(color: cs.onSurface),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -460,16 +465,13 @@ class _TxnListTile extends ConsumerWidget {
                 ],
               ),
             ),
-            Text(
-              formattedAmount,
-              style: tt.titleMedium?.copyWith(
-                color: amountColor,
-                fontWeight: FontWeight.w700,
-                fontFeatures: const [FontFeature.tabularFigures()],
-              ),
+            AmountText.transaction(
+              amount: transaction.amount,
+              isCredit: isCredit,
+              isMasked: isMasked,
             ),
             const SizedBox(width: AppDimensions.buttonStackGap),
-            Icon(Icons.more_vert_rounded, size: 20, color: cs.onSurfaceVariant),
+            MoreIconButton(onTap: () => _showActions(context, ref, l10n)),
           ],
         ),
       ),
@@ -480,63 +482,33 @@ class _TxnListTile extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     AppLocalizations l10n,
-    ColorScheme cs,
-    TextTheme tt,
   ) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.edit_outlined),
-              title: Text(l10n.editEntryTitle),
-              onTap: () {
-                Navigator.of(ctx).pop();
-                context.push(
-                  '/customers/${transaction.customerId}/entry/edit',
-                  extra: transaction,
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.delete_outline_rounded, color: cs.error),
-              title: Text(l10n.deleteAction, style: TextStyle(color: cs.error)),
-              onTap: () {
-                Navigator.of(ctx).pop();
-                _confirmDelete(context, ref, l10n, cs);
-              },
-            ),
-          ],
+    KpActionSheet.show(context, actions: [
+      KpAction(
+        icon: Icons.edit_outlined,
+        label: l10n.editEntryTitle,
+        onTap: () => context.push(
+          '/customers/${transaction.customerId}/entry/edit',
+          extra: transaction,
         ),
       ),
-    );
+      KpAction(
+        icon: Icons.delete_outline_rounded,
+        label: l10n.deleteAction,
+        isDestructive: true,
+        onTap: () => _confirmDelete(context, ref, l10n),
+      ),
+    ]);
   }
 
   Future<void> _confirmDelete(
     BuildContext context,
     WidgetRef ref,
     AppLocalizations l10n,
-    ColorScheme cs,
   ) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.deleteConfirmTitle),
-        content: Text(l10n.deleteTxnConfirmBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(l10n.cancelAction),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            style: TextButton.styleFrom(foregroundColor: cs.error),
-            child: Text(l10n.deleteAction),
-          ),
-        ],
-      ),
+    final confirmed = await KpDeleteDialog.show(
+      context,
+      body: l10n.deleteTxnConfirmBody,
     );
     if (confirmed == true && context.mounted) {
       await ref
@@ -546,49 +518,45 @@ class _TxnListTile extends ConsumerWidget {
   }
 }
 
-// ── Empty state ───────────────────────────────────────────────────────────────
+// ── Reminder frequency chip ───────────────────────────────────────────────────
 
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.customerId});
+class _ReminderChip extends StatelessWidget {
+  const _ReminderChip({required this.frequency});
 
-  final String customerId;
+  final ReminderFrequency frequency;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final cs   = Theme.of(context).colorScheme;
     final tt   = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.buttonPaddingH * 2,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.receipt_long_outlined, size: AppDimensions.emptyIconSize, color: cs.outlineVariant),
-            const SizedBox(height: AppDimensions.inputPaddingV),
-            Text(
-              l10n.customerDetailNoEntries,
-              style: tt.titleMedium?.copyWith(color: cs.onSurface),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppDimensions.buttonStackGap),
-            Text(
-              l10n.customerDetailNoEntriesBody,
-              style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppDimensions.inputPaddingV),
-            FilledButton(
-              onPressed: () =>
-                  context.push('/customers/$customerId/entry'),
-              child: Text(l10n.customerDetailAddFirstEntry),
-            ),
-          ],
-        ),
+    final label = switch (frequency) {
+      ReminderFrequency.weekly      => l10n.reminderFrequencyWeekly,
+      ReminderFrequency.fortnightly => l10n.reminderFrequencyFortnightly,
+      ReminderFrequency.monthly     => l10n.reminderFrequencyMonthly,
+      ReminderFrequency.none        => '',
+    };
+
+    return Container(
+      margin: const EdgeInsets.only(top: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: cs.primaryContainer,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.alarm_rounded, size: 10, color: cs.onPrimaryContainer),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: tt.labelSmall?.copyWith(color: cs.onPrimaryContainer),
+          ),
+        ],
       ),
     );
   }
 }
+

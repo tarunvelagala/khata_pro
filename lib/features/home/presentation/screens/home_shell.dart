@@ -1,43 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/widgets/offline_banner.dart';
+import '../../../../core/widgets/unsynced_banner.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../providers/shell_nav_provider.dart';
 import 'customers_screen.dart';
 import 'dashboard_screen.dart';
+import '../../../../features/reports/presentation/screens/reports_screen.dart';
+import '../../../../features/settings/presentation/screens/settings_screen.dart';
 
-abstract final class _Dims {
-  static const double placeholderIconSize = 48.0;
-}
-
-class HomeShell extends ConsumerStatefulWidget {
+class HomeShell extends ConsumerWidget {
   const HomeShell({super.key});
-
-  @override
-  ConsumerState<HomeShell> createState() => _HomeShellState();
-}
-
-class _HomeShellState extends ConsumerState<HomeShell> {
-  int _selectedIndex = 0;
 
   static const List<Widget> _screens = [
     DashboardScreen(),
     CustomersScreen(),
-    _PlaceholderScreen(icon: Icons.leaderboard_rounded),
-    _PlaceholderScreen(icon: Icons.settings_rounded),
+    ReportsScreen(),
+    SettingsScreen(),
   ];
 
   @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n          = AppLocalizations.of(context)!;
+    final selectedIndex = ref.watch(shellNavProvider);
 
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _screens),
-      // Material wrapper lets the NavigationBarTheme's elevation and shadowColor
-      // render correctly. ClipRRect was previously masking the shadow entirely.
+      body: Column(
+        children: [
+          const OfflineBanner(),
+          const UnsyncedBanner(),
+          Expanded(
+            child: IndexedStack(index: selectedIndex, children: _screens),
+          ),
+        ],
+      ),
       bottomNavigationBar: Material(
         child: NavigationBar(
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: (i) => setState(() => _selectedIndex = i),
+          selectedIndex: selectedIndex,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          onDestinationSelected: (i) =>
+              ref.read(shellNavProvider.notifier).select(i),
           destinations: [
             NavigationDestination(
               icon: const Icon(Icons.home_outlined),
@@ -60,27 +63,6 @@ class _HomeShellState extends ConsumerState<HomeShell> {
               label: l10n.navSettings,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.icon});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: cs.surface,
-      body: Center(
-        child: Icon(
-          icon,
-          size: _Dims.placeholderIconSize,
-          color: cs.outlineVariant,
         ),
       ),
     );

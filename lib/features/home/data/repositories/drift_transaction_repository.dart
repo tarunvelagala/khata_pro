@@ -2,13 +2,14 @@ import 'package:drift/drift.dart';
 
 import '../../../../core/database/app_database.dart' as db;
 import '../../domain/models/transaction.dart';
-import 'drift_customer_repository.dart';
+import 'i_customer_repository.dart';
 import 'i_transaction_repository.dart';
 
 class DriftTransactionRepository implements ITransactionRepository {
-  const DriftTransactionRepository(this._db);
+  const DriftTransactionRepository(this._db, this._customerRepo);
 
   final db.AppDatabase _db;
+  final ICustomerRepository _customerRepo;
 
   @override
   Stream<List<Transaction>> watchForCustomer(String customerId) {
@@ -29,6 +30,14 @@ class DriftTransactionRepository implements ITransactionRepository {
   }
 
   @override
+  Stream<List<Transaction>> watchAll() {
+    return (_db.select(_db.transactions)
+          ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
+        .watch()
+        .asyncMap((rows) => Future.wait(rows.map(_toDomain)));
+  }
+
+  @override
   Future<Transaction> insert(Transaction txn) async {
     await _db.transaction(() async {
       await _db.into(_db.transactions).insert(
@@ -42,7 +51,7 @@ class DriftTransactionRepository implements ITransactionRepository {
         ),
       );
       final delta = txn.isCredit ? txn.amount : -txn.amount;
-      await DriftCustomerRepository(_db).adjustBalance(txn.customerId, delta);
+      await _customerRepo.adjustBalance(txn.customerId, delta);
     });
     return txn;
   }
@@ -55,13 +64,12 @@ class DriftTransactionRepository implements ITransactionRepository {
           .getSingle();
       final delta = row.isCredit ? -row.amount : row.amount;
       await (_db.delete(_db.transactions)..where((t) => t.id.equals(id))).go();
-      await DriftCustomerRepository(_db).adjustBalance(row.customerId, delta);
+      await _customerRepo.adjustBalance(row.customerId, delta);
     });
   }
 
   Future<Transaction> _toDomain(db.Transaction row) async {
-    final customer =
-        await DriftCustomerRepository(_db).fetchById(row.customerId);
+    final customer = await _customerRepo.fetchById(row.customerId);
     final name = customer?.name ?? '';
     return Transaction(
       id: row.id,

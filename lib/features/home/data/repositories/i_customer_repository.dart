@@ -19,4 +19,8 @@ abstract interface class ICustomerRepository {
   Future<Customer> insert(Customer customer);
   Future<void> update(Customer customer);
   Future<void> delete(String id);
+
+  /// Atomically increments a customer's netBalance by [delta].
+  /// Called by the transaction repository inside DB transactions.
+  Future<void> adjustBalance(String customerId, double delta);
 }
