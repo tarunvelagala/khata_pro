@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/widgets/screen_footer.dart';
+import '../../../../core/widgets/sticky_footer_cta.dart';
 import '../../../../core/widgets/selection_card.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../providers/locale_provider.dart';
@@ -54,10 +54,17 @@ class _LanguageSelectionScreenState
   Future<void> _onContinue() async {
     await ref.read(localeProvider.notifier).setLocale(_selectedCode);
     if (!mounted) return;
-    final prefs = await SharedPreferences.getInstance();
-    final tourSeen = prefs.getBool('tour_seen') ?? false;
+    final prefs       = await SharedPreferences.getInstance();
+    final profileDone = prefs.getBool('profile_setup_done') ?? false;
+    final tourSeen    = prefs.getBool('tour_seen') ?? false;
     if (!mounted) return;
-    context.go(tourSeen ? '/home' : '/tour');
+    if (!profileDone) {
+      context.go('/onboarding/profile');
+    } else if (!tourSeen) {
+      context.go('/tour');
+    } else {
+      context.go('/home');
+    }
   }
 
   @override
@@ -114,9 +121,9 @@ class _LanguageSelectionScreenState
                 ),
               ),
             ),
-            ScreenFooter(
-              ctaLabel: l10n.languageContinueButton,
-              onCta: _onContinue,
+            StickyFooterCta(
+              label: l10n.languageContinueButton,
+              onPressed: _onContinue,
             ),
           ],
         ),
