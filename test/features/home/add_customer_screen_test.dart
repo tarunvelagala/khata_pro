@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:khata_pro/core/services/contacts_service.dart';
 import 'package:khata_pro/core/theme/app_theme.dart';
 import 'package:khata_pro/features/home/domain/models/customer.dart';
 import 'package:khata_pro/features/home/presentation/providers/customer_provider.dart';
 import 'package:khata_pro/features/home/presentation/screens/add_customer_screen.dart';
 import 'package:khata_pro/l10n/app_localizations.dart';
 
-// ── Stub that records what was inserted ──────────────────────────────────────
+// ── Stubs ─────────────────────────────────────────────────────────────────────
 
 class _RecordingCustomerNotifier extends CustomerNotifier {
   Customer? inserted;
@@ -22,6 +23,19 @@ class _RecordingCustomerNotifier extends CustomerNotifier {
   }
 }
 
+/// Contacts service stub: permission always granted, createContact returns null
+/// (no actual device contact created during tests).
+class _StubContactsService extends ContactsService {
+  @override
+  Future<bool> requestPermission() async => true;
+
+  @override
+  Future<({String id, String name, String? phone})?> pickContact() async => null;
+
+  @override
+  Future<String?> createContact({required String name, String? phone}) async => null;
+}
+
 // ── Harness ───────────────────────────────────────────────────────────────────
 
 Widget _wrap(
@@ -31,6 +45,7 @@ Widget _wrap(
   return ProviderScope(
     overrides: [
       customerProvider.overrideWith(() => notifier),
+      contactsServiceProvider.overrideWithValue(_StubContactsService()),
     ],
     child: MaterialApp(
       theme: AppTheme.light,

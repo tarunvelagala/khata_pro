@@ -144,9 +144,9 @@ void main() {
       expect(find.text(l10n.customerDetailNoEntries), findsOneWidget);
     });
 
-    testWidgets('FAB is present', (tester) async {
+    testWidgets('FAB is not present', (tester) async {
       await _pump(tester, _wrap(txns: _txns));
-      expect(find.byType(FloatingActionButton), findsOneWidget);
+      expect(find.byType(FloatingActionButton), findsNothing);
     });
   });
 

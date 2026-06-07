@@ -3,12 +3,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:khata_pro/core/constants/app_dimensions.dart';
+import 'package:khata_pro/core/services/contacts_service.dart';
 import 'package:khata_pro/core/theme/app_colors.dart';
 import 'package:khata_pro/core/theme/app_theme.dart';
 import 'package:khata_pro/features/home/domain/models/customer.dart';
 import 'package:khata_pro/features/home/domain/models/transaction.dart';
 import 'package:khata_pro/features/home/presentation/providers/customer_provider.dart';
+import 'package:khata_pro/features/home/presentation/providers/customer_transactions_provider.dart';
 import 'package:khata_pro/features/home/presentation/providers/transaction_provider.dart';
+import 'package:khata_pro/features/home/presentation/screens/add_customer_screen.dart';
+import 'package:khata_pro/features/home/presentation/screens/add_entry_screen.dart';
+import 'package:khata_pro/features/home/presentation/screens/customer_detail_screen.dart';
 import 'package:khata_pro/features/home/presentation/screens/customers_screen.dart';
 import 'package:khata_pro/features/home/presentation/screens/dashboard_screen.dart';
 import 'package:khata_pro/features/home/presentation/screens/home_shell.dart';
@@ -95,6 +100,12 @@ void _expectNoOverflow(WidgetTester tester) {
 
 // ── Stub notifiers ─────────────────────────────────────────────────────────────
 
+class _StubContactsService extends ContactsService {
+  @override Future<bool> requestPermission() async => false;
+  @override Future<({String id, String name, String? phone})?> pickContact() async => null;
+  @override Future<String?> createContact({required String name, String? phone}) async => null;
+}
+
 class _StubCustomerNotifier extends CustomerNotifier {
   _StubCustomerNotifier(this._data);
   final List<Customer> _data;
@@ -104,6 +115,13 @@ class _StubCustomerNotifier extends CustomerNotifier {
 
 class _StubTransactionNotifier extends TransactionNotifier {
   _StubTransactionNotifier(this._data);
+  final List<Transaction> _data;
+  @override
+  Stream<List<Transaction>> build() => Stream.value(_data);
+}
+
+class _StubTxnsNotifier extends CustomerTransactionsNotifier {
+  _StubTxnsNotifier(super.customerId, this._data);
   final List<Transaction> _data;
   @override
   Stream<List<Transaction>> build() => Stream.value(_data);
@@ -455,9 +473,8 @@ void main() {
 
             final l10n = await AppLocalizations.delegate.load(locale);
 
-            // Search bar and Add button must render.
-            expect(find.text(l10n.customersSearch),    findsOneWidget);
-            expect(find.text(l10n.customersAddButton), findsOneWidget);
+            // Search bar must render.
+            expect(find.text(l10n.customersSearch), findsOneWidget);
 
             // Stub data has 3 customers — all tiles should appear.
             expect(find.text('Anjali Sharma'), findsOneWidget);
@@ -509,6 +526,174 @@ void main() {
           _expectNoOverflow(tester);
         },
       );
+    }
+  });
+
+  // ── AddCustomerScreen ─────────────────────────────────────────────────────────
+
+  group('AddCustomerScreen — locale + overflow', () {
+    for (final locale in _locales) {
+      for (final sizeEntry in _sizes.entries) {
+        testWidgets(
+          '${_localeNames[locale.languageCode]} on ${sizeEntry.key}',
+          (tester) async {
+            tester.view.physicalSize = Size(sizeEntry.value.width * 2, sizeEntry.value.height * 2);
+            tester.view.devicePixelRatio = 2.0;
+            addTearDown(tester.view.resetPhysicalSize);
+            addTearDown(tester.view.resetDevicePixelRatio);
+
+            await tester.pumpWidget(
+              ProviderScope(
+                overrides: [
+                  customerProvider.overrideWith(
+                    () => _StubCustomerNotifier([]),
+                  ),
+                  contactsServiceProvider.overrideWithValue(
+                    _StubContactsService(),
+                  ),
+                ],
+                child: MaterialApp(
+                  theme: AppTheme.light,
+                  locale: locale,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  home: const AddCustomerScreen(),
+                ),
+              ),
+            );
+            await tester.pump();
+            await tester.pump(const Duration(milliseconds: 100));
+            _expectNoOverflow(tester);
+
+            final l10n = await AppLocalizations.delegate.load(locale);
+            expect(find.text(l10n.addCustomerTitle), findsOneWidget);
+            expect(find.text(l10n.addCustomerSave),  findsOneWidget);
+          },
+        );
+      }
+    }
+  });
+
+  // ── CustomerDetailScreen ──────────────────────────────────────────────────────
+
+  group('CustomerDetailScreen — locale + overflow', () {
+    const customer = Customer(
+      id: 'c1',
+      name: 'Anjali Sharma',
+      shopName: 'Boutique',
+      netBalance: 1200,
+    );
+    final txns = [
+      Transaction(
+        id: 't1', customerId: 'c1', customerName: 'Anjali Sharma',
+        shopName: 'Boutique', avatarLabel: 'A', amount: 1200,
+        isCredit: true, note: 'Delivery payment',
+        timestamp: DateTime.now().subtract(const Duration(hours: 1)),
+      ),
+    ];
+
+    for (final locale in _locales) {
+      for (final sizeEntry in _sizes.entries) {
+        testWidgets(
+          '${_localeNames[locale.languageCode]} on ${sizeEntry.key}',
+          (tester) async {
+            tester.view.physicalSize = Size(sizeEntry.value.width * 2, sizeEntry.value.height * 2);
+            tester.view.devicePixelRatio = 2.0;
+            addTearDown(tester.view.resetPhysicalSize);
+            addTearDown(tester.view.resetDevicePixelRatio);
+
+            await tester.pumpWidget(
+              ProviderScope(
+                overrides: [
+                  customerProvider.overrideWith(
+                    () => _StubCustomerNotifier([customer]),
+                  ),
+                  customerTransactionsProvider(customer.id).overrideWith(
+                    () => _StubTxnsNotifier(customer.id, txns),
+                  ),
+                ],
+                child: MaterialApp(
+                  theme: AppTheme.light,
+                  locale: locale,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  home: CustomerDetailScreen(customerId: customer.id),
+                ),
+              ),
+            );
+            await tester.pump();
+            await tester.pump(const Duration(milliseconds: 100));
+            _expectNoOverflow(tester);
+            expect(find.text('Anjali Sharma'), findsWidgets);
+          },
+        );
+      }
+    }
+  });
+
+  // ── AddEntryScreen ────────────────────────────────────────────────────────────
+
+  group('AddEntryScreen — locale + overflow', () {
+    const customer = Customer(
+      id: 'c1',
+      name: 'Anjali Sharma',
+      shopName: 'Boutique',
+      netBalance: 500,
+    );
+
+    for (final locale in _locales) {
+      for (final sizeEntry in _sizes.entries) {
+        testWidgets(
+          '${_localeNames[locale.languageCode]} on ${sizeEntry.key}',
+          (tester) async {
+            tester.view.physicalSize = Size(sizeEntry.value.width * 2, sizeEntry.value.height * 2);
+            tester.view.devicePixelRatio = 2.0;
+            addTearDown(tester.view.resetPhysicalSize);
+            addTearDown(tester.view.resetDevicePixelRatio);
+
+            await tester.pumpWidget(
+              ProviderScope(
+                overrides: [
+                  customerProvider.overrideWith(
+                    () => _StubCustomerNotifier([customer]),
+                  ),
+                  customerTransactionsProvider(customer.id).overrideWith(
+                    () => _StubTxnsNotifier(customer.id, []),
+                  ),
+                ],
+                child: MaterialApp(
+                  theme: AppTheme.light,
+                  locale: locale,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  home: AddEntryScreen(customerId: customer.id),
+                ),
+              ),
+            );
+            await tester.pump();
+            await tester.pump(const Duration(milliseconds: 100));
+            _expectNoOverflow(tester);
+
+            final l10n = await AppLocalizations.delegate.load(locale);
+            expect(find.text(l10n.addEntrySave), findsOneWidget);
+          },
+        );
+      }
     }
   });
 }
