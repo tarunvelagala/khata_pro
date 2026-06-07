@@ -5,29 +5,25 @@
     android:viewportWidth="1024"
     android:viewportHeight="1024">
 
-  <!-- Left vertical bar — green -->
+  <!-- Blue column: 3 stacked pills (ledger entries) -->
+  <path
+      android:fillColor="#1565C0"
+      android:pathData="M 366.5,277 H 366.5 A 59.5,59.5 0 0 1 426,336.5 V 342.5 A 59.5,59.5 0 0 1 366.5,402 H 366.5 A 59.5,59.5 0 0 1 307,342.5 V 336.5 A 59.5,59.5 0 0 1 366.5,277 Z"/>
+  <path
+      android:fillColor="#1565C0"
+      android:pathData="M 366.5,419.5 H 366.5 A 59.5,59.5 0 0 1 426,479.0 V 485.0 A 59.5,59.5 0 0 1 366.5,544.5 H 366.5 A 59.5,59.5 0 0 1 307,485.0 V 479.0 A 59.5,59.5 0 0 1 366.5,419.5 Z"/>
+  <path
+      android:fillColor="#1565C0"
+      android:pathData="M 366.5,562 H 366.5 A 59.5,59.5 0 0 1 426,621.5 V 627.5 A 59.5,59.5 0 0 1 366.5,687 H 366.5 A 59.5,59.5 0 0 1 307,627.5 V 621.5 A 59.5,59.5 0 0 1 366.5,562 Z"/>
+
+  <!-- Green column: full-height pill (income) -->
   <path
       android:fillColor="#2E7D32"
-      android:pathData="M387,377 Q371,377 371,393 L371,631 Q371,647 387,647 L429,647 Q445,647 445,631 L445,393 Q445,377 429,377 Z"/>
+      android:pathData="M 512.0,277 H 512.0 A 59.5,59.5 0 0 1 571.5,336.5 V 627.5 A 59.5,59.5 0 0 1 512.0,687 H 512.0 A 59.5,59.5 0 0 1 452.5,627.5 V 336.5 A 59.5,59.5 0 0 1 512.0,277 Z"/>
 
-  <!-- Right vertical bar — red -->
+  <!-- Red column: full-height pill (expense) -->
   <path
       android:fillColor="#C62828"
-      android:pathData="M477,377 Q461,377 461,393 L461,631 Q461,647 477,647 L519,647 Q535,647 535,631 L535,393 Q535,377 519,377 Z"/>
-
-  <!-- Top horizontal bar — blue -->
-  <path
-      android:fillColor="#1565C0"
-      android:pathData="M567,392 Q551,392 551,408 L551,430 Q551,446 567,446 L651,446 Q667,446 667,430 L667,408 Q667,392 651,392 Z"/>
-
-  <!-- Mid horizontal bar — blue -->
-  <path
-      android:fillColor="#1565C0"
-      android:pathData="M567,488 Q551,488 551,504 L551,526 Q551,542 567,542 L651,542 Q667,542 667,526 L667,504 Q667,488 651,488 Z"/>
-
-  <!-- Bottom horizontal bar — blue -->
-  <path
-      android:fillColor="#1565C0"
-      android:pathData="M567,584 Q551,584 551,600 L551,622 Q551,638 567,638 L651,638 Q667,638 667,622 L667,600 Q667,584 651,584 Z"/>
+      android:pathData="M 657.5,277 H 657.5 A 59.5,59.5 0 0 1 717,336.5 V 627.5 A 59.5,59.5 0 0 1 657.5,687 H 657.5 A 59.5,59.5 0 0 1 598,627.5 V 336.5 A 59.5,59.5 0 0 1 657.5,277 Z"/>
 
 </vector>

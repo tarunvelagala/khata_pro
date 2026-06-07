@@ -1,10 +1,11 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1024" height="1024" fill="#FAF9FD"/>
-  <g transform="translate(46.7, 46.7) scale(0.9089)">
-    <rect x="180" y="174" width="160" height="676" rx="16" fill="#2E7D32"/>
-    <rect x="380" y="174" width="160" height="676" rx="16" fill="#C62828"/>
-    <rect x="580" y="212" width="264" height="120" rx="16" fill="#1565C0"/>
-    <rect x="580" y="452" width="264" height="120" rx="16" fill="#1565C0"/>
-    <rect x="580" y="692" width="264" height="120" rx="16" fill="#1565C0"/>
-  </g>
+  <!-- Blue column: 3 stacked pills (ledger entries) -->
+  <rect x="102" y="102" width="238" height="250" rx="119" fill="#1565C0"/>
+  <rect x="102" y="387" width="238" height="250" rx="119" fill="#1565C0"/>
+  <rect x="102" y="672" width="238" height="250" rx="119" fill="#1565C0"/>
+  <!-- Green column: full-height pill (income) -->
+  <rect x="393" y="102" width="238" height="820" rx="119" fill="#2E7D32"/>
+  <!-- Red column: full-height pill (expense) -->
+  <rect x="684" y="102" width="238" height="820" rx="119" fill="#C62828"/>
 </svg>
