@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/constants/prefs_keys.dart';
 import '../../../../core/widgets/illustration_frame.dart';
-import '../../../../core/widgets/screen_footer.dart';
+import '../../../../core/widgets/sticky_footer_cta.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/dot_indicator.dart';
 import '../widgets/ledger_phone_illustration.dart';
@@ -47,9 +49,9 @@ class _TourScreenState extends ConsumerState<TourScreen> {
 
   Future<void> _complete() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('tour_seen', true);
+    await prefs.setBool(PrefsKeys.tourSeen, true);
     if (!mounted) return;
-    context.go('/home');
+    context.go('/auth/sign-in');
   }
 
   void _onCta() {
@@ -109,9 +111,11 @@ class _TourScreenState extends ConsumerState<TourScreen> {
               padding: const EdgeInsets.only(bottom: _Dims.dotBottomPadding),
               child: DotIndicator(currentPage: _currentPage, count: _pageCount),
             ),
-            ScreenFooter(
-              ctaLabel: isLast ? l10n.tourGetStarted : l10n.tourNext,
-              onCta: _onCta,
+            StickyFooterCta(
+              label: isLast ? l10n.tourGetStarted : l10n.tourNext,
+              onPressed: _onCta,
+              topRadius: AppDimensions.radiusLarge,
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
               secondaryLabel: l10n.tourSkip,
               onSecondary: _complete,
             ),
