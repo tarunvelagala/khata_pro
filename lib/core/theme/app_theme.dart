@@ -259,7 +259,12 @@ abstract final class AppTheme {
   }) => InputDecorationTheme(
     filled: true,
     fillColor: fill,
+    floatingLabelBehavior: FloatingLabelBehavior.auto,
     border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      borderSide: BorderSide.none,
+    ),
+    enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       borderSide: BorderSide.none,
     ),
@@ -270,9 +275,20 @@ abstract final class AppTheme {
         width: AppDimensions.borderFocused,
       ),
     ),
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: AppDimensions.inputPaddingV,
-      horizontal: AppDimensions.inputPaddingH,
+    // Resting label (inside the field, before focus)
+    labelStyle: AppTextStyles.bodyMedium,
+    // Floated label (above content, after focus or when filled)
+    floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
+      final color = states.contains(WidgetState.focused)
+          ? focusBorder
+          : AppColors.onSurfaceVariant;
+      return AppTextStyles.labelMedium.copyWith(color: color);
+    }),
+    contentPadding: const EdgeInsets.fromLTRB(
+      AppDimensions.inputPaddingH,
+      AppDimensions.inputPaddingV + 6, // extra top so text clears the floated label
+      AppDimensions.inputPaddingH,
+      AppDimensions.inputPaddingV - 6,
     ),
   );
 

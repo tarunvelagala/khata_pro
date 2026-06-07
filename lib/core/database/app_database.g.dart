@@ -70,6 +70,51 @@ class $CustomersTable extends Customers
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _contactIdMeta = const VerificationMeta(
+    'contactId',
+  );
+  @override
+  late final GeneratedColumn<String> contactId = GeneratedColumn<String>(
+    'contact_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _reminderFrequencyMeta = const VerificationMeta(
+    'reminderFrequency',
+  );
+  @override
+  late final GeneratedColumn<String> reminderFrequency =
+      GeneratedColumn<String>(
+        'reminder_frequency',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _reminderDateMeta = const VerificationMeta(
+    'reminderDate',
+  );
+  @override
+  late final GeneratedColumn<int> reminderDate = GeneratedColumn<int>(
+    'reminder_date',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _syncedAtMeta = const VerificationMeta(
+    'syncedAt',
+  );
+  @override
+  late final GeneratedColumn<int> syncedAt = GeneratedColumn<int>(
+    'synced_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -78,6 +123,10 @@ class $CustomersTable extends Customers
     shopName,
     netBalance,
     createdAt,
+    contactId,
+    reminderFrequency,
+    reminderDate,
+    syncedAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -130,6 +179,36 @@ class $CustomersTable extends Customers
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
+    if (data.containsKey('contact_id')) {
+      context.handle(
+        _contactIdMeta,
+        contactId.isAcceptableOrUnknown(data['contact_id']!, _contactIdMeta),
+      );
+    }
+    if (data.containsKey('reminder_frequency')) {
+      context.handle(
+        _reminderFrequencyMeta,
+        reminderFrequency.isAcceptableOrUnknown(
+          data['reminder_frequency']!,
+          _reminderFrequencyMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reminder_date')) {
+      context.handle(
+        _reminderDateMeta,
+        reminderDate.isAcceptableOrUnknown(
+          data['reminder_date']!,
+          _reminderDateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('synced_at')) {
+      context.handle(
+        _syncedAtMeta,
+        syncedAt.isAcceptableOrUnknown(data['synced_at']!, _syncedAtMeta),
+      );
+    }
     return context;
   }
 
@@ -163,6 +242,22 @@ class $CustomersTable extends Customers
         DriftSqlType.int,
         data['${effectivePrefix}created_at'],
       )!,
+      contactId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}contact_id'],
+      ),
+      reminderFrequency: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reminder_frequency'],
+      ),
+      reminderDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reminder_date'],
+      ),
+      syncedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}synced_at'],
+      ),
     );
   }
 
@@ -179,6 +274,10 @@ class Customer extends DataClass implements Insertable<Customer> {
   final String? shopName;
   final double netBalance;
   final int createdAt;
+  final String? contactId;
+  final String? reminderFrequency;
+  final int? reminderDate;
+  final int? syncedAt;
   const Customer({
     required this.id,
     required this.name,
@@ -186,6 +285,10 @@ class Customer extends DataClass implements Insertable<Customer> {
     this.shopName,
     required this.netBalance,
     required this.createdAt,
+    this.contactId,
+    this.reminderFrequency,
+    this.reminderDate,
+    this.syncedAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -200,6 +303,18 @@ class Customer extends DataClass implements Insertable<Customer> {
     }
     map['net_balance'] = Variable<double>(netBalance);
     map['created_at'] = Variable<int>(createdAt);
+    if (!nullToAbsent || contactId != null) {
+      map['contact_id'] = Variable<String>(contactId);
+    }
+    if (!nullToAbsent || reminderFrequency != null) {
+      map['reminder_frequency'] = Variable<String>(reminderFrequency);
+    }
+    if (!nullToAbsent || reminderDate != null) {
+      map['reminder_date'] = Variable<int>(reminderDate);
+    }
+    if (!nullToAbsent || syncedAt != null) {
+      map['synced_at'] = Variable<int>(syncedAt);
+    }
     return map;
   }
 
@@ -215,6 +330,18 @@ class Customer extends DataClass implements Insertable<Customer> {
           : Value(shopName),
       netBalance: Value(netBalance),
       createdAt: Value(createdAt),
+      contactId: contactId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(contactId),
+      reminderFrequency: reminderFrequency == null && nullToAbsent
+          ? const Value.absent()
+          : Value(reminderFrequency),
+      reminderDate: reminderDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(reminderDate),
+      syncedAt: syncedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncedAt),
     );
   }
 
@@ -230,6 +357,12 @@ class Customer extends DataClass implements Insertable<Customer> {
       shopName: serializer.fromJson<String?>(json['shopName']),
       netBalance: serializer.fromJson<double>(json['netBalance']),
       createdAt: serializer.fromJson<int>(json['createdAt']),
+      contactId: serializer.fromJson<String?>(json['contactId']),
+      reminderFrequency: serializer.fromJson<String?>(
+        json['reminderFrequency'],
+      ),
+      reminderDate: serializer.fromJson<int?>(json['reminderDate']),
+      syncedAt: serializer.fromJson<int?>(json['syncedAt']),
     );
   }
   @override
@@ -242,6 +375,10 @@ class Customer extends DataClass implements Insertable<Customer> {
       'shopName': serializer.toJson<String?>(shopName),
       'netBalance': serializer.toJson<double>(netBalance),
       'createdAt': serializer.toJson<int>(createdAt),
+      'contactId': serializer.toJson<String?>(contactId),
+      'reminderFrequency': serializer.toJson<String?>(reminderFrequency),
+      'reminderDate': serializer.toJson<int?>(reminderDate),
+      'syncedAt': serializer.toJson<int?>(syncedAt),
     };
   }
 
@@ -252,6 +389,10 @@ class Customer extends DataClass implements Insertable<Customer> {
     Value<String?> shopName = const Value.absent(),
     double? netBalance,
     int? createdAt,
+    Value<String?> contactId = const Value.absent(),
+    Value<String?> reminderFrequency = const Value.absent(),
+    Value<int?> reminderDate = const Value.absent(),
+    Value<int?> syncedAt = const Value.absent(),
   }) => Customer(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -259,6 +400,12 @@ class Customer extends DataClass implements Insertable<Customer> {
     shopName: shopName.present ? shopName.value : this.shopName,
     netBalance: netBalance ?? this.netBalance,
     createdAt: createdAt ?? this.createdAt,
+    contactId: contactId.present ? contactId.value : this.contactId,
+    reminderFrequency: reminderFrequency.present
+        ? reminderFrequency.value
+        : this.reminderFrequency,
+    reminderDate: reminderDate.present ? reminderDate.value : this.reminderDate,
+    syncedAt: syncedAt.present ? syncedAt.value : this.syncedAt,
   );
   Customer copyWithCompanion(CustomersCompanion data) {
     return Customer(
@@ -270,6 +417,14 @@ class Customer extends DataClass implements Insertable<Customer> {
           ? data.netBalance.value
           : this.netBalance,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      contactId: data.contactId.present ? data.contactId.value : this.contactId,
+      reminderFrequency: data.reminderFrequency.present
+          ? data.reminderFrequency.value
+          : this.reminderFrequency,
+      reminderDate: data.reminderDate.present
+          ? data.reminderDate.value
+          : this.reminderDate,
+      syncedAt: data.syncedAt.present ? data.syncedAt.value : this.syncedAt,
     );
   }
 
@@ -281,14 +436,28 @@ class Customer extends DataClass implements Insertable<Customer> {
           ..write('phone: $phone, ')
           ..write('shopName: $shopName, ')
           ..write('netBalance: $netBalance, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('contactId: $contactId, ')
+          ..write('reminderFrequency: $reminderFrequency, ')
+          ..write('reminderDate: $reminderDate, ')
+          ..write('syncedAt: $syncedAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, phone, shopName, netBalance, createdAt);
+  int get hashCode => Object.hash(
+    id,
+    name,
+    phone,
+    shopName,
+    netBalance,
+    createdAt,
+    contactId,
+    reminderFrequency,
+    reminderDate,
+    syncedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -298,7 +467,11 @@ class Customer extends DataClass implements Insertable<Customer> {
           other.phone == this.phone &&
           other.shopName == this.shopName &&
           other.netBalance == this.netBalance &&
-          other.createdAt == this.createdAt);
+          other.createdAt == this.createdAt &&
+          other.contactId == this.contactId &&
+          other.reminderFrequency == this.reminderFrequency &&
+          other.reminderDate == this.reminderDate &&
+          other.syncedAt == this.syncedAt);
 }
 
 class CustomersCompanion extends UpdateCompanion<Customer> {
@@ -308,6 +481,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
   final Value<String?> shopName;
   final Value<double> netBalance;
   final Value<int> createdAt;
+  final Value<String?> contactId;
+  final Value<String?> reminderFrequency;
+  final Value<int?> reminderDate;
+  final Value<int?> syncedAt;
   final Value<int> rowid;
   const CustomersCompanion({
     this.id = const Value.absent(),
@@ -316,6 +493,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
     this.shopName = const Value.absent(),
     this.netBalance = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.contactId = const Value.absent(),
+    this.reminderFrequency = const Value.absent(),
+    this.reminderDate = const Value.absent(),
+    this.syncedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   CustomersCompanion.insert({
@@ -325,6 +506,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
     this.shopName = const Value.absent(),
     this.netBalance = const Value.absent(),
     required int createdAt,
+    this.contactId = const Value.absent(),
+    this.reminderFrequency = const Value.absent(),
+    this.reminderDate = const Value.absent(),
+    this.syncedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
@@ -336,6 +521,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
     Expression<String>? shopName,
     Expression<double>? netBalance,
     Expression<int>? createdAt,
+    Expression<String>? contactId,
+    Expression<String>? reminderFrequency,
+    Expression<int>? reminderDate,
+    Expression<int>? syncedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -345,6 +534,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
       if (shopName != null) 'shop_name': shopName,
       if (netBalance != null) 'net_balance': netBalance,
       if (createdAt != null) 'created_at': createdAt,
+      if (contactId != null) 'contact_id': contactId,
+      if (reminderFrequency != null) 'reminder_frequency': reminderFrequency,
+      if (reminderDate != null) 'reminder_date': reminderDate,
+      if (syncedAt != null) 'synced_at': syncedAt,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -356,6 +549,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
     Value<String?>? shopName,
     Value<double>? netBalance,
     Value<int>? createdAt,
+    Value<String?>? contactId,
+    Value<String?>? reminderFrequency,
+    Value<int?>? reminderDate,
+    Value<int?>? syncedAt,
     Value<int>? rowid,
   }) {
     return CustomersCompanion(
@@ -365,6 +562,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
       shopName: shopName ?? this.shopName,
       netBalance: netBalance ?? this.netBalance,
       createdAt: createdAt ?? this.createdAt,
+      contactId: contactId ?? this.contactId,
+      reminderFrequency: reminderFrequency ?? this.reminderFrequency,
+      reminderDate: reminderDate ?? this.reminderDate,
+      syncedAt: syncedAt ?? this.syncedAt,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -390,6 +591,18 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
     if (createdAt.present) {
       map['created_at'] = Variable<int>(createdAt.value);
     }
+    if (contactId.present) {
+      map['contact_id'] = Variable<String>(contactId.value);
+    }
+    if (reminderFrequency.present) {
+      map['reminder_frequency'] = Variable<String>(reminderFrequency.value);
+    }
+    if (reminderDate.present) {
+      map['reminder_date'] = Variable<int>(reminderDate.value);
+    }
+    if (syncedAt.present) {
+      map['synced_at'] = Variable<int>(syncedAt.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -405,6 +618,10 @@ class CustomersCompanion extends UpdateCompanion<Customer> {
           ..write('shopName: $shopName, ')
           ..write('netBalance: $netBalance, ')
           ..write('createdAt: $createdAt, ')
+          ..write('contactId: $contactId, ')
+          ..write('reminderFrequency: $reminderFrequency, ')
+          ..write('reminderDate: $reminderDate, ')
+          ..write('syncedAt: $syncedAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -483,6 +700,17 @@ class $TransactionsTable extends Transactions
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _syncedAtMeta = const VerificationMeta(
+    'syncedAt',
+  );
+  @override
+  late final GeneratedColumn<int> syncedAt = GeneratedColumn<int>(
+    'synced_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -491,6 +719,7 @@ class $TransactionsTable extends Transactions
     isCredit,
     note,
     createdAt,
+    syncedAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -547,6 +776,12 @@ class $TransactionsTable extends Transactions
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
+    if (data.containsKey('synced_at')) {
+      context.handle(
+        _syncedAtMeta,
+        syncedAt.isAcceptableOrUnknown(data['synced_at']!, _syncedAtMeta),
+      );
+    }
     return context;
   }
 
@@ -580,6 +815,10 @@ class $TransactionsTable extends Transactions
         DriftSqlType.int,
         data['${effectivePrefix}created_at'],
       )!,
+      syncedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}synced_at'],
+      ),
     );
   }
 
@@ -596,6 +835,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
   final bool isCredit;
   final String? note;
   final int createdAt;
+  final int? syncedAt;
   const Transaction({
     required this.id,
     required this.customerId,
@@ -603,6 +843,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     required this.isCredit,
     this.note,
     required this.createdAt,
+    this.syncedAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -615,6 +856,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       map['note'] = Variable<String>(note);
     }
     map['created_at'] = Variable<int>(createdAt);
+    if (!nullToAbsent || syncedAt != null) {
+      map['synced_at'] = Variable<int>(syncedAt);
+    }
     return map;
   }
 
@@ -626,6 +870,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       isCredit: Value(isCredit),
       note: note == null && nullToAbsent ? const Value.absent() : Value(note),
       createdAt: Value(createdAt),
+      syncedAt: syncedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncedAt),
     );
   }
 
@@ -641,6 +888,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       isCredit: serializer.fromJson<bool>(json['isCredit']),
       note: serializer.fromJson<String?>(json['note']),
       createdAt: serializer.fromJson<int>(json['createdAt']),
+      syncedAt: serializer.fromJson<int?>(json['syncedAt']),
     );
   }
   @override
@@ -653,6 +901,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       'isCredit': serializer.toJson<bool>(isCredit),
       'note': serializer.toJson<String?>(note),
       'createdAt': serializer.toJson<int>(createdAt),
+      'syncedAt': serializer.toJson<int?>(syncedAt),
     };
   }
 
@@ -663,6 +912,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     bool? isCredit,
     Value<String?> note = const Value.absent(),
     int? createdAt,
+    Value<int?> syncedAt = const Value.absent(),
   }) => Transaction(
     id: id ?? this.id,
     customerId: customerId ?? this.customerId,
@@ -670,6 +920,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     isCredit: isCredit ?? this.isCredit,
     note: note.present ? note.value : this.note,
     createdAt: createdAt ?? this.createdAt,
+    syncedAt: syncedAt.present ? syncedAt.value : this.syncedAt,
   );
   Transaction copyWithCompanion(TransactionsCompanion data) {
     return Transaction(
@@ -681,6 +932,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       isCredit: data.isCredit.present ? data.isCredit.value : this.isCredit,
       note: data.note.present ? data.note.value : this.note,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      syncedAt: data.syncedAt.present ? data.syncedAt.value : this.syncedAt,
     );
   }
 
@@ -692,14 +944,15 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           ..write('amount: $amount, ')
           ..write('isCredit: $isCredit, ')
           ..write('note: $note, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('syncedAt: $syncedAt')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(id, customerId, amount, isCredit, note, createdAt);
+      Object.hash(id, customerId, amount, isCredit, note, createdAt, syncedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -709,7 +962,8 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           other.amount == this.amount &&
           other.isCredit == this.isCredit &&
           other.note == this.note &&
-          other.createdAt == this.createdAt);
+          other.createdAt == this.createdAt &&
+          other.syncedAt == this.syncedAt);
 }
 
 class TransactionsCompanion extends UpdateCompanion<Transaction> {
@@ -719,6 +973,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
   final Value<bool> isCredit;
   final Value<String?> note;
   final Value<int> createdAt;
+  final Value<int?> syncedAt;
   final Value<int> rowid;
   const TransactionsCompanion({
     this.id = const Value.absent(),
@@ -727,6 +982,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     this.isCredit = const Value.absent(),
     this.note = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.syncedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TransactionsCompanion.insert({
@@ -736,6 +992,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     required bool isCredit,
     this.note = const Value.absent(),
     required int createdAt,
+    this.syncedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        customerId = Value(customerId),
@@ -749,6 +1006,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     Expression<bool>? isCredit,
     Expression<String>? note,
     Expression<int>? createdAt,
+    Expression<int>? syncedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -758,6 +1016,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       if (isCredit != null) 'is_credit': isCredit,
       if (note != null) 'note': note,
       if (createdAt != null) 'created_at': createdAt,
+      if (syncedAt != null) 'synced_at': syncedAt,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -769,6 +1028,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     Value<bool>? isCredit,
     Value<String?>? note,
     Value<int>? createdAt,
+    Value<int?>? syncedAt,
     Value<int>? rowid,
   }) {
     return TransactionsCompanion(
@@ -778,6 +1038,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       isCredit: isCredit ?? this.isCredit,
       note: note ?? this.note,
       createdAt: createdAt ?? this.createdAt,
+      syncedAt: syncedAt ?? this.syncedAt,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -803,6 +1064,9 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     if (createdAt.present) {
       map['created_at'] = Variable<int>(createdAt.value);
     }
+    if (syncedAt.present) {
+      map['synced_at'] = Variable<int>(syncedAt.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -818,6 +1082,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
           ..write('isCredit: $isCredit, ')
           ..write('note: $note, ')
           ..write('createdAt: $createdAt, ')
+          ..write('syncedAt: $syncedAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -844,6 +1109,10 @@ typedef $$CustomersTableCreateCompanionBuilder =
       Value<String?> shopName,
       Value<double> netBalance,
       required int createdAt,
+      Value<String?> contactId,
+      Value<String?> reminderFrequency,
+      Value<int?> reminderDate,
+      Value<int?> syncedAt,
       Value<int> rowid,
     });
 typedef $$CustomersTableUpdateCompanionBuilder =
@@ -854,6 +1123,10 @@ typedef $$CustomersTableUpdateCompanionBuilder =
       Value<String?> shopName,
       Value<double> netBalance,
       Value<int> createdAt,
+      Value<String?> contactId,
+      Value<String?> reminderFrequency,
+      Value<int?> reminderDate,
+      Value<int?> syncedAt,
       Value<int> rowid,
     });
 
@@ -922,6 +1195,26 @@ class $$CustomersTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get contactId => $composableBuilder(
+    column: $table.contactId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reminderFrequency => $composableBuilder(
+    column: $table.reminderFrequency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get reminderDate => $composableBuilder(
+    column: $table.reminderDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get syncedAt => $composableBuilder(
+    column: $table.syncedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
   Expression<bool> transactionsRefs(
     Expression<bool> Function($$TransactionsTableFilterComposer f) f,
   ) {
@@ -986,6 +1279,26 @@ class $$CustomersTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get contactId => $composableBuilder(
+    column: $table.contactId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reminderFrequency => $composableBuilder(
+    column: $table.reminderFrequency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get reminderDate => $composableBuilder(
+    column: $table.reminderDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get syncedAt => $composableBuilder(
+    column: $table.syncedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$CustomersTableAnnotationComposer
@@ -1016,6 +1329,22 @@ class $$CustomersTableAnnotationComposer
 
   GeneratedColumn<int> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<String> get contactId =>
+      $composableBuilder(column: $table.contactId, builder: (column) => column);
+
+  GeneratedColumn<String> get reminderFrequency => $composableBuilder(
+    column: $table.reminderFrequency,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get reminderDate => $composableBuilder(
+    column: $table.reminderDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get syncedAt =>
+      $composableBuilder(column: $table.syncedAt, builder: (column) => column);
 
   Expression<T> transactionsRefs<T extends Object>(
     Expression<T> Function($$TransactionsTableAnnotationComposer a) f,
@@ -1077,6 +1406,10 @@ class $$CustomersTableTableManager
                 Value<String?> shopName = const Value.absent(),
                 Value<double> netBalance = const Value.absent(),
                 Value<int> createdAt = const Value.absent(),
+                Value<String?> contactId = const Value.absent(),
+                Value<String?> reminderFrequency = const Value.absent(),
+                Value<int?> reminderDate = const Value.absent(),
+                Value<int?> syncedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => CustomersCompanion(
                 id: id,
@@ -1085,6 +1418,10 @@ class $$CustomersTableTableManager
                 shopName: shopName,
                 netBalance: netBalance,
                 createdAt: createdAt,
+                contactId: contactId,
+                reminderFrequency: reminderFrequency,
+                reminderDate: reminderDate,
+                syncedAt: syncedAt,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -1095,6 +1432,10 @@ class $$CustomersTableTableManager
                 Value<String?> shopName = const Value.absent(),
                 Value<double> netBalance = const Value.absent(),
                 required int createdAt,
+                Value<String?> contactId = const Value.absent(),
+                Value<String?> reminderFrequency = const Value.absent(),
+                Value<int?> reminderDate = const Value.absent(),
+                Value<int?> syncedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => CustomersCompanion.insert(
                 id: id,
@@ -1103,6 +1444,10 @@ class $$CustomersTableTableManager
                 shopName: shopName,
                 netBalance: netBalance,
                 createdAt: createdAt,
+                contactId: contactId,
+                reminderFrequency: reminderFrequency,
+                reminderDate: reminderDate,
+                syncedAt: syncedAt,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -1169,6 +1514,7 @@ typedef $$TransactionsTableCreateCompanionBuilder =
       required bool isCredit,
       Value<String?> note,
       required int createdAt,
+      Value<int?> syncedAt,
       Value<int> rowid,
     });
 typedef $$TransactionsTableUpdateCompanionBuilder =
@@ -1179,6 +1525,7 @@ typedef $$TransactionsTableUpdateCompanionBuilder =
       Value<bool> isCredit,
       Value<String?> note,
       Value<int> createdAt,
+      Value<int?> syncedAt,
       Value<int> rowid,
     });
 
@@ -1240,6 +1587,11 @@ class $$TransactionsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get syncedAt => $composableBuilder(
+    column: $table.syncedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$CustomersTableFilterComposer get customerId {
     final $$CustomersTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -1298,6 +1650,11 @@ class $$TransactionsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get syncedAt => $composableBuilder(
+    column: $table.syncedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$CustomersTableOrderingComposer get customerId {
     final $$CustomersTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -1345,6 +1702,9 @@ class $$TransactionsTableAnnotationComposer
 
   GeneratedColumn<int> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get syncedAt =>
+      $composableBuilder(column: $table.syncedAt, builder: (column) => column);
 
   $$CustomersTableAnnotationComposer get customerId {
     final $$CustomersTableAnnotationComposer composer = $composerBuilder(
@@ -1404,6 +1764,7 @@ class $$TransactionsTableTableManager
                 Value<bool> isCredit = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<int> createdAt = const Value.absent(),
+                Value<int?> syncedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => TransactionsCompanion(
                 id: id,
@@ -1412,6 +1773,7 @@ class $$TransactionsTableTableManager
                 isCredit: isCredit,
                 note: note,
                 createdAt: createdAt,
+                syncedAt: syncedAt,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -1422,6 +1784,7 @@ class $$TransactionsTableTableManager
                 required bool isCredit,
                 Value<String?> note = const Value.absent(),
                 required int createdAt,
+                Value<int?> syncedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => TransactionsCompanion.insert(
                 id: id,
@@ -1430,6 +1793,7 @@ class $$TransactionsTableTableManager
                 isCredit: isCredit,
                 note: note,
                 createdAt: createdAt,
+                syncedAt: syncedAt,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
