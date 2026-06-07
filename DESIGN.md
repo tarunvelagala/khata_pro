@@ -897,14 +897,82 @@ final formatted = NumberFormat.currency(
 final formatted = NumberFormat.currency(symbol: '₹').format(amount);
 ```
 
-### Text Expansion
+### Text Expansion & Layout Safety
 
-Hindi and Marathi text is typically 15–25% longer than English. Tamil and Malayalam can be 20–30% longer. All layouts must accommodate this without breaking:
+Hindi and Marathi text is typically 15–25% longer than English. Tamil and Malayalam can be 20–35% longer. Bengali, Telugu, and Kannada sit in between. Every widget that displays translated text must be designed for the longest plausible translation, not English.
 
-- **Headlines:** Clamp to 2 lines maximum with `overflow: TextOverflow.ellipsis`. Never allow headlines to push content below the fold.
-- **Body text:** Allow natural wrapping. Set `maxLines` only where layout integrity requires it (list items: 2 lines; card subtitles: 1 line).
-- **Buttons:** Use flexible width (not fixed). Button text must never truncate — if a translation is too long, the button stretches horizontally up to `screen-width − 2 × screen-margin`.
-- **Financial amounts:** Use the `tabularFigures` font feature for digit alignment. Amounts never truncate — they wrap to the next line if needed.
+**The golden rule: never put translated text in a rigid container.** Any `Text` widget inside a `Row` must be wrapped in `Expanded` or `Flexible`. Any column of mixed-size labels must be constrained on its non-flexible axis.
+
+#### Row layout rules
+
+- **Translated labels in a Row always get `Flexible` or `Expanded`.** A bare `Text` in a `Row` has no flex factor — it takes its intrinsic width and causes overflow when a longer locale is loaded.
+- **Fixed-width right-side columns** (amounts, timestamps, badge counts) must pair with an `Expanded` left-side column. The fixed column can never grow; the label column must shrink.
+- **When a right-side column has no fixed width** (e.g. a label like "You gave" / "நீங்கள் கொடுத்தீர்கள்"), constrain it with `ConstrainedBox(constraints: BoxConstraints(maxWidth: N))` so the label column is not crowded out.
+
+```dart
+// ✓ correct — label is Expanded, amount is constrained
+Row(children: [
+  ListTileAvatar(initial: initial),
+  const SizedBox(width: 16),
+  Expanded(child: Column(children: [nameText, subtitleText])),
+  ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 120),
+    child: Column(children: [amountText, dirLabelText]),
+  ),
+])
+
+// ✗ wrong — bare Column on the right can overflow on Tamil/Malayalam
+Row(children: [
+  Expanded(child: Column(children: [nameText, subtitleText])),
+  Column(children: [amountText, dirLabelText]),  // no max-width → overflow
+])
+```
+
+#### Button label rules
+
+- **Never use `FilledButton.icon` for full-width buttons with translated labels.** Its internal `Row` has `mainAxisSize: max` with no flexible wrapper — the text overflows when translations are longer than English.
+- Instead, use `FilledButton` with a manual `child: Row(children: [Icon(...), SizedBox(...), Flexible(child: Text(...))])`. Set explicit horizontal padding via `ButtonStyle` so the label has enough room.
+- Always set `overflow: TextOverflow.ellipsis` on button labels as a safety net.
+
+```dart
+// ✓ correct — Flexible text, explicit padding
+FilledButton(
+  onPressed: onPressed,
+  style: FilledButton.styleFrom(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(Icons.add_rounded, size: 20),
+      const SizedBox(width: 4),
+      Flexible(
+        child: Text(label, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center),
+      ),
+    ],
+  ),
+)
+
+// ✗ wrong — internal Row overflows on Tamil/Malayalam
+FilledButton.icon(
+  icon: Icon(Icons.add_rounded),
+  label: Text(label),  // no Flexible → overflow on long translations
+  onPressed: onPressed,
+)
+```
+
+#### Other layout rules
+
+- **Headlines and titles:** `maxLines: 1, overflow: TextOverflow.ellipsis` on all single-line display labels. For two-line contexts, `maxLines: 2`.
+- **Card subtitles and list secondary text:** `maxLines: 1, overflow: TextOverflow.ellipsis` always.
+- **AppBar titles:** wrap in `Text(..., overflow: TextOverflow.ellipsis)`. Two-line app bar titles use `Column(mainAxisSize: MainAxisSize.min)` with both lines clamped to 1 line.
+- **Amounts:** Never truncate. Always reserve enough width for `₹99,99,999` (8 chars) as the maximum reasonable value.
+
+#### Testing requirement
+
+Every shared widget (`lib/core/widgets/`) and every screen (`lib/features/`) must be covered by a locale render test in `test/features/locale_render_test.dart` or its own test file, exercising all 8 locales × 3 viewport sizes (390×844, 360×800, 360×640). The test must call `_expectNoOverflow(tester)` — a helper that fails if the frame threw a `RenderFlex overflowed` exception.
+
+No widget ships without this coverage. The pre-commit hook enforces it.
 
 ### Script Considerations
 
