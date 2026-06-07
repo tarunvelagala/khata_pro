@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_dimensions.dart';
 
-/// A binary pill toggle — two equal-width segments in a shared rounded
-/// container. Only the background fill changes on selection; text and
-/// layout are completely stable. Mirrors the GPay / PhonePe pattern.
-///
-/// [selectedIndex] must be 0 or 1. [onChanged] fires with the tapped index.
-/// [selectedColor] / [selectedTextColor] default to M3 secondaryContainer /
-/// onSecondaryContainer but can be overridden per callsite.
+/// A binary pill toggle — two equal-width segments in a shared pill-shaped
+/// container. Matches the GPay / PhonePe pattern:
+///   - True pill shape (full radius)
+///   - Both options full-contrast text (selection shown by fill, not dimming)
+///   - InkWell ripple on tap (universally understood as "tappable")
+///   - Vertical hairline divider between segments
+///   - Selected segment elevated slightly above the track
 class PillToggle extends StatelessWidget {
   const PillToggle({
     super.key,
@@ -29,12 +29,13 @@ class PillToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    final cs     = Theme.of(context).colorScheme;
     final fill   = selectedColor     ?? cs.secondaryContainer;
     final onFill = selectedTextColor ?? cs.onSecondaryContainer;
 
     return Container(
       height: AppDimensions.pillToggleHeight,
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: cs.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
@@ -49,8 +50,15 @@ class PillToggle extends StatelessWidget {
             isLast: false,
             fillColor: fill,
             fillTextColor: onFill,
-            idleTextColor: cs.onSurfaceVariant,
             onTap: () => onChanged(0),
+          ),
+          // Hairline divider between segments
+          VerticalDivider(
+            width: AppDimensions.borderDefault,
+            thickness: AppDimensions.borderDefault,
+            indent: 10,
+            endIndent: 10,
+            color: cs.outlineVariant,
           ),
           _Segment(
             label: labelB,
@@ -59,7 +67,6 @@ class PillToggle extends StatelessWidget {
             isLast: true,
             fillColor: fill,
             fillTextColor: onFill,
-            idleTextColor: cs.onSurfaceVariant,
             onTap: () => onChanged(1),
           ),
         ],
@@ -76,7 +83,6 @@ class _Segment extends StatelessWidget {
     required this.isLast,
     required this.fillColor,
     required this.fillTextColor,
-    required this.idleTextColor,
     required this.onTap,
   });
 
@@ -86,38 +92,44 @@ class _Segment extends StatelessWidget {
   final bool isLast;
   final Color fillColor;
   final Color fillTextColor;
-  final Color idleTextColor;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    // Inner radius is outer radius minus border width so corners nest cleanly.
-    final innerRadius = AppDimensions.radiusSmall - AppDimensions.borderDefault;
+
+    const r = AppDimensions.radiusSmall;
     final br = BorderRadius.horizontal(
-      left:  isFirst ? Radius.circular(innerRadius) : Radius.zero,
-      right: isLast  ? Radius.circular(innerRadius) : Radius.zero,
+      left:  isFirst ? const Radius.circular(r) : Radius.zero,
+      right: isLast  ? const Radius.circular(r) : Radius.zero,
     );
 
     return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: AppDimensions.animShort,
-          decoration: BoxDecoration(
-            color: selected ? fillColor : Colors.transparent,
-            borderRadius: br,
-          ),
-          alignment: Alignment.center,
-          // Fixed text style — never changes between selected / unselected.
-          // Color transitions via AnimatedDefaultTextStyle.
-          child: AnimatedDefaultTextStyle(
-            duration: AppDimensions.animShort,
-            style: tt.labelLarge!.copyWith(
-              color: selected ? fillTextColor : idleTextColor,
-              fontWeight: FontWeight.w600,
+      child: Material(
+        animationDuration: AppDimensions.animShort,
+        color: selected ? fillColor : Colors.transparent,
+        borderRadius: br,
+        child: InkWell(
+          borderRadius: br,
+          onTap: onTap,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppDimensions.buttonStackGap),
+              child: AnimatedDefaultTextStyle(
+                duration: AppDimensions.animShort,
+                style: (tt.labelLarge ?? const TextStyle()).copyWith(
+                  color: selected ? fillTextColor : cs.onSurface,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                ),
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-            child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
           ),
         ),
       ),
