@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Skip for now'**
   String get languageSkipButton;
 
+  /// No description provided for @scrollForMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Scroll for more'**
+  String get scrollForMore;
+
   /// No description provided for @balanceCardLabel.
   ///
   /// In en, this message translates to:
@@ -746,6 +752,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancelAction;
 
+  /// No description provided for @restoreAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restoreAction;
+
   /// No description provided for @reportsFilterMonth.
   ///
   /// In en, this message translates to:
@@ -805,6 +817,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Net'**
   String get reportsColNet;
+
+  /// No description provided for @reportsWillReceive.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll receive'**
+  String get reportsWillReceive;
+
+  /// No description provided for @reportsWillPay.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll pay'**
+  String get reportsWillPay;
 
   /// No description provided for @reportsEmpty.
   ///
@@ -1232,6 +1256,18 @@ abstract class AppLocalizations {
   /// **'Could not restore backup. The file may be invalid or corrupted.'**
   String get restoreError;
 
+  /// No description provided for @backupExportError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not export backup. Please try again.'**
+  String get backupExportError;
+
+  /// No description provided for @backupEmptyError.
+  ///
+  /// In en, this message translates to:
+  /// **'No data to back up. Add customers first.'**
+  String get backupEmptyError;
+
   /// No description provided for @remindersSectionTitle.
   ///
   /// In en, this message translates to:
@@ -1261,6 +1297,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set Reminder'**
   String get setReminderTitle;
+
+  /// No description provided for @setReminderSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Reminder'**
+  String get setReminderSave;
 
   /// No description provided for @reminderFrequencyNone.
   ///
@@ -1490,6 +1532,18 @@ abstract class AppLocalizations {
   /// **'All data synced to cloud'**
   String get authDataSynced;
 
+  /// No description provided for @guestBannerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to back up your data across devices'**
+  String get guestBannerBody;
+
+  /// No description provided for @guestBannerCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get guestBannerCta;
+
   /// No description provided for @syncUnsyncedBanner.
   ///
   /// In en, this message translates to:
@@ -1651,6 +1705,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notification permission denied. Enable it in Settings to receive reminders.'**
   String get notifPermDenied;
+
+  /// No description provided for @permContactsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Contacts'**
+  String get permContactsTitle;
+
+  /// No description provided for @permContactsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'KhataPro needs contacts access to fill in customer details automatically.'**
+  String get permContactsBody;
+
+  /// No description provided for @permNotifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications'**
+  String get permNotifTitle;
+
+  /// No description provided for @permNotifBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notifications to receive payment reminders at the right time.'**
+  String get permNotifBody;
+
+  /// No description provided for @permCameraTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Camera & Photos'**
+  String get permCameraTitle;
+
+  /// No description provided for @permCameraBody.
+  ///
+  /// In en, this message translates to:
+  /// **'KhataPro needs camera or gallery access to attach visiting cards.'**
+  String get permCameraBody;
+
+  /// No description provided for @permAllowButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get permAllowButton;
+
+  /// No description provided for @permOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get permOpenSettings;
+
+  /// No description provided for @permNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get permNotNow;
 }
 
 class _AppLocalizationsDelegate

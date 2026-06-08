@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/widgets/set_reminder_sheet.dart';
+import '../../../../core/widgets/scroll_hint_wrapper.dart';
 import '../../../../features/auth/presentation/providers/app_lock_provider.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -61,10 +62,12 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: _Dims.headerTopGap),
 
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.only(
-                  bottom: AppDimensions.fabClearance,
-                ),
+              child: ScrollHintWrapper(
+                hintLabel: l10n.scrollForMore,
+                child: ListView(
+                  padding: const EdgeInsets.only(
+                    bottom: AppDimensions.fabClearance,
+                  ),
                 children: [
                   // ── Account section (shown when signed out) ──────────
                   if (!isSignedIn) ...[
@@ -148,18 +151,17 @@ class SettingsScreen extends ConsumerWidget {
                     loading: backup.exporting,
                     onTap: backup.busy
                         ? null
-                        : () => ref.read(backupProvider.notifier).export(context),
+                        : () => _doExport(context, l10n, ref),
                   ),
-                  if (!isSignedIn)
-                    _SettingsTile(
-                      icon: Icons.restore_rounded,
-                      title: l10n.restoreTileTitle,
-                      subtitle: l10n.restoreTileSubtitle,
-                      loading: backup.importing,
-                      onTap: backup.busy
-                          ? null
-                          : () => _confirmRestore(context, l10n, ref),
-                    ),
+                  _SettingsTile(
+                    icon: Icons.restore_rounded,
+                    title: l10n.restoreTileTitle,
+                    subtitle: l10n.restoreTileSubtitle,
+                    loading: backup.importing,
+                    onTap: backup.busy
+                        ? null
+                        : () => _confirmRestore(context, l10n, ref),
+                  ),
                   const Divider(
                     height: AppDimensions.dividerThickness,
                     indent: AppDimensions.buttonPaddingH,
@@ -195,10 +197,30 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _doExport(
+    BuildContext context,
+    AppLocalizations l10n,
+    WidgetRef ref,
+  ) async {
+    await ref.read(backupProvider.notifier).export(context);
+    if (!context.mounted) return;
+    final error = ref.read(backupProvider).error;
+    if (error != null) {
+      final message = switch (error) {
+        'backupEmptyError' => l10n.backupEmptyError,
+        _                  => l10n.backupExportError,
+      };
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
   }
 
   Future<void> _confirmRestore(
@@ -218,20 +240,20 @@ class SettingsScreen extends ConsumerWidget {
           ),
           FilledButton(
             onPressed: () => ctx.pop(true),
-            child: Text(l10n.deleteAction),
+            child: Text(l10n.restoreAction),
           ),
         ],
       ),
     );
     if (confirmed != true || !context.mounted) return;
 
-    final ok = await ref.read(backupProvider.notifier).import(ref);
+    final ok = await ref.read(backupProvider.notifier).import();
     if (!context.mounted) return;
 
-    final error = ref.read(backupProvider).error;
+    if (ok == null) return; // user cancelled file picker — show nothing
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(ok ? l10n.restoreSuccess : (error ?? l10n.restoreError)),
+        content: Text(ok ? l10n.restoreSuccess : l10n.restoreError),
       ),
     );
   }

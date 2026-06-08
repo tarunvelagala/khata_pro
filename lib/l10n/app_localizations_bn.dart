@@ -61,6 +61,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get languageSkipButton => 'এখন নয়';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'মোট বাকি';
 
   @override
@@ -342,6 +345,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get cancelAction => 'বাতিল';
 
   @override
+  String get restoreAction => 'পুনরুদ্ধার করুন';
+
+  @override
   String get reportsFilterMonth => 'এই মাস';
 
   @override
@@ -370,6 +376,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get reportsColNet => 'নিট';
+
+  @override
+  String get reportsWillReceive => 'আপনি পাবেন';
+
+  @override
+  String get reportsWillPay => 'আপনি দেবেন';
 
   @override
   String get reportsEmpty => 'এই সময়কালে কোনো লেনদেন নেই';
@@ -596,6 +608,14 @@ class AppLocalizationsBn extends AppLocalizations {
       'ব্যাকআপ পুনরুদ্ধার করা যায়নি। ফাইলটি অবৈধ বা দূষিত হতে পারে।';
 
   @override
+  String get backupExportError =>
+      'ব্যাকআপ রপ্তানি করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String get backupEmptyError =>
+      'ব্যাকআপ করার কোনো ডেটা নেই। আগে গ্রাহক যোগ করুন।';
+
+  @override
   String get remindersSectionTitle => 'রিমাইন্ডার';
 
   @override
@@ -611,6 +631,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'রিমাইন্ডার সেট করুন';
+
+  @override
+  String get setReminderSave => 'রিমাইন্ডার সেট করুন';
 
   @override
   String get reminderFrequencyNone => 'কোনোটি নয়';
@@ -737,6 +760,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get authDataSynced => 'সমস্ত ডেটা ক্লাউডে সিঙ্ক হয়েছে';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'সিঙ্ক না হওয়া পরিবর্তন — সিঙ্ক করতে ইন্টারনেটে সংযুক্ত হন।';
 
@@ -823,4 +852,34 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'বিজ্ঞপ্তির অনুমতি প্রত্যাখ্যান করা হয়েছে। রিমাইন্ডার পেতে সেটিংসে এটি সক্ষম করুন।';
+
+  @override
+  String get permContactsTitle => 'পরিচিতির অনুমতি দিন';
+
+  @override
+  String get permContactsBody =>
+      'গ্রাহকের তথ্য স্বয়ংক্রিয়ভাবে পূরণ করতে KhataPro-এর পরিচিতি অ্যাক্সেস প্রয়োজন।';
+
+  @override
+  String get permNotifTitle => 'বিজ্ঞপ্তির অনুমতি দিন';
+
+  @override
+  String get permNotifBody =>
+      'সঠিক সময়ে পেমেন্ট রিমাইন্ডার পেতে বিজ্ঞপ্তি সক্রিয় করুন।';
+
+  @override
+  String get permCameraTitle => 'ক্যামেরা ও ফটোর অনুমতি দিন';
+
+  @override
+  String get permCameraBody =>
+      'ভিজিটিং কার্ড সংযুক্ত করতে KhataPro-এর ক্যামেরা বা গ্যালারি অ্যাক্সেস প্রয়োজন।';
+
+  @override
+  String get permAllowButton => 'অনুমতি দিন';
+
+  @override
+  String get permOpenSettings => 'সেটিংস খুলুন';
+
+  @override
+  String get permNotNow => 'এখন নয়';
 }

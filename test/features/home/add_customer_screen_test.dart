@@ -27,7 +27,7 @@ class _RecordingCustomerNotifier extends CustomerNotifier {
 /// (no actual device contact created during tests).
 class _StubContactsService extends ContactsService {
   @override
-  Future<bool> requestPermission() async => true;
+  Future<ContactsPermResult> requestPermission() async => ContactsPermResult.granted;
 
   @override
   Future<({String id, String name, String? phone})?> pickContact() async => null;

@@ -101,7 +101,7 @@ void _expectNoOverflow(WidgetTester tester) {
 // ── Stub notifiers ─────────────────────────────────────────────────────────────
 
 class _StubContactsService extends ContactsService {
-  @override Future<bool> requestPermission() async => false;
+  @override Future<ContactsPermResult> requestPermission() async => ContactsPermResult.denied;
   @override Future<({String id, String name, String? phone})?> pickContact() async => null;
   @override Future<String?> createContact({required String name, String? phone}) async => null;
 }
@@ -356,7 +356,7 @@ void main() {
           await tester.pump();
 
           final l10n = await AppLocalizations.delegate.load(locale);
-          expect(find.text(l10n.homeEmptyTitle), findsOneWidget);
+          expect(find.text(l10n.firstRunTitle), findsOneWidget);
           _expectNoOverflow(tester);
         },
       );

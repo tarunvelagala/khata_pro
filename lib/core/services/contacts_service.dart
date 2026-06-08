@@ -1,13 +1,22 @@
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+enum ContactsPermResult { granted, denied, permanentlyDenied }
+
 class ContactsService {
-  Future<bool> requestPermission() async {
+  Future<ContactsPermResult> requestPermission() async {
     final status = await FlutterContacts.permissions
         .request(PermissionType.readWrite);
-    return status == PermissionStatus.granted ||
-        status == PermissionStatus.limited;
+    return switch (status) {
+      PermissionStatus.granted || PermissionStatus.limited
+          => ContactsPermResult.granted,
+      PermissionStatus.permanentlyDenied || PermissionStatus.restricted
+          => ContactsPermResult.permanentlyDenied,
+      _ => ContactsPermResult.denied,
+    };
   }
+
+  Future<void> openSettings() => FlutterContacts.permissions.openSettings();
 
   /// Opens the system contact picker.
   ///

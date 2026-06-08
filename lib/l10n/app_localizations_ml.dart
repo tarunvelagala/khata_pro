@@ -61,6 +61,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get languageSkipButton => 'ഇപ്പോൾ വേണ്ട';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'മൊത്തം ബാക്കി';
 
   @override
@@ -344,6 +347,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get cancelAction => 'റദ്ദാക്കുക';
 
   @override
+  String get restoreAction => 'പുനഃസ്ഥാപിക്കുക';
+
+  @override
   String get reportsFilterMonth => 'ഈ മാസം';
 
   @override
@@ -372,6 +378,12 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get reportsColNet => 'നെറ്റ്';
+
+  @override
+  String get reportsWillReceive => 'നിങ്ങൾ സ്വീകരിക്കും';
+
+  @override
+  String get reportsWillPay => 'നിങ്ങൾ നൽകും';
 
   @override
   String get reportsEmpty => 'ഈ കാലയളവിൽ ഇടപാടുകളൊന്നുമില്ല';
@@ -600,6 +612,14 @@ class AppLocalizationsMl extends AppLocalizations {
       'ബാക്കപ്പ് പുനഃസ്ഥാപിക്കാൻ കഴിഞ്ഞില്ല. ഫയൽ അസാധുവോ കേടായതോ ആകാം.';
 
   @override
+  String get backupExportError =>
+      'ബാക്കപ്പ് കയറ്റുമതി ചെയ്യാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get backupEmptyError =>
+      'ബാക്കപ്പ് ചെയ്യാൻ ഡേറ്റ ഇല്ല. ആദ്യം ഉപഭോക്താക്കളെ ചേർക്കുക.';
+
+  @override
   String get remindersSectionTitle => 'ഓർമ്മപ്പെടുത്തലുകൾ';
 
   @override
@@ -615,6 +635,9 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'ഓർമ്മപ്പെടുത്തൽ സജ്ജമാക്കുക';
+
+  @override
+  String get setReminderSave => 'ഓർമ്മപ്പെടുത്തൽ സജ്ജമാക്കുക';
 
   @override
   String get reminderFrequencyNone => 'ഒന്നുമില്ല';
@@ -743,6 +766,12 @@ class AppLocalizationsMl extends AppLocalizations {
   String get authDataSynced => 'എല്ലാ ഡാറ്റയും ക്ലൗഡിൽ സമന്വയിപ്പിച്ചു';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'സമന്വയിക്കാത്ത മാറ്റങ്ങൾ — സമന്വയിക്കാൻ ഇന്റർനെറ്റിലേക്ക് കണക്റ്റ് ചെയ്യുക.';
 
@@ -829,4 +858,34 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'അറിയിപ്പ് അനുമതി നിരസിക്കപ്പെട്ടു. റിമൈൻഡറുകൾ ലഭിക്കാൻ ക്രമീകരണത്തിൽ അത് പ്രവർത്തനക്ഷമമാക്കൂ.';
+
+  @override
+  String get permContactsTitle => 'കോൺടാക്ടുകൾ അനുവദിക്കുക';
+
+  @override
+  String get permContactsBody =>
+      'ഉപഭോക്തൃ വിവരങ്ങൾ സ്വയം പൂരിപ്പിക്കാൻ KhataPro-ന് കോൺടാക്ട് ആക്‌സസ് ആവശ്യമാണ്.';
+
+  @override
+  String get permNotifTitle => 'അറിയിപ്പുകൾ അനുവദിക്കുക';
+
+  @override
+  String get permNotifBody =>
+      'ശരിയായ സമയത്ത് പേയ്‌മെൻ്റ് റിമൈൻഡറുകൾ ലഭിക്കാൻ അറിയിപ്പുകൾ പ്രവർത്തനക്ഷമമാക്കുക.';
+
+  @override
+  String get permCameraTitle => 'ക്യാമറയും ഫോട്ടോകളും അനുവദിക്കുക';
+
+  @override
+  String get permCameraBody =>
+      'വിസിറ്റിംഗ് കാർഡ് അറ്റാച്ചുചെയ്യാൻ KhataPro-ന് ക്യാമറ അല്ലെങ്കിൽ ഗ്യാലറി ആക്‌സസ് ആവശ്യമാണ്.';
+
+  @override
+  String get permAllowButton => 'അനുവദിക്കുക';
+
+  @override
+  String get permOpenSettings => 'ക്രമീകരണങ്ങൾ തുറക്കുക';
+
+  @override
+  String get permNotNow => 'ഇപ്പോൾ വേണ്ട';
 }

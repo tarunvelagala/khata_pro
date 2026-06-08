@@ -61,6 +61,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get languageSkipButton => 'ಈಗ ಬೇಡ';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'ಒಟ್ಟು ಬಾಕಿ';
 
   @override
@@ -342,6 +345,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get cancelAction => 'ರದ್ದು';
 
   @override
+  String get restoreAction => 'ಮರುಸ್ಥಾಪಿಸಿ';
+
+  @override
   String get reportsFilterMonth => 'ಈ ತಿಂಗಳು';
 
   @override
@@ -370,6 +376,12 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get reportsColNet => 'ನಿವ್ವಳ';
+
+  @override
+  String get reportsWillReceive => 'ನೀವು ಸ್ವೀಕರಿಸುತ್ತೀರಿ';
+
+  @override
+  String get reportsWillPay => 'ನೀವು ಪಾವತಿಸುತ್ತೀರಿ';
 
   @override
   String get reportsEmpty => 'ಈ ಅವಧಿಯಲ್ಲಿ ವ್ಯವಹಾರಗಳಿಲ್ಲ';
@@ -596,6 +608,14 @@ class AppLocalizationsKn extends AppLocalizations {
       'ಬ್ಯಾಕಪ್ ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಫೈಲ್ ಅಮಾನ್ಯ ಅಥವಾ ದೋಷಪೂರಿತವಾಗಿರಬಹುದು.';
 
   @override
+  String get backupExportError =>
+      'ಬ್ಯಾಕಪ್ ರಫ್ತು ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get backupEmptyError =>
+      'ಬ್ಯಾಕಪ್ ಮಾಡಲು ಡೇಟಾ ಇಲ್ಲ. ಮೊದಲು ಗ್ರಾಹಕರನ್ನು ಸೇರಿಸಿ.';
+
+  @override
   String get remindersSectionTitle => 'ರಿಮೈಂಡರ್‌ಗಳು';
 
   @override
@@ -611,6 +631,9 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'ರಿಮೈಂಡರ್ ಹೊಂದಿಸಿ';
+
+  @override
+  String get setReminderSave => 'ರಿಮೈಂಡರ್ ಹೊಂದಿಸಿ';
 
   @override
   String get reminderFrequencyNone => 'ಯಾವುದೂ ಇಲ್ಲ';
@@ -739,6 +762,12 @@ class AppLocalizationsKn extends AppLocalizations {
   String get authDataSynced => 'ಎಲ್ಲಾ ಡೇಟಾ ಕ್ಲೌಡ್‌ಗೆ ಸಿಂಕ್ ಆಗಿದೆ';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'ಸಿಂಕ್ ಆಗದ ಬದಲಾವಣೆಗಳು — ಸಿಂಕ್ ಮಾಡಲು ಇಂಟರ್ನೆಟ್‌ಗೆ ಸಂಪರ್ಕಿಸಿ.';
 
@@ -825,4 +854,34 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'ಅಧಿಸೂಚನೆ ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ. ರಿಮೈಂಡರ್ ಪಡೆಯಲು ಸೆಟ್ಟಿಂಗ್ಸ್‌ನಲ್ಲಿ ಅದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ.';
+
+  @override
+  String get permContactsTitle => 'ಸಂಪರ್ಕಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ';
+
+  @override
+  String get permContactsBody =>
+      'ಗ್ರಾಹಕರ ವಿವರಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ತುಂಬಿಸಲು KhataPro ಸಂಪರ್ಕ ಪ್ರವೇಶ ಅಗತ್ಯ.';
+
+  @override
+  String get permNotifTitle => 'ಅಧಿಸೂಚನೆಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ';
+
+  @override
+  String get permNotifBody =>
+      'ಸರಿಯಾದ ಸಮಯದಲ್ಲಿ ಪಾವತಿ ರಿಮೈಂಡರ್ ಪಡೆಯಲು ಅಧಿಸೂಚನೆಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ.';
+
+  @override
+  String get permCameraTitle => 'ಕ್ಯಾಮೆರಾ ಮತ್ತು ಫೋಟೋಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ';
+
+  @override
+  String get permCameraBody =>
+      'ವಿಸಿಟಿಂಗ್ ಕಾರ್ಡ್ ಲಗತ್ತಿಸಲು KhataPro ಕ್ಯಾಮೆರಾ ಅಥವಾ ಗ್ಯಾಲರಿ ಪ್ರವೇಶ ಅಗತ್ಯ.';
+
+  @override
+  String get permAllowButton => 'ಅನುಮತಿ ನೀಡಿ';
+
+  @override
+  String get permOpenSettings => 'ಸೆಟ್ಟಿಂಗ್ಸ್ ತೆರೆಯಿರಿ';
+
+  @override
+  String get permNotNow => 'ಈಗ ಬೇಡ';
 }

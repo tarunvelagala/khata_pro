@@ -61,6 +61,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get languageSkipButton => 'अभी नहीं';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'कुल बकाया';
 
   @override
@@ -342,6 +345,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cancelAction => 'रद्द करें';
 
   @override
+  String get restoreAction => 'पुनर्स्थापित करें';
+
+  @override
   String get reportsFilterMonth => 'इस महीने';
 
   @override
@@ -370,6 +376,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get reportsColNet => 'शुद्ध';
+
+  @override
+  String get reportsWillReceive => 'आप पाएंगे';
+
+  @override
+  String get reportsWillPay => 'आप देंगे';
 
   @override
   String get reportsEmpty => 'इस अवधि में कोई लेनदेन नहीं';
@@ -595,6 +607,14 @@ class AppLocalizationsHi extends AppLocalizations {
       'बैकअप पुनर्स्थापित नहीं हो सका। फ़ाइल अमान्य या दूषित हो सकती है।';
 
   @override
+  String get backupExportError =>
+      'बैकअप निर्यात नहीं हो सका। कृपया पुनः प्रयास करें।';
+
+  @override
+  String get backupEmptyError =>
+      'बैकअप के लिए कोई डेटा नहीं है। पहले ग्राहक जोड़ें।';
+
+  @override
   String get remindersSectionTitle => 'रिमाइंडर';
 
   @override
@@ -609,6 +629,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'रिमाइंडर सेट करें';
+
+  @override
+  String get setReminderSave => 'रिमाइंडर सेट करें';
 
   @override
   String get reminderFrequencyNone => 'कोई नहीं';
@@ -736,6 +759,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get authDataSynced => 'सभी डेटा क्लाउड में सिंक हो गया';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'असिंक्ड परिवर्तन — सिंक करने के लिए इंटरनेट से जुड़ें।';
 
@@ -823,4 +852,34 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'नोटिफ़िकेशन की अनुमति अस्वीकृत। रिमाइंडर पाने के लिए सेटिंग में इसे चालू करें।';
+
+  @override
+  String get permContactsTitle => 'संपर्क की अनुमति दें';
+
+  @override
+  String get permContactsBody =>
+      'KhataPro ग्राहक विवरण स्वचालित रूप से भरने के लिए संपर्कों की आवश्यकता है।';
+
+  @override
+  String get permNotifTitle => 'सूचनाओं की अनुमति दें';
+
+  @override
+  String get permNotifBody =>
+      'सही समय पर भुगतान रिमाइंडर पाने के लिए सूचनाएं सक्षम करें।';
+
+  @override
+  String get permCameraTitle => 'कैमरा और फ़ोटो की अनुमति दें';
+
+  @override
+  String get permCameraBody =>
+      'KhataPro विज़िटिंग कार्ड संलग्न करने के लिए कैमरा या गैलरी की आवश्यकता है।';
+
+  @override
+  String get permAllowButton => 'अनुमति दें';
+
+  @override
+  String get permOpenSettings => 'सेटिंग खोलें';
+
+  @override
+  String get permNotNow => 'अभी नहीं';
 }

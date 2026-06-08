@@ -4,14 +4,11 @@ import 'dart:io';
 import 'package:drift/drift.dart' as drift;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../database/app_database.dart';
-import '../../../features/home/presentation/providers/customer_provider.dart';
-import '../../../features/home/presentation/providers/repository_providers.dart';
 
 const _kBackupVersion = 1;
 
@@ -25,21 +22,27 @@ class BackupException implements Exception {
 abstract final class BackupService {
   /// Serializes all data to JSON and opens the system share sheet.
   /// Returns true if the share sheet was shown.
+  /// Throws [BackupException] if there is no data to export.
   static Future<bool> export(AppDatabase db, BuildContext context) async {
     final customers    = await db.select(db.customers).get();
+    if (customers.isEmpty) {
+      throw const BackupException('backupEmptyError');
+    }
     final transactions = await db.select(db.transactions).get();
 
     final payload = {
       'version':    _kBackupVersion,
       'exportedAt': DateTime.now().toIso8601String(),
       'customers': customers.map((c) => {
-        'id':         c.id,
-        'name':       c.name,
-        'phone':      c.phone,
-        'shopName':   c.shopName,
-        'netBalance': c.netBalance,
-        'createdAt':  c.createdAt,
-        'contactId':  c.contactId,
+        'id':                c.id,
+        'name':              c.name,
+        'phone':             c.phone,
+        'shopName':          c.shopName,
+        'netBalance':        c.netBalance,
+        'createdAt':         c.createdAt,
+        'contactId':         c.contactId,
+        'reminderFrequency': c.reminderFrequency,
+        'reminderDate':      c.reminderDate,
       }).toList(),
       'transactions': transactions.map((t) => {
         'id':         t.id,
@@ -64,22 +67,23 @@ abstract final class BackupService {
   }
 
   /// Opens a file picker, validates the backup, then restores all data.
+  /// Returns false if the user cancelled without selecting a file.
   /// Throws [BackupException] if the file is invalid.
-  static Future<void> import(AppDatabase db, WidgetRef ref) async {
+  static Future<bool> import(AppDatabase db) async {
     final result = await FilePicker.pickFiles(
-      type:                 FileType.custom,
-      allowedExtensions:    ['json'],
+      type:              FileType.custom,
+      allowedExtensions: ['json'],
     );
-    if (result == null || result.files.isEmpty) return;
+    if (result == null || result.files.isEmpty) return false;
 
     final bytes = await result.files.single.readAsBytes();
-    if (bytes.isEmpty) throw const BackupException('Could not read file');
+    if (bytes.isEmpty) throw const BackupException('restoreError');
 
     final Map<String, dynamic> payload;
     try {
       payload = jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
     } catch (_) {
-      throw const BackupException('File is not valid JSON');
+      throw const BackupException('restoreError');
     }
 
     _validate(payload);
@@ -87,13 +91,15 @@ abstract final class BackupService {
     final customerRows = (payload['customers'] as List).map((e) {
       final m = e as Map<String, dynamic>;
       return CustomersCompanion.insert(
-        id:         m['id'] as String,
-        name:       m['name'] as String,
-        phone:      drift.Value(m['phone'] as String?),
-        shopName:   drift.Value(m['shopName'] as String?),
-        netBalance: drift.Value((m['netBalance'] as num).toDouble()),
-        createdAt:  m['createdAt'] as int,
-        contactId:  drift.Value(m['contactId'] as String?),
+        id:                m['id'] as String,
+        name:              m['name'] as String,
+        phone:             drift.Value(m['phone'] as String?),
+        shopName:          drift.Value(m['shopName'] as String?),
+        netBalance:        drift.Value((m['netBalance'] as num).toDouble()),
+        createdAt:         (m['createdAt'] as num).toInt(),
+        contactId:         drift.Value(m['contactId'] as String?),
+        reminderFrequency: drift.Value(m['reminderFrequency'] as String?),
+        reminderDate:      drift.Value((m['reminderDate'] as num?)?.toInt()),
       );
     }).toList();
 
@@ -105,7 +111,7 @@ abstract final class BackupService {
         amount:     (m['amount'] as num).toDouble(),
         isCredit:   m['isCredit'] as bool,
         note:       drift.Value(m['note'] as String?),
-        createdAt:  m['createdAt'] as int,
+        createdAt:  (m['createdAt'] as num).toInt(),
       );
     }).toList();
 
@@ -118,27 +124,25 @@ abstract final class BackupService {
       });
     });
 
-    // Invalidate providers so all screens reload fresh data.
-    ref.invalidate(customerProvider);
-    ref.invalidate(transactionRepoProvider);
+    return true;
   }
 
   static void _validate(Map<String, dynamic> payload) {
     if (payload['version'] is! int) {
-      throw const BackupException('Missing or invalid version field');
+      throw const BackupException('restoreError');
     }
     if (payload['customers'] is! List) {
-      throw const BackupException('Missing customers array');
+      throw const BackupException('restoreError');
     }
     if (payload['transactions'] is! List) {
-      throw const BackupException('Missing transactions array');
+      throw const BackupException('restoreError');
     }
 
     final customerIds = <String>{};
     for (final raw in payload['customers'] as List) {
       final c = raw as Map<String, dynamic>;
-      if (c['id'] is! String || c['name'] is! String || c['createdAt'] is! int) {
-        throw const BackupException('Invalid customer record');
+      if (c['id'] is! String || c['name'] is! String || c['createdAt'] is! num) {
+        throw const BackupException('restoreError');
       }
       customerIds.add(c['id'] as String);
     }
@@ -149,11 +153,11 @@ abstract final class BackupService {
           t['customerId'] is! String ||
           t['amount'] is! num ||
           t['isCredit'] is! bool ||
-          t['createdAt'] is! int) {
-        throw const BackupException('Invalid transaction record');
+          t['createdAt'] is! num) {
+        throw const BackupException('restoreError');
       }
       if (!customerIds.contains(t['customerId'] as String)) {
-        throw const BackupException('Transaction references unknown customer');
+        throw const BackupException('restoreError');
       }
     }
   }

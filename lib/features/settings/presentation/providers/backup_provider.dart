@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/database/app_database.dart';
 import '../../../../core/services/backup_service.dart';
+import '../../../home/presentation/providers/customer_provider.dart';
 import '../../../home/presentation/providers/database_provider.dart';
 
 // ── State ─────────────────────────────────────────────────────────────────────
@@ -46,6 +47,9 @@ class BackupNotifier extends Notifier<BackupState> {
     state = state.copyWith(exporting: true, clearError: true);
     try {
       return await BackupService.export(_db, context);
+    } on BackupException catch (e) {
+      state = state.copyWith(error: e.message);
+      return false;
     } catch (e) {
       state = state.copyWith(error: e.toString());
       return false;
@@ -54,12 +58,13 @@ class BackupNotifier extends Notifier<BackupState> {
     }
   }
 
-  Future<bool> import(WidgetRef ref) async {
+  Future<bool?> import() async {
     if (state.busy) return false;
     state = state.copyWith(importing: true, clearError: true);
     try {
-      await BackupService.import(_db, ref);
-      return true;
+      final selected = await BackupService.import(_db);
+      if (selected) ref.invalidate(customerProvider);
+      return selected ? true : null;
     } on BackupException catch (e) {
       state = state.copyWith(error: e.message);
       return false;

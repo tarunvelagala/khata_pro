@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageSkipButton => 'Skip for now';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'Total Balance';
 
   @override
@@ -344,6 +347,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelAction => 'Cancel';
 
   @override
+  String get restoreAction => 'Restore';
+
+  @override
   String get reportsFilterMonth => 'This Month';
 
   @override
@@ -372,6 +378,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reportsColNet => 'Net';
+
+  @override
+  String get reportsWillReceive => 'You\'ll receive';
+
+  @override
+  String get reportsWillPay => 'You\'ll pay';
 
   @override
   String get reportsEmpty => 'No transactions in this period';
@@ -596,6 +608,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not restore backup. The file may be invalid or corrupted.';
 
   @override
+  String get backupExportError => 'Could not export backup. Please try again.';
+
+  @override
+  String get backupEmptyError => 'No data to back up. Add customers first.';
+
+  @override
   String get remindersSectionTitle => 'Reminders';
 
   @override
@@ -611,6 +629,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'Set Reminder';
+
+  @override
+  String get setReminderSave => 'Set Reminder';
 
   @override
   String get reminderFrequencyNone => 'None';
@@ -738,6 +759,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authDataSynced => 'All data synced to cloud';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'Unsynced changes — connect to internet to sync.';
 
@@ -822,4 +849,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'Notification permission denied. Enable it in Settings to receive reminders.';
+
+  @override
+  String get permContactsTitle => 'Allow Contacts';
+
+  @override
+  String get permContactsBody =>
+      'KhataPro needs contacts access to fill in customer details automatically.';
+
+  @override
+  String get permNotifTitle => 'Allow Notifications';
+
+  @override
+  String get permNotifBody =>
+      'Enable notifications to receive payment reminders at the right time.';
+
+  @override
+  String get permCameraTitle => 'Allow Camera & Photos';
+
+  @override
+  String get permCameraBody =>
+      'KhataPro needs camera or gallery access to attach visiting cards.';
+
+  @override
+  String get permAllowButton => 'Allow';
+
+  @override
+  String get permOpenSettings => 'Open Settings';
+
+  @override
+  String get permNotNow => 'Not now';
 }

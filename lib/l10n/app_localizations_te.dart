@@ -61,6 +61,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get languageSkipButton => 'ఇప్పుడు వద్దు';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'మొత్తం బాకీ';
 
   @override
@@ -345,6 +348,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get cancelAction => 'రద్దు';
 
   @override
+  String get restoreAction => 'పునరుద్ధరించు';
+
+  @override
   String get reportsFilterMonth => 'ఈ నెల';
 
   @override
@@ -373,6 +379,12 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get reportsColNet => 'నికర';
+
+  @override
+  String get reportsWillReceive => 'మీరు పొందుతారు';
+
+  @override
+  String get reportsWillPay => 'మీరు చెల్లిస్తారు';
 
   @override
   String get reportsEmpty => 'ఈ కాలంలో లావాదేవీలు లేవు';
@@ -601,6 +613,14 @@ class AppLocalizationsTe extends AppLocalizations {
       'బ్యాకప్ పునరుద్ధరించలేకపోయాము. ఫైల్ చెల్లుబాటు కానిది లేదా పాడైందని ఉండవచ్చు.';
 
   @override
+  String get backupExportError =>
+      'బ్యాకప్ ఎగుమతి చేయలేకపోయాము. దయచేసి మళ్ళీ ప్రయత్నించండి.';
+
+  @override
+  String get backupEmptyError =>
+      'బ్యాకప్ చేయడానికి డేటా లేదు. ముందు కస్టమర్‌లను జోడించండి.';
+
+  @override
   String get remindersSectionTitle => 'రిమైండర్లు';
 
   @override
@@ -616,6 +636,9 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'రిమైండర్ సెట్ చేయండి';
+
+  @override
+  String get setReminderSave => 'రిమైండర్ సెట్ చేయండి';
 
   @override
   String get reminderFrequencyNone => 'ఏదీ లేదు';
@@ -744,6 +767,12 @@ class AppLocalizationsTe extends AppLocalizations {
   String get authDataSynced => 'అన్ని డేటా క్లౌడ్‌కు సమకాలీకరించబడింది';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'సమకాలీకరించని మార్పులు — సమకాలీకరించడానికి ఇంటర్నెట్‌కు కనెక్ట్ అవ్వండి.';
 
@@ -830,4 +859,34 @@ class AppLocalizationsTe extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'నోటిఫికేషన్ అనుమతి తిరస్కరించబడింది. రిమైండర్లు పొందడానికి సెట్టింగ్‌లలో దాన్ని ప్రారంభించండి.';
+
+  @override
+  String get permContactsTitle => 'పరిచయాలకు అనుమతి ఇవ్వండి';
+
+  @override
+  String get permContactsBody =>
+      'కస్టమర్ వివరాలను స్వయంచాలకంగా నింపడానికి KhataPro కి పరిచయ యాక్సెస్ అవసరం.';
+
+  @override
+  String get permNotifTitle => 'నోటిఫికేషన్‌లకు అనుమతి ఇవ్వండి';
+
+  @override
+  String get permNotifBody =>
+      'సరైన సమయంలో చెల్లింపు రిమైండర్లు పొందడానికి నోటిఫికేషన్‌లను ప్రారంభించండి.';
+
+  @override
+  String get permCameraTitle => 'కెమెరా మరియు ఫోటోలకు అనుమతి ఇవ్వండి';
+
+  @override
+  String get permCameraBody =>
+      'విజిటింగ్ కార్డులు జోడించడానికి KhataPro కి కెమెరా లేదా గ్యాలరీ యాక్సెస్ అవసరం.';
+
+  @override
+  String get permAllowButton => 'అనుమతి ఇవ్వండి';
+
+  @override
+  String get permOpenSettings => 'సెట్టింగ్‌లు తెరవండి';
+
+  @override
+  String get permNotNow => 'ఇప్పుడు వద్దు';
 }

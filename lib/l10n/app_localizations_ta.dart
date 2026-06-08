@@ -61,6 +61,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get languageSkipButton => 'இப்போது வேண்டாம்';
 
   @override
+  String get scrollForMore => 'Scroll for more';
+
+  @override
   String get balanceCardLabel => 'மொத்த இருப்பு';
 
   @override
@@ -345,6 +348,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get cancelAction => 'ரத்து';
 
   @override
+  String get restoreAction => 'மீட்டமை';
+
+  @override
   String get reportsFilterMonth => 'இந்த மாதம்';
 
   @override
@@ -373,6 +379,12 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get reportsColNet => 'நிகர';
+
+  @override
+  String get reportsWillReceive => 'நீங்கள் பெறுவீர்கள்';
+
+  @override
+  String get reportsWillPay => 'நீங்கள் செலுத்துவீர்கள்';
 
   @override
   String get reportsEmpty => 'இந்த காலத்தில் பரிவர்த்தனைகள் இல்லை';
@@ -602,6 +614,14 @@ class AppLocalizationsTa extends AppLocalizations {
       'காப்புப்பிரதியை மீட்டமைக்க முடியவில்லை. கோப்பு தவறானது அல்லது சிதைந்திருக்கலாம்.';
 
   @override
+  String get backupExportError =>
+      'காப்புப்பிரதியை ஏற்றுமதி செய்ய முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get backupEmptyError =>
+      'காப்புப்பிரதி எடுக்க தரவு இல்லை. முதலில் வாடிக்கையாளர்களைச் சேர்க்கவும்.';
+
+  @override
   String get remindersSectionTitle => 'நினைவூட்டல்கள்';
 
   @override
@@ -617,6 +637,9 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get setReminderTitle => 'நினைவூட்டல் அமை';
+
+  @override
+  String get setReminderSave => 'நினைவூட்டல் அமை';
 
   @override
   String get reminderFrequencyNone => 'எதுவுமில்லை';
@@ -746,6 +769,12 @@ class AppLocalizationsTa extends AppLocalizations {
   String get authDataSynced => 'அனைத்து தரவும் கிளவுடில் ஒத்திசைக்கப்பட்டது';
 
   @override
+  String get guestBannerBody => 'Sign in to back up your data across devices';
+
+  @override
+  String get guestBannerCta => 'Sign in';
+
+  @override
   String get syncUnsyncedBanner =>
       'ஒத்திசைக்கப்படாத மாற்றங்கள் — ஒத்திசைக்க இணையத்துடன் இணைக்கவும்.';
 
@@ -831,4 +860,34 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get notifPermDenied =>
       'அறிவிப்பு அனுமதி மறுக்கப்பட்டது. நினைவூட்டல்கள் பெற அமைப்புகளில் இயக்கவும்.';
+
+  @override
+  String get permContactsTitle => 'தொடர்புகளை அனுமதிக்கவும்';
+
+  @override
+  String get permContactsBody =>
+      'வாடிக்கையாளர் விவரங்களை தானாக நிரப்ப KhataPro தொடர்பு அணுகல் தேவை.';
+
+  @override
+  String get permNotifTitle => 'அறிவிப்புகளை அனுமதிக்கவும்';
+
+  @override
+  String get permNotifBody =>
+      'சரியான நேரத்தில் கட்டண நினைவூட்டல்கள் பெற அறிவிப்புகளை இயக்கவும்.';
+
+  @override
+  String get permCameraTitle => 'கேமரா மற்றும் புகைப்படங்களை அனுமதிக்கவும்';
+
+  @override
+  String get permCameraBody =>
+      'விஸிட்டிங் கார்டுகளை இணைக்க KhataPro கேமரா அல்லது கேலரி அணுகல் தேவை.';
+
+  @override
+  String get permAllowButton => 'அனுமதி';
+
+  @override
+  String get permOpenSettings => 'அமைப்புகளைத் திற';
+
+  @override
+  String get permNotNow => 'இப்போது வேண்டாம்';
 }

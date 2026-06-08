@@ -12,6 +12,8 @@ const _kChannelId   = 'reminder_channel';
 const _kChannelName = 'Payment Reminders';
 const _kHour        = 9; // 9:00 AM local time
 
+enum NotifPermResult { granted, denied, permanentlyDenied }
+
 final _plugin = FlutterLocalNotificationsPlugin();
 
 abstract final class ReminderScheduler {
@@ -119,8 +121,14 @@ abstract final class ReminderScheduler {
       _plugin.cancel(_notifId(customerId));
 
   /// Requests notification permission contextually (call when user sets first reminder).
-  /// Returns true if granted (or platform doesn't require explicit grant).
-  static Future<bool> requestPermissions() async {
+  /// Returns the resulting permission state.
+  static Future<NotifPermResult> requestPermissions() async {
+    if (Platform.isAndroid) {
+      final status = await Permission.notification.request();
+      if (status.isGranted)           return NotifPermResult.granted;
+      if (status.isPermanentlyDenied) return NotifPermResult.permanentlyDenied;
+      return NotifPermResult.denied;
+    }
     final ios = _plugin.resolvePlatformSpecificImplementation<
         IOSFlutterLocalNotificationsPlugin>();
     if (ios != null) {
@@ -129,13 +137,10 @@ abstract final class ReminderScheduler {
         sound: true,
         badge: true,
       );
-      return granted ?? false;
+      // iOS: any refusal is permanent — the system won't ask again
+      return (granted ?? false) ? NotifPermResult.granted : NotifPermResult.permanentlyDenied;
     }
-    if (Platform.isAndroid) {
-      final status = await Permission.notification.request();
-      return status.isGranted;
-    }
-    return true;
+    return NotifPermResult.granted;
   }
 
   /// Returns the plugin instance so [main.dart] can set tap callbacks.

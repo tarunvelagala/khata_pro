@@ -19,6 +19,7 @@
   "languageScreenSubtitle": "Choose your preferred language. Changes take effect immediately.",
   "languageContinueButton": "Continue",
   "languageSkipButton": "Skip for now",
+  "scrollForMore": "Scroll for more",
 
   "balanceCardLabel": "Total Balance",
   "balanceShowTooltip": "Show balance",
@@ -132,6 +133,7 @@
   "deleteTxnConfirmBody": "This entry will be permanently deleted.",
   "deleteAction": "Delete",
   "cancelAction": "Cancel",
+  "restoreAction": "Restore",
 
   "reportsFilterMonth": "This Month",
   "reportsFilterYear": "This Year",
@@ -143,6 +145,8 @@
   "reportsColGave": "Credit",
   "reportsColGot": "Debit",
   "reportsColNet": "Net",
+  "reportsWillReceive": "You'll receive",
+  "reportsWillPay": "You'll pay",
   "reportsEmpty": "No transactions in this period",
   "reportsDownloadPdf": "Share as PDF",
   "reportsFilterHint": "Tap to filter by period",
@@ -236,12 +240,15 @@
   "restoreConfirmBody": "This will permanently replace all your current data with the backup. This cannot be undone.",
   "restoreSuccess": "Data restored successfully",
   "restoreError": "Could not restore backup. The file may be invalid or corrupted.",
+  "backupExportError": "Could not export backup. Please try again.",
+  "backupEmptyError": "No data to back up. Add customers first.",
 
   "remindersSectionTitle": "Reminders",
   "defaultReminderTitle": "Default Reminder",
   "defaultReminderSubtitle": "Applied to new customers automatically",
   "defaultReminderSheetHint": "Pre-selected when adding a new customer. Each customer's reminder is set individually.",
   "setReminderTitle": "Set Reminder",
+  "setReminderSave": "Set Reminder",
   "reminderFrequencyNone": "None",
   "reminderFrequencyWeekly": "Weekly",
   "reminderFrequencyFortnightly": "Every 2 weeks",
@@ -295,6 +302,8 @@
   "authSkip": "Skip for now",
   "authSyncingData": "Syncing your data…",
   "authDataSynced": "All data synced to cloud",
+  "guestBannerBody": "Sign in to back up your data across devices",
+  "guestBannerCta": "Sign in",
   "syncUnsyncedBanner": "Unsynced changes — connect to internet to sync.",
   "syncCloudWinsTitle": "Replace local data?",
   "syncCloudWinsBody": "Signing in will replace all local data with your cloud backup. This cannot be undone.",
@@ -329,5 +338,15 @@
   "biometricReason": "Unlock KhataPro",
   "appLockDisabledInfo": "App lock disabled",
 
-  "notifPermDenied": "Notification permission denied. Enable it in Settings to receive reminders."
+  "notifPermDenied": "Notification permission denied. Enable it in Settings to receive reminders.",
+
+  "permContactsTitle": "Allow Contacts",
+  "permContactsBody": "KhataPro needs contacts access to fill in customer details automatically.",
+  "permNotifTitle": "Allow Notifications",
+  "permNotifBody": "Enable notifications to receive payment reminders at the right time.",
+  "permCameraTitle": "Allow Camera & Photos",
+  "permCameraBody": "KhataPro needs camera or gallery access to attach visiting cards.",
+  "permAllowButton": "Allow",
+  "permOpenSettings": "Open Settings",
+  "permNotNow": "Not now"
 }
