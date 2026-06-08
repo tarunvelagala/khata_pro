@@ -81,8 +81,7 @@ class KhataProApp extends ConsumerWidget {
       });
     }
 
-    return AppLockWrapper(
-      child: MaterialApp.router(
+    return MaterialApp.router(
         title: 'KhataPro',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
@@ -97,7 +96,7 @@ class KhataProApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-      ),
-    );
+        builder: (context, child) => AppLockWrapper(child: child ?? const SizedBox.shrink()),
+      );
   }
 }
