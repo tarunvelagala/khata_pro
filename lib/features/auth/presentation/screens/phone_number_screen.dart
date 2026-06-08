@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/kp_back_button.dart';
+import '../../../../core/widgets/button_spinner.dart';
+import '../../../../design_system/molecules/kp_labeled_field.dart';
 import '../../../../l10n/app_localizations.dart';
 
 abstract final class _Dims {
@@ -44,10 +46,7 @@ class _PhoneNumberScreenState extends ConsumerState<PhoneNumberScreen> {
       appBar: AppBar(
         backgroundColor: cs.surface,
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.pop(),
-        ),
+        leading: const KpBackButton(),
       ),
       body: SafeArea(
         bottom: false,
@@ -75,29 +74,48 @@ class _PhoneNumberScreenState extends ConsumerState<PhoneNumberScreen> {
                       style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
                     ),
                     const SizedBox(height: _Dims.fieldTopGap),
-                    TextFormField(
-                      controller: _phoneCtrl,
-                      autofocus: true,
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[\d\s\+\-]')),
-                      ],
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) => _sendOtp(),
-                      decoration: InputDecoration(
-                        labelText: l10n.authPhoneLabel,
-                        hintText: l10n.authPhoneHint,
-                        prefixIcon: const Icon(Icons.phone_rounded),
+                    KpLabeledField(
+                      label: l10n.authPhoneLabel,
+                      child: TextFormField(
+                        controller: _phoneCtrl,
+                        autofocus: true,
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[\d\s\+\-]')),
+                        ],
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => _sendOtp(),
+                        decoration: InputDecoration(
+                          hintText: l10n.authPhoneHint,
+                          prefixIcon: const Icon(Icons.phone_rounded),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            StickyFooterCta(
-              label: l10n.authSendOtpButton,
-              onPressed: _sendOtp,
-              loading: _loading,
+            Builder(
+              builder: (ctx) {
+                final bottom = MediaQuery.paddingOf(ctx).bottom;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2,
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2 + bottom,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: _loading
+                        ? FilledButton(onPressed: null, child: const ButtonSpinner())
+                        : FilledButton(
+                            onPressed: _sendOtp,
+                            child: Text(l10n.authSendOtpButton),
+                          ),
+                  ),
+                );
+              },
             ),
           ],
         ),

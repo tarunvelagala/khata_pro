@@ -7,22 +7,22 @@ import '../../../../core/theme/app_colors.dart';
 
 // ── Layout constants ───────────────────────────────────────────────────────────
 abstract final class _Dims {
-  static const double tileSize        = 120.0;  // launcher icon tile (dp)
-  static const double tileRadius      = 26.0;   // rounded-square corner radius
-  static const double wordmarkSize    = 17.0;
-  static const double wordmarkBottom  = 56.0;   // distance from screen bottom
+  static const double tileSize        = 173.0;  // Android splash icon canvas = 288dp; mark = 360/1024*288 = 101dp; 598/1024*173 = 101dp
+  static const double wordmarkSize    = 24.0;
+  static const double wordmarkBottom  = 56.0;
 }
 
 // ── Animation timing — GPay style ─────────────────────────────────────────────
-// Phase A (0–500ms):  tile + wordmark scale from 0.2 → 1.0, ease-out spring
-// Phase B (500–800ms): hold
+// Phase A (0–300ms):  tile settles from 0.85 → 1.0, ease-out spring
+//   Starting near full size matches native splash's static icon → seamless handoff
+// Phase B (300–800ms): wordmark fades in, hold
 // Navigate immediately after (no fade-out; app UI appears on top)
 abstract final class _T {
-  static const int animMs  = 500;
-  static const int holdMs  = 300;
+  static const int animMs  = 300;
+  static const int holdMs  = 500;
   static const int totalMs = animMs + holdMs; // 800 ms
 
-  static const double scaleFrom = 0.2;
+  static const double scaleFrom = 0.85;
   static const double scaleTo   = 1.0;
 }
 
@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
     _wordmarkOpacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _ctrl,
-        curve: Interval(0, _T.animMs / _T.totalMs, curve: Curves.easeOut),
+        curve: Interval(_T.animMs / _T.totalMs, (_T.animMs + 200) / _T.totalMs, curve: Curves.easeOut),
       ),
     );
 
@@ -68,14 +68,14 @@ class _SplashScreenState extends State<SplashScreen>
       if (status == AnimationStatus.completed) _navigate();
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      if (MediaQuery.of(context).disableAnimations) {
-        _navigate();
-        return;
-      }
+    // Start immediately — no postFrameCallback delay.
+    // First painted frame is already at scaleFrom (0.85), matching the native
+    // splash icon size so the handoff is seamless with no size jump.
+    if (WidgetsBinding.instance.platformDispatcher.accessibilityFeatures.disableAnimations) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _navigate());
+    } else {
       _ctrl.forward();
-    });
+    }
   }
 
   void _navigate() {
@@ -96,13 +96,10 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final tt = Theme.of(context).textTheme;
-
-    // GPay-style: always dark background regardless of system theme
-    const bg = AppColors.darkSurface;
-    const wordmarkColor = AppColors.darkOnSurface;
+    final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: bg,
+      backgroundColor: cs.surface,
       body: Stack(
         children: [
           // ── Centered icon tile ─────────────────────────────────────────
@@ -131,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen>
                   style: tt.titleMedium?.copyWith(
                     fontSize: _Dims.wordmarkSize,
                     fontWeight: FontWeight.w700,
-                    color: wordmarkColor,
+                    color: cs.onSurface,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -144,67 +141,54 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-// ── Icon tile: rounded square + pill mark ─────────────────────────────────────
+// ── Icon tile: pill mark directly on background, no tile or shadow ────────────
 
 class _IconTile extends StatelessWidget {
   const _IconTile();
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SizedBox.square(
       dimension: _Dims.tileSize,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.surface,   // #FAF9FD — light tile on dark bg
-          borderRadius: BorderRadius.circular(_Dims.tileRadius),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x33000000),
-              blurRadius: 24,
-              offset: Offset(0, 8),
-            ),
-          ],
-        ),
-        child: const Padding(
-          padding: EdgeInsets.all(16),
-          child: CustomPaint(painter: _MarkPainter()),
-        ),
-      ),
+      child: CustomPaint(painter: _MarkPainter(isDark: isDark)),
     );
   }
 }
 
-// ── Mark painter — same-color logo for both themes ────────────────────────────
+// ── Mark painter — theme-aware pill colors ────────────────────────────────────
 
 class _MarkPainter extends CustomPainter {
-  const _MarkPainter();
+  const _MarkPainter({required this.isDark});
 
-  // Reference: icon fg.svg geometry (1024×1024, 102px padding, 820×820 mark).
-  // 3 columns, width=238, gap=53, rx=119.
-  // Blue pills: h=250, gap=35. Green/Red: h=820, full-height.
+  final bool isDark;
+
   static const double _ref   = 1024;
-  static const double _colW  = 238;
-  static const double _rx    = 119;
-  static const double _pad   = 102;
+  static const double _colW  = 174;
+  static const double _rx    = 87;
+  static const double _pad   = 213;
 
-  // Blue
   static const double _bx    = _pad;
-  static const double _bph   = 250;
-  static const double _bpg   = 35;
+  static const double _bph   = 182;
+  static const double _bpg   = 26;
   static const double _bp1y  = _pad;
-  static const double _bp2y  = _pad + _bph + _bpg;           // 387
-  static const double _bp3y  = _pad + 2 * (_bph + _bpg);     // 672
+  static const double _bp2y  = _pad + _bph + _bpg;
+  static const double _bp3y  = _pad + 2 * (_bph + _bpg);
 
-  // Green / Red
-  static const double _gx    = _pad + _colW + 53;            // 393
-  static const double _rx2   = _pad + 2 * (_colW + 53);      // 684
+  static const double _gx    = _pad + _colW + 39;
+  static const double _rx2   = _pad + 2 * (_colW + 39);
   static const double _tallY = _pad;
-  static const double _tallH = 820;
+  static const double _tallH = 598;
 
   @override
   void paint(Canvas canvas, Size size) {
     final s = size.width / _ref;
     canvas.scale(s, s);
+
+    final blue  = isDark ? AppColors.darkPrimary   : AppColors.primary;
+    final green = isDark ? AppColors.darkSecondary  : AppColors.secondary;
+    final red   = isDark ? AppColors.darkTertiary   : AppColors.tertiary;
 
     void pill(double x, double y, double w, double h, Color c) =>
         canvas.drawRRect(
@@ -212,13 +196,13 @@ class _MarkPainter extends CustomPainter {
           Paint()..color = c,
         );
 
-    pill(_bx,   _bp1y,  _colW, _bph,   AppColors.primary);
-    pill(_bx,   _bp2y,  _colW, _bph,   AppColors.primary);
-    pill(_bx,   _bp3y,  _colW, _bph,   AppColors.primary);
-    pill(_gx,   _tallY, _colW, _tallH, AppColors.secondary);
-    pill(_rx2,  _tallY, _colW, _tallH, AppColors.tertiary);
+    pill(_bx,   _bp1y,  _colW, _bph,   blue);
+    pill(_bx,   _bp2y,  _colW, _bph,   blue);
+    pill(_bx,   _bp3y,  _colW, _bph,   blue);
+    pill(_gx,   _tallY, _colW, _tallH, green);
+    pill(_rx2,  _tallY, _colW, _tallH, red);
   }
 
   @override
-  bool shouldRepaint(_MarkPainter old) => false;
+  bool shouldRepaint(_MarkPainter old) => old.isDark != isDark;
 }

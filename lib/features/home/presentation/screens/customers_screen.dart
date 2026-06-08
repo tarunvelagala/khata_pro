@@ -8,7 +8,7 @@ import '../../../../core/widgets/kp_search_bar.dart';
 import '../../../../core/widgets/kp_delete_dialog.dart';
 import '../../../../core/widgets/kp_empty_state.dart';
 import '../../../../core/widgets/kp_error_view.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/scroll_hint_wrapper.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
 import '../providers/customer_provider.dart';
@@ -56,10 +56,10 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen>
 
     return Scaffold(
       backgroundColor: cs.surface,
-      bottomNavigationBar: StickyFooterCta(
-        label: l10n.addCustomerTitle,
-        icon: const Icon(Icons.person_add_rounded, size: AppDimensions.iconSizeSmall),
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/customers/add'),
+        icon: const Icon(Icons.person_add_rounded),
+        label: Text(l10n.addCustomerTitle),
       ),
       body: SafeArea(
         bottom: false,
@@ -134,16 +134,20 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen>
                       title: l10n.customersNoResults(searchQuery),
                     );
                   }
-                  return ListView.builder(
-                    itemCount: filtered.length,
-                    itemBuilder: (context, i) => CustomerListTile(
-                      customer: filtered[i],
-                      isMasked: _isMasked,
-                      onTap: () {
-                        clearSearch();
-                        context.push('/customers/${filtered[i].id}');
-                      },
-                      onMoreTap: () => _showCustomerActions(context, filtered[i]),
+                  return ScrollHintWrapper(
+                    hintLabel: l10n.scrollForMore,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(bottom: AppDimensions.fabClearance),
+                      itemCount: filtered.length,
+                      itemBuilder: (context, i) => CustomerListTile(
+                        customer: filtered[i],
+                        isMasked: _isMasked,
+                        onTap: () {
+                          clearSearch();
+                          context.push('/customers/${filtered[i].id}');
+                        },
+                        onMoreTap: () => _showCustomerActions(context, filtered[i]),
+                      ),
                     ),
                   );
                 },

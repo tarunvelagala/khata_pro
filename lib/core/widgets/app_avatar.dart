@@ -19,7 +19,6 @@ class AppAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     return CircleAvatar(
       radius: radius,
@@ -28,7 +27,7 @@ class AppAvatar extends StatelessWidget {
         initial,
         style: tt.titleSmall?.copyWith(
           fontSize: fontSize,
-          color: cs.onInverseSurface,
+          color: Colors.white,
           fontWeight: FontWeight.w700,
         ),
       ),

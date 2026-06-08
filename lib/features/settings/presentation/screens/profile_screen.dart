@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/services/catalog_image_service.dart';
 import '../../../../core/widgets/kp_delete_dialog.dart';
+import '../../../../core/widgets/scroll_hint_wrapper.dart';
 import '../../../../features/auth/presentation/providers/auth_provider.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../providers/profile_provider.dart';
@@ -50,8 +51,10 @@ class ProfileScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         bottom: false,
-        child: ListView(
-          padding: const EdgeInsets.only(bottom: AppDimensions.fabClearance),
+        child: ScrollHintWrapper(
+          hintLabel: AppLocalizations.of(context)!.scrollForMore,
+          child: ListView(
+            padding: const EdgeInsets.only(bottom: AppDimensions.fabClearance),
           children: [
             // ── Avatar + name header ─────────────────────────────────
             const SizedBox(height: _Dims.headerTopGap),
@@ -107,6 +110,7 @@ class ProfileScreen extends ConsumerWidget {
             _SectionLabel(label: l10n.profileAuthSection, cs: cs, tt: tt),
             _AuthTile(cs: cs, tt: tt),
           ],
+          ),
         ),
       ),
     );

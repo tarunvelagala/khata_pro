@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_dimensions.dart';
 import 'app_colors.dart';
 import 'app_text_styles.dart';
+import 'kp_theme_extension.dart';
 
 abstract final class AppTheme {
   // ── Shared TextTheme ───────────────────────────────────────────────────
@@ -110,6 +111,7 @@ abstract final class AppTheme {
     colorScheme: lightColorScheme,
     scaffoldBackgroundColor: AppColors.background,
     textTheme: _textTheme,
+    extensions: const [KpColorsExtension.light, KpTextThemeExtension.instance],
     cardTheme: _cardTheme(AppColors.surfaceContainerLowest),
     elevatedButtonTheme: _elevatedButtonTheme(
       bg: AppColors.primary,
@@ -124,8 +126,11 @@ abstract final class AppTheme {
       fg: AppColors.onPrimary,
     ),
     inputDecorationTheme: _inputTheme(
-      fill: AppColors.surfaceContainerHigh,
+      fill: AppColors.surfaceContainerHighest,
       focusBorder: AppColors.primary,
+      errorColor: AppColors.error,
+      outlineVariant: AppColors.outlineVariant,
+      hintColor: AppColors.outline,
     ),
     appBarTheme: _appBarTheme(
       bg: AppColors.surfaceContainerLowest,
@@ -150,6 +155,7 @@ abstract final class AppTheme {
     colorScheme: darkColorScheme,
     scaffoldBackgroundColor: AppColors.darkBackground,
     textTheme: _textTheme,
+    extensions: const [KpColorsExtension.dark, KpTextThemeExtension.instance],
     cardTheme: _cardTheme(AppColors.darkSurfaceContainerLowest),
     elevatedButtonTheme: _elevatedButtonTheme(
       bg: AppColors.darkPrimary,
@@ -166,6 +172,9 @@ abstract final class AppTheme {
     inputDecorationTheme: _inputTheme(
       fill: AppColors.darkSurfaceContainerHigh,
       focusBorder: AppColors.darkPrimary,
+      errorColor: AppColors.darkError,
+      outlineVariant: AppColors.darkOutlineVariant,
+      hintColor: AppColors.darkOutline,
     ),
     appBarTheme: _appBarTheme(
       bg: AppColors.darkSurfaceContainerLowest,
@@ -211,7 +220,7 @@ abstract final class AppTheme {
         horizontal: AppDimensions.buttonPaddingH,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
     ),
   );
@@ -228,7 +237,7 @@ abstract final class AppTheme {
         horizontal: AppDimensions.buttonPaddingH,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
     ),
   );
@@ -256,40 +265,46 @@ abstract final class AppTheme {
   static InputDecorationTheme _inputTheme({
     required Color fill,
     required Color focusBorder,
+    required Color errorColor,
+    required Color outlineVariant,
+    required Color hintColor,
   }) => InputDecorationTheme(
-    filled: true,
-    fillColor: fill,
+    filled: false,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
+      borderSide: BorderSide(color: outlineVariant, width: AppDimensions.borderDefault),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
+      borderSide: BorderSide(color: outlineVariant, width: AppDimensions.borderDefault),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-      borderSide: BorderSide(
-        color: focusBorder,
-        width: AppDimensions.borderFocused,
-      ),
+      borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
+      borderSide: BorderSide(color: focusBorder, width: AppDimensions.borderFocused),
     ),
-    // Resting label (inside the field, before focus)
-    labelStyle: AppTextStyles.bodyMedium,
-    // Floated label (above content, after focus or when filled)
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
+      borderSide: BorderSide(color: errorColor, width: AppDimensions.borderDefault),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
+      borderSide: BorderSide(color: errorColor, width: AppDimensions.borderFocused),
+    ),
+    labelStyle: AppTextStyles.bodyLarge.copyWith(color: AppColors.onSurfaceVariant),
     floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
       final color = states.contains(WidgetState.focused)
           ? focusBorder
           : AppColors.onSurfaceVariant;
-      return AppTextStyles.labelMedium.copyWith(color: color);
+      return AppTextStyles.labelSmall.copyWith(color: color);
     }),
     contentPadding: const EdgeInsets.fromLTRB(
       AppDimensions.inputPaddingH,
-      AppDimensions.inputPaddingV + 6, // extra top so text clears the floated label
+      AppDimensions.inputPaddingV + 6,
       AppDimensions.inputPaddingH,
       AppDimensions.inputPaddingV - 6,
     ),
+    hintStyle: AppTextStyles.bodyLarge.copyWith(color: hintColor),
   );
 
   static AppBarTheme _appBarTheme({required Color bg, required Color icon}) =>
@@ -345,6 +360,6 @@ abstract final class AppTheme {
     elevation: AppDimensions.elevationFlat,
     focusElevation: AppDimensions.elevationFlat,
     hoverElevation: AppDimensions.elevationFlat,
-    shape: const CircleBorder(),
+    shape: const StadiumBorder(),
   );
 }

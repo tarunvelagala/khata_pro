@@ -8,7 +8,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/services/sync_service.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/kp_back_button.dart';
+import '../../../../core/widgets/button_spinner.dart';
+import '../../../../design_system/molecules/kp_labeled_field.dart';
 import '../../../../features/home/presentation/providers/database_provider.dart';
 import '../../../../features/settings/presentation/providers/profile_provider.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -81,7 +83,7 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
       if (mounted) setState(() => _loading = false);
     }
     if (!mounted) return;
-    context.go('/onboarding/profile');
+    context.push('/onboarding/profile');
   }
 
   @override
@@ -95,10 +97,7 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
       appBar: AppBar(
         backgroundColor: cs.surface,
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.pop(),
-        ),
+        leading: const KpBackButton(),
       ),
       body: SafeArea(
         bottom: false,
@@ -126,20 +125,22 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
                       style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
                     ),
                     const SizedBox(height: _Dims.fieldTopGap),
-                    TextFormField(
-                      controller: _otpCtrl,
-                      autofocus: true,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(_Dims.otpLength),
-                      ],
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) => _verify(),
-                      decoration: InputDecoration(
-                        labelText: l10n.authOtpLabel,
-                        hintText: '------',
-                        prefixIcon: const Icon(Icons.lock_outline_rounded),
+                    KpLabeledField(
+                      label: l10n.authOtpLabel,
+                      child: TextFormField(
+                        controller: _otpCtrl,
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(_Dims.otpLength),
+                        ],
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => _verify(),
+                        decoration: const InputDecoration(
+                          hintText: '------',
+                          prefixIcon: Icon(Icons.lock_outline_rounded),
+                        ),
                       ),
                     ),
                     const SizedBox(height: _Dims.resendTopGap),
@@ -151,10 +152,27 @@ class _OtpVerifyScreenState extends ConsumerState<OtpVerifyScreen> {
                 ),
               ),
             ),
-            StickyFooterCta(
-              label: l10n.authVerifyButton,
-              onPressed: _verify,
-              loading: _loading,
+            Builder(
+              builder: (ctx) {
+                final bottom = MediaQuery.paddingOf(ctx).bottom;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2,
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2 + bottom,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: _loading
+                        ? FilledButton(onPressed: null, child: const ButtonSpinner())
+                        : FilledButton(
+                            onPressed: _verify,
+                            child: Text(l10n.authVerifyButton),
+                          ),
+                  ),
+                );
+              },
             ),
           ],
         ),

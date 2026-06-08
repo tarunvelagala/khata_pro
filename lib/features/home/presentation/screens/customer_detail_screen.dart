@@ -14,7 +14,6 @@ import '../../../../core/widgets/kp_empty_state.dart';
 import '../../../../core/widgets/kp_error_view.dart';
 import '../../../../core/widgets/more_icon_button.dart';
 import '../../../../core/widgets/set_reminder_sheet.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
 import '../widgets/catalog_image_row.dart';
@@ -31,6 +30,8 @@ abstract final class _Dims {
   static const double balanceFontSize    = 28.0;
   static const double dateLabelGap       = 8.0;
   static const double tileMinHeight      = 64.0;
+  static const double actionBarHeight    = 64.0;
+  static const double actionBarDividerW  = 1.0;
 }
 
 // ── sealed list items for date-grouped view ───────────────────────────────────
@@ -63,7 +64,7 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n          = AppLocalizations.of(context)!;
-    final cs            = Theme.of(context).colorScheme;
+    final colorScheme   = Theme.of(context).colorScheme;
     final customerAsync = ref.watch(customerProvider);
     final txnsAsync     = ref.watch(customerTransactionsProvider(widget.customerId));
 
@@ -82,22 +83,32 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
         }
 
         return Scaffold(
-          backgroundColor: cs.surface,
-          bottomNavigationBar: StickyFooterCta(
-              label: l10n.addEntryTitle,
-              onPressed: () =>
-                  context.push('/customers/${widget.customerId}/entry'),
-              icon: const Icon(Icons.add_rounded,
-                  size: AppDimensions.iconSizeSmall),
-            ),
-          body: txnsAsync.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => KpErrorView(
-              onRetry: () => ref.invalidate(
-                customerTransactionsProvider(widget.customerId),
+          backgroundColor: colorScheme.surface,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => context.push('/customers/${widget.customerId}/entry'),
+            icon: const Icon(Icons.add_rounded),
+            label: Text(l10n.addEntryTitle),
+          ),
+          body: Stack(
+            children: [
+              txnsAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (e, _) => KpErrorView(
+                  onRetry: () => ref.invalidate(
+                    customerTransactionsProvider(widget.customerId),
+                  ),
+                ),
+                data: (txns) => _buildBody(context, l10n, colorScheme, customer, txns),
               ),
-            ),
-            data: (txns) => _buildBody(context, l10n, cs, customer, txns),
+              Positioned(
+                left: 0, right: 0, bottom: 0,
+                child: _BottomActionBar(
+                  onWhatsApp:     () => _sendReminder(context, l10n, customer),
+                  onGenerateBill: () => context.push('/customers/${customer.id}/bill'),
+                  l10n: l10n,
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -107,7 +118,7 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
   Widget _buildBody(
     BuildContext context,
     AppLocalizations l10n,
-    ColorScheme cs,
+    ColorScheme colorScheme,
     Customer customer,
     List<Transaction> txns,
   ) {
@@ -118,8 +129,8 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
         SliverAppBar(
           pinned: true,
           expandedHeight: _Dims.heroExpandedHeight,
-          backgroundColor: cs.surfaceContainerLow,
-          foregroundColor: cs.onSurface,
+          backgroundColor: colorScheme.surfaceContainerLow,
+          foregroundColor: colorScheme.onSurface,
           actions: [
             IconButton(
               icon: Icon(
@@ -129,11 +140,6 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
               ),
               tooltip: _isMasked ? l10n.balanceShowTooltip : l10n.balanceHideTooltip,
               onPressed: () => setState(() => _isMasked = !_isMasked),
-            ),
-            IconButton(
-              icon: const Icon(Icons.share_rounded),
-              tooltip: l10n.reminderSendButton,
-              onPressed: () => _sendReminder(context, l10n, customer),
             ),
             IconButton(
               icon: const Icon(Icons.more_vert_rounded),
@@ -173,24 +179,27 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (ctx, i) => _buildListItem(ctx, items[i], cs),
+              (ctx, i) => _buildListItem(ctx, items[i], colorScheme),
               childCount: items.length,
             ),
           ),
-          // Fills remaining viewport with surface color so there's no
-          // background mismatch below the last list item.
-          SliverFillRemaining(
-            hasScrollBody: false,
-            fillOverscroll: false,
-            child: ColoredBox(color: cs.surface),
+          SliverPadding(
+            padding: const EdgeInsets.only(
+              bottom: AppDimensions.fabClearance + _Dims.actionBarHeight,
+            ),
+            sliver: SliverFillRemaining(
+              hasScrollBody: false,
+              fillOverscroll: false,
+              child: ColoredBox(color: colorScheme.surface),
+            ),
           ),
         ],
       ],
     );
   }
 
-  Widget _buildListItem(BuildContext context, _ListItem item, ColorScheme cs) {
-    final tt = Theme.of(context).textTheme;
+  Widget _buildListItem(BuildContext context, _ListItem item, ColorScheme colorScheme) {
+    final textTheme = Theme.of(context).textTheme;
     switch (item) {
       case _DateHeader(:final label):
         return Padding(
@@ -202,7 +211,7 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
           ),
           child: Text(
             label,
-            style: tt.labelMedium?.copyWith(color: cs.onSurfaceVariant),
+            style: textTheme.labelMedium?.copyWith(color: colorScheme.onSurfaceVariant),
           ),
         );
       case _TxnRow(:final txn):
@@ -285,11 +294,6 @@ class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
         icon: Icons.alarm_rounded,
         label: l10n.setReminderTitle,
         onTap: () => SetReminderSheet.show(context, ref, customer),
-      ),
-      KpAction(
-        icon: Icons.receipt_long_rounded,
-        label: l10n.generateBillTitle,
-        onTap: () => context.push('/customers/${customer.id}/bill'),
       ),
       KpAction(
         icon: Icons.edit_outlined,
@@ -560,3 +564,86 @@ class _ReminderChip extends StatelessWidget {
   }
 }
 
+// ── Bottom action bar ─────────────────────────────────────────────────────────
+
+class _BottomActionBar extends StatelessWidget {
+  const _BottomActionBar({
+    required this.onWhatsApp,
+    required this.onGenerateBill,
+    required this.l10n,
+  });
+
+  final VoidCallback onWhatsApp;
+  final VoidCallback onGenerateBill;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Material(
+      elevation: AppDimensions.elevationLifted,
+      color: colorScheme.surface,
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: _Dims.actionBarHeight,
+          child: Row(
+            children: [
+              _ActionBarButton(
+                icon:  Icons.send_rounded,
+                label: l10n.reminderSendButton,
+                onTap: onWhatsApp,
+              ),
+              VerticalDivider(
+                width:     _Dims.actionBarDividerW,
+                thickness: _Dims.actionBarDividerW,
+                color:     colorScheme.outlineVariant,
+              ),
+              _ActionBarButton(
+                icon:  Icons.receipt_long_rounded,
+                label: l10n.generateBillTitle,
+                onTap: onGenerateBill,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ActionBarButton extends StatelessWidget {
+  const _ActionBarButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme   = Theme.of(context).textTheme;
+
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: AppDimensions.iconSizeMedium, color: colorScheme.primary),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: textTheme.labelSmall?.copyWith(color: colorScheme.primary),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

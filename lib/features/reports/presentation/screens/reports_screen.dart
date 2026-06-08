@@ -6,9 +6,11 @@ import 'package:printing/printing.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/widgets/app_avatar.dart';
+import '../../../../core/widgets/button_spinner.dart';
 import '../../../../core/widgets/kp_empty_state.dart';
 import '../../../../core/widgets/kp_error_view.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/segment_toggle.dart';
+import '../../../../design_system/atoms/kp_tonal_icon_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../home/presentation/providers/customer_provider.dart';
 import '../../data/pdf_report_builder.dart';
@@ -18,20 +20,20 @@ import '../providers/reports_provider.dart';
 export '../providers/reports_provider.dart' show reportsUiProvider, ReportsUiNotifier;
 
 abstract final class _Dims {
-  static const double filterHeight     = 44.0;
   static const double sectionGap       = 20.0;
   static const double cardPadding      = 16.0;
   static const double cardRadius       = 12.0;
-  static const double colNet           = 72.0;
-  static const double colAmount        = 80.0;
-  static const double rowMinHeight     = 52.0;
   static const double cardGap          = 10.0;
-  static const double colGap           = 8.0;
   static const double statLabelGap     = 6.0;
-  static const double colHeaderV       = 6.0;
-  static const double tileAvatarGap    = 10.0;
+  static const double tileAvatarGap    = 12.0;
   static const double sheetInitialSize = 0.6;
   static const double sheetMaxSize     = 0.9;
+  static const double customerCardGap  = 8.0;
+  static const double netBadgePadH     = 10.0;
+  static const double netBadgePadV     = 4.0;
+  static const double netBadgeRadius   = 6.0;
+  static const double subRowGap        = 4.0;
+  static const double subAmountGap     = 16.0;
 }
 
 class ReportsScreen extends ConsumerWidget {
@@ -47,63 +49,53 @@ class ReportsScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: cs.surface,
+      appBar: AppBar(
+        backgroundColor: cs.surface,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: false,
+        title: Text(
+          l10n.navReports,
+          style: tt.headlineSmall?.copyWith(
+            color: cs.onSurface,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          _CustomerFilterButton(ui: ui, l10n: l10n),
+          const SizedBox(width: AppDimensions.buttonPaddingH),
+        ],
+      ),
+      floatingActionButton: report.value?.rows.isNotEmpty == true
+          ? FloatingActionButton.extended(
+              onPressed: ui.exporting
+                  ? null
+                  : () => ReportsScreen.triggerExport(context, ref),
+              icon: ui.exporting
+                  ? const ButtonSpinner()
+                  : const Icon(Icons.share_rounded),
+              label: Text(l10n.reportsDownloadPdf),
+            )
+          : null,
       body: SafeArea(
         bottom: false,
         child: Column(
           children: [
-            // ── Header ───────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppDimensions.buttonPaddingH,
-                AppDimensions.inputPaddingV / 2,
-                AppDimensions.buttonPaddingH,
-                0,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      l10n.navReports,
-                      style: tt.headlineSmall?.copyWith(
-                        color: cs.onSurface,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: AppDimensions.inputPaddingV / 2),
-
-            // ── Period filter ─────────────────────────────────────────
+            // ── Period filter row ─────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppDimensions.buttonPaddingH,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.reportsFilterHint,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: AppDimensions.buttonStackGap),
-                  _PeriodToggle(
-                    selected: ui.period,
-                    onChanged: (p) =>
-                        ref.read(reportsUiProvider.notifier).setPeriod(p),
-                    labels: [
-                      l10n.reportsFilterMonth,
-                      l10n.reportsFilterYear,
-                      l10n.reportsFilterAll,
-                    ],
-                  ),
-                  const SizedBox(height: AppDimensions.buttonStackGap),
-                  _CustomerFilterChip(ui: ui, l10n: l10n),
+              child: SegmentToggle<ReportPeriod>(
+                values: ReportPeriod.values,
+                labels: [
+                  l10n.reportsFilterMonth,
+                  l10n.reportsFilterYear,
+                  l10n.reportsFilterAll,
                 ],
+                selected: ui.period,
+                onChanged: (p) =>
+                    ref.read(reportsUiProvider.notifier).setPeriod(p),
               ),
             ),
 
@@ -129,16 +121,6 @@ class ReportsScreen extends ConsumerWidget {
                   },
               ),
             ),
-
-            // ── Share button ─────────────────────────────────────────
-            StickyFooterCta(
-              label:     l10n.reportsDownloadPdf,
-              icon:      const Icon(Icons.share_rounded),
-              loading:   ui.exporting,
-              onPressed: report.value?.rows.isNotEmpty == true && !ui.exporting
-                  ? () => ReportsScreen.triggerExport(context, ref)
-                  : null,
-            ),
           ],
         ),
       ),
@@ -162,75 +144,6 @@ class ReportsScreen extends ConsumerWidget {
   }
 }
 
-// ── 3-segment period toggle ───────────────────────────────────────────────────
-
-class _PeriodToggle extends StatelessWidget {
-  const _PeriodToggle({
-    required this.selected,
-    required this.onChanged,
-    required this.labels,
-  });
-
-  final ReportPeriod selected;
-  final ValueChanged<ReportPeriod> onChanged;
-  final List<String> labels;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final periods = ReportPeriod.values;
-
-    return Container(
-      height: _Dims.filterHeight,
-      decoration: BoxDecoration(
-        color: cs.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-        border: Border.all(
-            color: cs.outlineVariant, width: AppDimensions.borderDefault),
-      ),
-      child: Row(
-        children: List.generate(periods.length, (i) {
-          final isSelected = periods[i] == selected;
-          final innerR = AppDimensions.radiusSmall - AppDimensions.borderDefault;
-          final br = BorderRadius.horizontal(
-            left:  i == 0 ? Radius.circular(innerR) : Radius.zero,
-            right: i == periods.length - 1 ? Radius.circular(innerR) : Radius.zero,
-          );
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => onChanged(periods[i]),
-              child: AnimatedContainer(
-                duration: AppDimensions.animShort,
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? cs.secondaryContainer
-                      : Colors.transparent,
-                  borderRadius: br,
-                ),
-                alignment: Alignment.center,
-                child: AnimatedDefaultTextStyle(
-                  duration: AppDimensions.animShort,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        color: isSelected
-                            ? cs.onSecondaryContainer
-                            : cs.onSurfaceVariant,
-                        fontWeight: FontWeight.w600,
-                      ),
-                  child: Text(
-                    labels[i],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
-}
-
 // ── Report body (summary + table) ─────────────────────────────────────────────
 
 class _ReportBody extends StatelessWidget {
@@ -246,7 +159,7 @@ class _ReportBody extends StatelessWidget {
         AppDimensions.buttonPaddingH,
         0,
         AppDimensions.buttonPaddingH,
-        AppDimensions.buttonPaddingV,
+        AppDimensions.fabClearance,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -341,7 +254,7 @@ class _Card extends StatelessWidget {
   }
 }
 
-// ── Customer table ────────────────────────────────────────────────────────────
+// ── Customer card list ────────────────────────────────────────────────────────
 
 class _CustomerTable extends StatelessWidget {
   const _CustomerTable({required this.data, required this.l10n});
@@ -351,126 +264,128 @@ class _CustomerTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs  = Theme.of(context).colorScheme;
-    final tt  = Theme.of(context).textTheme;
-
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Column header
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: _Dims.colHeaderV),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(l10n.reportsColCustomer,
-                    style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant)),
-              ),
-              SizedBox(
-                width: _Dims.colAmount,
-                child: Text(l10n.reportsColGave,
-                    style: tt.labelSmall?.copyWith(color: cs.tertiary),
-                    textAlign: TextAlign.end),
-              ),
-              const SizedBox(width: _Dims.colGap),
-              SizedBox(
-                width: _Dims.colAmount,
-                child: Text(l10n.reportsColGot,
-                    style: tt.labelSmall?.copyWith(color: cs.secondary),
-                    textAlign: TextAlign.end),
-              ),
-              const SizedBox(width: _Dims.colGap),
-              SizedBox(
-                width: _Dims.colNet,
-                child: Text(l10n.reportsColNet,
-                    style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
-                    textAlign: TextAlign.end),
-              ),
-            ],
-          ),
-        ),
-        const Divider(height: AppDimensions.dividerThickness),
-        // Rows
-        ...data.rows.map((row) => _CustomerRow(row: row, l10n: l10n)),
+        for (int i = 0; i < data.rows.length; i++) ...[
+          if (i > 0) const SizedBox(height: _Dims.customerCardGap),
+          _CustomerCard(row: data.rows[i], l10n: l10n),
+        ],
       ],
     );
   }
 }
 
-class _CustomerRow extends StatelessWidget {
-  const _CustomerRow({required this.row, required this.l10n});
+class _CustomerCard extends StatelessWidget {
+  const _CustomerCard({required this.row, required this.l10n});
 
   final CustomerReportRow row;
   final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
-    final cs       = Theme.of(context).colorScheme;
-    final tt       = Theme.of(context).textTheme;
-    final fmt      = NumberFormat('#,##,##0', l10n.localeName);
-    final netColor = row.net >= 0 ? cs.secondary : cs.tertiary;
-    final initial  = row.customerName.isNotEmpty
+    final cs      = Theme.of(context).colorScheme;
+    final tt      = Theme.of(context).textTheme;
+    final fmt     = NumberFormat('#,##,##0', l10n.localeName);
+    final isOwed  = row.net >= 0; // positive net → you'll receive money
+    final netColor     = isOwed ? cs.secondary : cs.tertiary;
+    final netBgColor   = isOwed
+        ? cs.secondaryContainer.withValues(alpha: 0.5)
+        : cs.tertiaryContainer.withValues(alpha: 0.5);
+    final initial = row.customerName.isNotEmpty
         ? row.customerName.characters.first.toUpperCase()
         : '?';
 
     return Container(
-      constraints: const BoxConstraints(minHeight: _Dims.rowMinHeight),
-      child: Row(
+      padding: const EdgeInsets.all(_Dims.cardPadding),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(_Dims.cardRadius),
+        border: Border.all(
+          color: cs.outlineVariant,
+          width: AppDimensions.borderDefault,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTileAvatar(initial: initial),
-          const SizedBox(width: _Dims.tileAvatarGap),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  row.customerName,
-                  style: tt.bodyMedium?.copyWith(
-                    color: cs.onSurface,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  overflow: TextOverflow.ellipsis,
+          // ── Top row: avatar + name/shop + net badge ──────────────────
+          Row(
+            children: [
+              ListTileAvatar(initial: initial),
+              const SizedBox(width: _Dims.tileAvatarGap),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      row.customerName,
+                      style: tt.bodyLarge?.copyWith(
+                        color: cs.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    if (row.shopName != null)
+                      Text(
+                        row.shopName!,
+                        style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                  ],
                 ),
-                if (row.shopName != null)
-                  Text(
-                    row.shopName!,
-                    style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: _Dims.colAmount,
-            child: Text(
-              '₹ ${fmt.format(row.gave)}',
-              style: tt.bodySmall?.copyWith(color: cs.tertiary),
-              textAlign: TextAlign.end,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: _Dims.colGap),
-          SizedBox(
-            width: _Dims.colAmount,
-            child: Text(
-              '₹ ${fmt.format(row.got)}',
-              style: tt.bodySmall?.copyWith(color: cs.secondary),
-              textAlign: TextAlign.end,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: _Dims.colGap),
-          SizedBox(
-            width: _Dims.colNet,
-            child: Text(
-              '₹ ${fmt.format(row.net.abs())}',
-              style: tt.bodySmall?.copyWith(
-                color: netColor,
-                fontWeight: FontWeight.w600,
               ),
-              textAlign: TextAlign.end,
-              overflow: TextOverflow.ellipsis,
-            ),
+              const SizedBox(width: _Dims.tileAvatarGap),
+              // Net balance badge
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _Dims.netBadgePadH,
+                  vertical: _Dims.netBadgePadV,
+                ),
+                decoration: BoxDecoration(
+                  color: netBgColor,
+                  borderRadius: BorderRadius.circular(_Dims.netBadgeRadius),
+                ),
+                child: Text(
+                  '₹ ${fmt.format(row.net.abs())}',
+                  style: tt.titleSmall?.copyWith(
+                    color: netColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: _Dims.subRowGap + 4),
+          const Divider(height: AppDimensions.dividerThickness),
+          const SizedBox(height: _Dims.subRowGap),
+
+          // ── Bottom row: gave + got breakdown ─────────────────────────
+          Row(
+            children: [
+              _SubAmount(
+                label: l10n.reportsColGave,
+                amount: row.gave,
+                color: cs.tertiary,
+                fmt: fmt,
+                tt: tt,
+              ),
+              const SizedBox(width: _Dims.subAmountGap),
+              _SubAmount(
+                label: l10n.reportsColGot,
+                amount: row.got,
+                color: cs.secondary,
+                fmt: fmt,
+                tt: tt,
+              ),
+              const Spacer(),
+              Text(
+                isOwed ? l10n.reportsWillReceive : l10n.reportsWillPay,
+                style: tt.labelSmall?.copyWith(color: netColor),
+              ),
+            ],
           ),
         ],
       ),
@@ -478,10 +393,50 @@ class _CustomerRow extends StatelessWidget {
   }
 }
 
-// ── Customer filter chip ──────────────────────────────────────────────────────
+class _SubAmount extends StatelessWidget {
+  const _SubAmount({
+    required this.label,
+    required this.amount,
+    required this.color,
+    required this.fmt,
+    required this.tt,
+  });
 
-class _CustomerFilterChip extends ConsumerWidget {
-  const _CustomerFilterChip({required this.ui, required this.l10n});
+  final String label;
+  final double amount;
+  final Color color;
+  final NumberFormat fmt;
+  final TextTheme tt;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: tt.labelSmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          '₹ ${fmt.format(amount)}',
+          style: tt.bodySmall?.copyWith(
+            color: color,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Customer filter button (icon only, tonal when active) ────────────────────
+
+class _CustomerFilterButton extends ConsumerWidget {
+  const _CustomerFilterButton({required this.ui, required this.l10n});
 
   final ReportsUiState ui;
   final AppLocalizations l10n;
@@ -489,28 +444,28 @@ class _CustomerFilterChip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFiltered = ui.selectedCustomerId != null;
+    final initial    = (ui.selectedCustomerName?.isNotEmpty == true)
+        ? ui.selectedCustomerName!.characters.first.toUpperCase()
+        : null;
 
-    return GestureDetector(
-      onTap: isFiltered
-          ? null
+    return KpTonalIconButton(
+      icon: const Icon(Icons.person_search_rounded),
+      isActive: isFiltered,
+      activeChild: initial != null
+          ? Text(
+              initial,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                fontWeight: FontWeight.w700,
+              ),
+            )
+          : null,
+      tooltip: isFiltered
+          ? l10n.reportsCustomerSelected(ui.selectedCustomerName ?? '')
+          : l10n.reportsFilterCustomer,
+      onPressed: isFiltered
+          ? () => ref.read(reportsUiProvider.notifier).setCustomer(null, null)
           : () => _CustomerPickerSheet.show(context, ref, l10n),
-      child: InputChip(
-        avatar: isFiltered
-            ? null
-            : const Icon(Icons.person_search_rounded, size: 16),
-        label: Text(
-          isFiltered
-              ? l10n.reportsCustomerSelected(ui.selectedCustomerName ?? '')
-              : l10n.reportsFilterCustomer,
-        ),
-        selected: isFiltered,
-        onPressed: isFiltered
-            ? null
-            : () => _CustomerPickerSheet.show(context, ref, l10n),
-        onDeleted: isFiltered
-            ? () => ref.read(reportsUiProvider.notifier).setCustomer(null, null)
-            : null,
-      ),
     );
   }
 }

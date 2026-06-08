@@ -30,7 +30,7 @@ class BalanceDirectionToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return PillToggle(
+    return KpPillToggle(
       labelA: labelNegative,
       labelB: labelPositive,
       selectedIndex: isPositive ? 1 : 0,

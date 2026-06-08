@@ -6,7 +6,8 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/widgets/balance_direction_toggle.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/button_spinner.dart';
+import '../../../../design_system/molecules/kp_labeled_field.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/models/customer.dart';
 import '../../domain/models/transaction.dart';
@@ -150,21 +151,13 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
                   ),
                   const SizedBox(height: _Dims.fieldGap),
 
-                  TextFormField(
-                    controller: _noteCtrl,
-                    maxLines: 3,
-                    textCapitalization: TextCapitalization.sentences,
-                    decoration: InputDecoration(
-                      labelText: l10n.addEntryNoteLabel,
-                      alignLabelWithHint: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.only(
-                          left: AppDimensions.inputPaddingH,
-                          bottom: 48, // pins icon to top of 3-line field
-                        ),
-                        child: Icon(Icons.notes_rounded, color: cs.onSurfaceVariant),
-                      ),
-                      prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+                  KpLabeledField(
+                    label: l10n.addEntryNoteLabel,
+                    child: TextFormField(
+                      controller: _noteCtrl,
+                      maxLines: 3,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(),
                     ),
                   ),
                 ],
@@ -172,11 +165,28 @@ class _AddEntryScreenState extends ConsumerState<AddEntryScreen> {
             ),
           ),
 
-          // ── Sticky footer CTA ────────────────────────────────────
-          StickyFooterCta(
-            label: l10n.addEntrySave,
-            onPressed: _saving ? null : () => _submit(customer),
-            loading: _saving,
+          // ── Save button ──────────────────────────────────────────
+          Builder(
+            builder: (ctx) {
+              final bottom = MediaQuery.paddingOf(ctx).bottom;
+              return Padding(
+                padding: EdgeInsets.fromLTRB(
+                  AppDimensions.buttonPaddingH,
+                  AppDimensions.buttonPaddingV / 2,
+                  AppDimensions.buttonPaddingH,
+                  AppDimensions.buttonPaddingV / 2 + bottom,
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: _saving
+                      ? FilledButton(onPressed: null, child: const ButtonSpinner())
+                      : FilledButton(
+                          onPressed: () => _submit(customer),
+                          child: Text(l10n.addEntrySave),
+                        ),
+                ),
+              );
+            },
           ),
         ],
       ),

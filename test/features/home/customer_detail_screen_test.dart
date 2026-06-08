@@ -144,9 +144,9 @@ void main() {
       expect(find.text(l10n.customerDetailNoEntries), findsOneWidget);
     });
 
-    testWidgets('FAB is not present', (tester) async {
+    testWidgets('FAB is present and shows add-entry label', (tester) async {
       await _pump(tester, _wrap(txns: _txns));
-      expect(find.byType(FloatingActionButton), findsNothing);
+      expect(find.byType(FloatingActionButton), findsOneWidget);
     });
   });
 

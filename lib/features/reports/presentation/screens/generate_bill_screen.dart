@@ -6,14 +6,14 @@ import 'package:printing/printing.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/widgets/kp_empty_state.dart';
 import '../../../../core/widgets/kp_error_view.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/button_spinner.dart';
+import '../../../../core/widgets/segment_toggle.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/bill_pdf_builder.dart';
 import '../../domain/models/bill_data.dart';
 import '../providers/bill_provider.dart';
 
 abstract final class _Dims {
-  static const double filterHeight  = 44.0;
   static const double sectionGap    = 20.0;
   static const double cardPadding   = 14.0;
   static const double cardRadius    = 12.0;
@@ -62,6 +62,17 @@ class GenerateBillScreen extends ConsumerWidget {
           ],
         ),
       ),
+      floatingActionButton: async.value?.rows.isNotEmpty == true
+          ? FloatingActionButton.extended(
+              onPressed: ui.sharing
+                  ? null
+                  : () => _share(context, ref, l10n, async.value!),
+              icon: ui.sharing
+                  ? const ButtonSpinner()
+                  : const Icon(Icons.share_rounded),
+              label: Text(l10n.billShareButton),
+            )
+          : null,
       body: Column(
         children: [
           // ── Period selector ─────────────────────────────────────────
@@ -80,12 +91,19 @@ class GenerateBillScreen extends ConsumerWidget {
                   style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
                 ),
                 const SizedBox(height: AppDimensions.buttonStackGap),
-                _BillPeriodToggle(
-                  selected:    ui.period,
-                  customRange: ui.customRange,
-                  l10n:        l10n,
-                  onPeriod:    (p) => ref.read(billUiProvider.notifier).setPeriod(p),
-                  onCustom:    () => _pickDateRange(context, ref, l10n, ui),
+                SegmentToggle<BillPeriod>(
+                  values: BillPeriod.values,
+                  labels: [
+                    l10n.billPeriodMonth,
+                    l10n.billPeriodYear,
+                    l10n.billPeriodAll,
+                    l10n.billPeriodCustom,
+                  ],
+                  selected: ui.period,
+                  onChanged: (p) => ref.read(billUiProvider.notifier).setPeriod(p),
+                  overrideTaps: {
+                    BillPeriod.custom: () => _pickDateRange(context, ref, l10n, ui),
+                  },
                 ),
               ],
             ),
@@ -101,13 +119,7 @@ class GenerateBillScreen extends ConsumerWidget {
                 onRetry: () => ref.invalidate(billDataProvider(customerId)),
               ),
               data: (bill) {
-                if (bill == null) {
-                  return KpEmptyState(
-                    icon:  Icons.receipt_long_outlined,
-                    title: l10n.billEmpty,
-                  );
-                }
-                if (bill.rows.isEmpty) {
+                if (bill == null || bill.rows.isEmpty) {
                   return KpEmptyState(
                     icon:  Icons.receipt_long_outlined,
                     title: l10n.billEmpty,
@@ -116,16 +128,6 @@ class GenerateBillScreen extends ConsumerWidget {
                 return _BillBody(bill: bill, l10n: l10n);
               },
             ),
-          ),
-
-          // ── Share button ────────────────────────────────────────────
-          StickyFooterCta(
-            label:     l10n.billShareButton,
-            icon:      const Icon(Icons.share_rounded),
-            loading:   ui.sharing,
-            onPressed: async.value?.rows.isNotEmpty == true && !ui.sharing
-                ? () => _share(context, ref, l10n, async.value!)
-                : null,
           ),
         ],
       ),
@@ -190,87 +192,6 @@ class GenerateBillScreen extends ConsumerWidget {
   }
 }
 
-// ── Period toggle (4 options: Month / Year / All / Custom) ───────────────────
-
-class _BillPeriodToggle extends StatelessWidget {
-  const _BillPeriodToggle({
-    required this.selected,
-    required this.customRange,
-    required this.l10n,
-    required this.onPeriod,
-    required this.onCustom,
-  });
-
-  final BillPeriod     selected;
-  final BillDateRange? customRange;
-  final AppLocalizations l10n;
-  final ValueChanged<BillPeriod> onPeriod;
-  final VoidCallback onCustom;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final labels = [
-      l10n.billPeriodMonth,
-      l10n.billPeriodYear,
-      l10n.billPeriodAll,
-      l10n.billPeriodCustom,
-    ];
-    final periods = BillPeriod.values;
-
-    return Container(
-      height: _Dims.filterHeight,
-      decoration: BoxDecoration(
-        color: cs.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-        border: Border.all(
-          color: cs.outlineVariant,
-          width: AppDimensions.borderDefault,
-        ),
-      ),
-      child: Row(
-        children: List.generate(periods.length, (i) {
-          final isSelected = periods[i] == selected;
-          final innerR     = AppDimensions.radiusSmall - AppDimensions.borderDefault;
-          final br = BorderRadius.horizontal(
-            left:  i == 0 ? Radius.circular(innerR) : Radius.zero,
-            right: i == periods.length - 1 ? Radius.circular(innerR) : Radius.zero,
-          );
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => periods[i] == BillPeriod.custom
-                  ? onCustom()
-                  : onPeriod(periods[i]),
-              child: AnimatedContainer(
-                duration: AppDimensions.animShort,
-                decoration: BoxDecoration(
-                  color: isSelected ? cs.secondaryContainer : Colors.transparent,
-                  borderRadius: br,
-                ),
-                alignment: Alignment.center,
-                child: AnimatedDefaultTextStyle(
-                  duration: AppDimensions.animShort,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: isSelected
-                        ? cs.onSecondaryContainer
-                        : cs.onSurfaceVariant,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  child: Text(
-                    labels[i],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
-}
-
 // ── Bill body (summary + transaction rows) ────────────────────────────────────
 
 class _BillBody extends StatelessWidget {
@@ -286,7 +207,7 @@ class _BillBody extends StatelessWidget {
         AppDimensions.buttonPaddingH,
         0,
         AppDimensions.buttonPaddingH,
-        AppDimensions.buttonPaddingV,
+        AppDimensions.fabClearance,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

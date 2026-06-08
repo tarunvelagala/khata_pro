@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/kp_back_button.dart';
+import '../../../../core/widgets/button_spinner.dart';
+import '../../../../design_system/molecules/kp_labeled_field.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../settings/presentation/providers/profile_provider.dart';
 
@@ -65,13 +67,13 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
 
     return Scaffold(
       backgroundColor: cs.surface,
-      appBar: ModalRoute.of(context)?.canPop == true
-          ? AppBar(
-              backgroundColor: cs.surface,
-              elevation: 0,
-              scrolledUnderElevation: 0,
-            )
-          : null,
+      appBar: AppBar(
+        backgroundColor: cs.surface,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: true,
+        leading: const KpBackButton(),
+      ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -128,13 +130,14 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          TextFormField(
+                          KpLabeledField(
+                            label: l10n.profileNameLabel,
+                            child: TextFormField(
                               controller: _nameCtrl,
                               autofocus: true,
                               textCapitalization: TextCapitalization.words,
                               textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
-                                labelText: l10n.profileNameLabel,
                                 hintText: l10n.profileNameHint,
                                 prefixIcon: const Icon(Icons.person_outline_rounded),
                               ),
@@ -145,18 +148,21 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                                 return null;
                               },
                             ),
+                          ),
                           const SizedBox(height: _Dims.fieldGap),
-                          TextFormField(
+                          KpLabeledField(
+                            label: l10n.profileShopLabel,
+                            child: TextFormField(
                               controller: _shopCtrl,
                               textCapitalization: TextCapitalization.words,
                               textInputAction: TextInputAction.done,
                               onFieldSubmitted: (_) => _submit(),
                               decoration: InputDecoration(
-                                labelText: l10n.profileShopLabel,
                                 hintText: l10n.profileShopHint,
                                 prefixIcon: const Icon(Icons.storefront_outlined),
                               ),
                             ),
+                          ),
                         ],
                       ),
                     ),
@@ -165,10 +171,27 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
               ),
             ),
 
-            StickyFooterCta(
-              label: l10n.profileContinueButton,
-              onPressed: _saving ? null : _submit,
-              loading: _saving,
+            Builder(
+              builder: (ctx) {
+                final bottom = MediaQuery.paddingOf(ctx).bottom;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2,
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2 + bottom,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: _saving
+                        ? FilledButton(onPressed: null, child: const ButtonSpinner())
+                        : FilledButton(
+                            onPressed: _submit,
+                            child: Text(l10n.profileContinueButton),
+                          ),
+                  ),
+                );
+              },
             ),
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/widgets/kp_back_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../providers/app_lock_provider.dart';
 import '../widgets/pin_entry.dart';
@@ -35,10 +36,7 @@ class _SetPinScreenState extends ConsumerState<SetPinScreen> {
       appBar: AppBar(
         backgroundColor: cs.surface,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.pop(),
-        ),
+        leading: const KpBackButton(),
       ),
       body: SafeArea(
         child: Padding(

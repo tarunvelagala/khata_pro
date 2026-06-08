@@ -9,6 +9,9 @@ abstract final class AppDimensions {
   /// Cards, buttons, text inputs.
   static const double radiusSmall = 12;
 
+  /// Text input fields — minimal GPay-style corner.
+  static const double radiusInput = 6;
+
   /// Icon containers, larger surface elements.
   static const double radiusMedium = 16;
 
@@ -30,8 +33,9 @@ abstract final class AppDimensions {
   static const double elevationLifted = 4;
 
   // ── Button padding ────────────────────────────────────────────────
-  /// Vertical padding for ElevatedButton and OutlinedButton.
-  static const double buttonPaddingV = 20;
+  /// Vertical padding for ElevatedButton and OutlinedButton. Targets 56dp
+  /// button height — matching GPay/M3 spec (icon 24 + 16*2 = 56).
+  static const double buttonPaddingV = 16;
 
   /// Horizontal padding for ElevatedButton and OutlinedButton.
   static const double buttonPaddingH = 24;

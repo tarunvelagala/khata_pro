@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/widgets/guest_banner.dart';
 import '../../../../core/widgets/kp_empty_state.dart';
 import '../../../../core/widgets/kp_error_view.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -55,23 +55,22 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             final summary = ref.watch(dashboardSummaryProvider);
 
             if (customers.isEmpty) {
-              return SafeArea(
-                bottom: false,
-                child: Column(
-                  children: [
-                    const FirstRunBanner(),
-                    Expanded(
-                      child: KpEmptyState(
-                        icon: Icons.people_outline_rounded,
-                        title: l10n.homeEmptyTitle,
-                        body: l10n.homeEmptyBody,
-                        ctaLabel: l10n.homeEmptyAddCustomer,
-                        ctaIcon: Icons.person_add_rounded,
-                        onCta: () => context.push('/customers/add'),
-                      ),
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: _HeroBand(
+                      topInset: topInset,
+                      netBalance: summary.netBalance,
+                      totalIncome: summary.totalIncome,
+                      totalExpense: summary.totalExpense,
+                      isMasked: _isMasked,
+                      onToggleMask: () =>
+                          setState(() => _isMasked = !_isMasked),
                     ),
-                  ],
-                ),
+                  ),
+                  const SliverToBoxAdapter(child: GuestBanner()),
+                  const SliverToBoxAdapter(child: FirstRunBanner()),
+                ],
               );
             }
 
@@ -93,6 +92,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           setState(() => _isMasked = !_isMasked),
                     ),
                   ),
+                  const SliverToBoxAdapter(child: GuestBanner()),
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(

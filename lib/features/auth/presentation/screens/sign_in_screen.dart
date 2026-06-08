@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/services/sync_service.dart';
+import '../../../../core/widgets/kp_back_button.dart';
 import '../../../../features/home/presentation/providers/database_provider.dart';
 import '../../../../features/settings/presentation/providers/profile_provider.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -48,7 +49,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
     if (!mounted) return;
     if (widget.isOnboarding) {
-      context.go('/onboarding/profile');
+      context.push('/onboarding/profile');
     } else {
       context.pop();
     }
@@ -56,7 +57,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   void _skip() {
     if (widget.isOnboarding) {
-      context.go('/onboarding/profile');
+      context.push('/onboarding/profile');
     } else {
       context.pop();
     }
@@ -73,10 +74,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       appBar: AppBar(
         backgroundColor: cs.surface,
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => widget.isOnboarding ? context.go('/tour') : context.pop(),
-        ),
+        leading: widget.isOnboarding ? null : const KpBackButton(),
       ),
       body: SafeArea(
         child: _syncing

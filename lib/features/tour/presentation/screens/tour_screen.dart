@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/prefs_keys.dart';
 import '../../../../core/widgets/illustration_frame.dart';
-import '../../../../core/widgets/sticky_footer_cta.dart';
+import '../../../../core/widgets/kp_back_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/dot_indicator.dart';
 import '../widgets/ledger_phone_illustration.dart';
@@ -51,7 +51,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(PrefsKeys.tourSeen, true);
     if (!mounted) return;
-    context.go('/auth/sign-in');
+    context.push('/auth/sign-in');
   }
 
   void _onCta() {
@@ -92,7 +92,24 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     ];
 
     return Scaffold(
-      backgroundColor: cs.surface,      
+      backgroundColor: cs.surface,
+      appBar: AppBar(
+        backgroundColor: cs.surface,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: KpBackButton(
+          onPressed: () {
+            if (_currentPage > 0) {
+              _pageController.previousPage(
+                duration: _pageDuration,
+                curve: Curves.easeInOut,
+              );
+            } else {
+              context.go('/settings/language');
+            }
+          },
+        ),
+      ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -111,13 +128,40 @@ class _TourScreenState extends ConsumerState<TourScreen> {
               padding: const EdgeInsets.only(bottom: _Dims.dotBottomPadding),
               child: DotIndicator(currentPage: _currentPage, count: _pageCount),
             ),
-            StickyFooterCta(
-              label: isLast ? l10n.tourGetStarted : l10n.tourNext,
-              onPressed: _onCta,
-              topRadius: AppDimensions.radiusLarge,
-              backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-              secondaryLabel: l10n.tourSkip,
-              onSecondary: _complete,
+            Builder(
+              builder: (ctx) {
+                final bottom = MediaQuery.paddingOf(ctx).bottom;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2,
+                    AppDimensions.buttonPaddingH,
+                    AppDimensions.buttonPaddingV / 2 + bottom,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: _onCta,
+                          child: Text(isLast ? l10n.tourGetStarted : l10n.tourNext),
+                        ),
+                      ),
+                      const SizedBox(height: AppDimensions.buttonStackGap),
+                      TextButton(
+                        onPressed: _complete,
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: Text(l10n.tourSkip),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),
