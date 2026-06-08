@@ -1,8 +1,8 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Monochrome: all pills white on transparent (Android themed icon) -->
-  <rect x="102" y="102" width="238" height="250" rx="119" fill="white"/>
-  <rect x="102" y="387" width="238" height="250" rx="119" fill="white"/>
-  <rect x="102" y="672" width="238" height="250" rx="119" fill="white"/>
-  <rect x="393" y="102" width="238" height="820" rx="119" fill="white"/>
-  <rect x="684" y="102" width="238" height="820" rx="119" fill="white"/>
+  <rect x="213" y="213" width="174" height="182" rx="87" fill="white"/>
+  <rect x="213" y="421" width="174" height="182" rx="87" fill="white"/>
+  <rect x="213" y="629" width="174" height="182" rx="87" fill="white"/>
+  <rect x="426" y="213" width="174" height="598" rx="87" fill="white"/>
+  <rect x="639" y="213" width="174" height="598" rx="87" fill="white"/>
 </svg>

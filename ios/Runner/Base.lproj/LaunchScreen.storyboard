@@ -18,6 +18,11 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KhataPro" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wk9-mB-3rZ">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="SplashBackground"/>
                         <constraints>
@@ -25,6 +30,8 @@
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="width" constant="200" id="Koa-Ep-w3J"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="height" constant="200" id="moa-Ep-w3K"/>
+                            <constraint firstItem="Wk9-mB-3rZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xp3-qR-7nA"/>
+                            <constraint firstItem="xbc-2k-c8Z" firstAttribute="top" secondItem="Wk9-mB-3rZ" secondAttribute="bottom" constant="56" id="Yv2-sL-9mC"/>
                         </constraints>
                     </view>
                 </viewController>

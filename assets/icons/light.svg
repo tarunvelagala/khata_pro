@@ -1,11 +1,11 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1024" height="1024" fill="#FAF9FD"/>
   <!-- Blue column: 3 stacked pills (ledger entries) -->
-  <rect x="102" y="102" width="238" height="250" rx="119" fill="#1565C0"/>
-  <rect x="102" y="387" width="238" height="250" rx="119" fill="#1565C0"/>
-  <rect x="102" y="672" width="238" height="250" rx="119" fill="#1565C0"/>
+  <rect x="213" y="213" width="174" height="182" rx="87" fill="#1565C0"/>
+  <rect x="213" y="421" width="174" height="182" rx="87" fill="#1565C0"/>
+  <rect x="213" y="629" width="174" height="182" rx="87" fill="#1565C0"/>
   <!-- Green column: full-height pill (income) -->
-  <rect x="393" y="102" width="238" height="820" rx="119" fill="#2E7D32"/>
+  <rect x="426" y="213" width="174" height="598" rx="87" fill="#2E7D32"/>
   <!-- Red column: full-height pill (expense) -->
-  <rect x="684" y="102" width="238" height="820" rx="119" fill="#C62828"/>
+  <rect x="639" y="213" width="174" height="598" rx="87" fill="#C62828"/>
 </svg>

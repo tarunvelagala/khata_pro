@@ -1,8 +1,8 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Tinted: grayscale pills for iOS tinted appearance -->
-  <rect x="102" y="102" width="238" height="250" rx="119" fill="#D1D1D1"/>
-  <rect x="102" y="387" width="238" height="250" rx="119" fill="#D1D1D1"/>
-  <rect x="102" y="672" width="238" height="250" rx="119" fill="#D1D1D1"/>
-  <rect x="393" y="102" width="238" height="820" rx="119" fill="#8E8E93"/>
-  <rect x="684" y="102" width="238" height="820" rx="119" fill="#E5E5EA"/>
+  <rect x="213" y="213" width="174" height="182" rx="87" fill="#D1D1D1"/>
+  <rect x="213" y="421" width="174" height="182" rx="87" fill="#D1D1D1"/>
+  <rect x="213" y="629" width="174" height="182" rx="87" fill="#D1D1D1"/>
+  <rect x="426" y="213" width="174" height="598" rx="87" fill="#D1D1D1"/>
+  <rect x="639" y="213" width="174" height="598" rx="87" fill="#D1D1D1"/>
 </svg>

@@ -1,11 +1,11 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Splash foreground (dark): same mark, same colors (visible on dark surface #0F1117) -->
-  <!-- Blue column: 3 stacked pills -->
-  <rect x="307" y="277" width="119" height="125" rx="59.5" fill="#1565C0"/>
-  <rect x="307" y="419.5" width="119" height="125" rx="59.5" fill="#1565C0"/>
-  <rect x="307" y="562" width="119" height="125" rx="59.5" fill="#1565C0"/>
-  <!-- Green column: full-height pill -->
-  <rect x="452.5" y="277" width="119" height="410" rx="59.5" fill="#2E7D32"/>
-  <!-- Red column: full-height pill -->
-  <rect x="598" y="277" width="119" height="410" rx="59.5" fill="#C62828"/>
+  <!-- Splash foreground (dark): dark-theme pill colors, visible on #0F1117 surface -->
+  <!-- Blue column: 3 stacked pills (darkPrimary #A9C7FF) -->
+  <rect x="307" y="277" width="119" height="125" rx="59.5" fill="#A9C7FF"/>
+  <rect x="307" y="419.5" width="119" height="125" rx="59.5" fill="#A9C7FF"/>
+  <rect x="307" y="562" width="119" height="125" rx="59.5" fill="#A9C7FF"/>
+  <!-- Green column: full-height pill (darkSecondary #88D982) -->
+  <rect x="452.5" y="277" width="119" height="410" rx="59.5" fill="#88D982"/>
+  <!-- Red column: full-height pill (darkTertiary #FFB4AC) -->
+  <rect x="598" y="277" width="119" height="410" rx="59.5" fill="#FFB4AC"/>
 </svg>
